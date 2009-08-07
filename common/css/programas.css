@@ -1,0 +1,515 @@
+/* @override 
+	http://localhost/~carlos/EngiRega/css/programas.css
+	http://cef.selfip.net/EngiRega/css/programas.css
+	http://cef.selfip.net/EngiRega/common/css/programas.css
+	http://engirega.eu-r.com/common/css/programas.css
+	http://engirega.eu-r.com/dev/common/css/programas.css
+*/
+
+/* Reset some stuff */
+/*body, html, a, input, td, div, span, img {
+	margin: 0;
+	padding: 0;
+}
+
+
+body,html {
+	font: 95% "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	position: relative;
+}
+
+a, a:link {
+	color: blue;
+	text-decoration: underline;
+}
+
+a:hover {
+	color: #4646ff;
+}
+*/
+
+/* @group Lista de Programas */
+
+#listaProgramas {
+	background-color: white;
+}
+
+#listaProgramas ul {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#listaProgramas li.noProgs {
+	list-style-type: none;
+	padding-left:0px;
+	padding-right: 0px;
+	text-align: center;
+}
+
+#listaProgramas li,
+#listaProgramas #novoPrograma {
+	padding: 10px 10px 10px 20px;
+	border-bottom: 1px solid #85be00;
+	font-size: 110%;
+	list-style-position: inside;
+}
+
+#listaProgramas li.activo {
+	list-style-image: url(images/check.png);
+}
+
+#listaProgramas li.desactivo {
+	list-style-image: none;
+}
+
+#listaProgramas #novoPrograma {
+	border-bottom-style: none;
+	list-style-type: circle;
+}
+
+#listaProgramas li.noProgs {
+	list-style-type: none;
+	padding-right: 0;
+	padding-left: 0;
+	text-align: center;
+}
+
+/* @end */
+.content.programs {
+	min-height: 600px;
+}
+
+.programa.show .recorrencia div {
+	padding-left: 21px;
+}
+
+.programa {
+	width: 100%;
+}
+
+.programa.show {
+}
+
+.programa.show .mainSettings,
+.programa.show .otherSettings {
+	margin-bottom: 30px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	background-color: #edf5d9;
+	padding: 9px;
+	margin-right: 3px;
+	border-bottom: 1px solid silver;
+	border-right: 1px solid silver;
+}
+
+.programa.show .otherSettings {
+	margin-bottom: 0px;
+}
+
+.accoes span {
+	padding-right: 1px;
+}
+
+.mainSettings > div,
+.otherSettings > div {
+	margin-bottom: 15px;
+}
+
+#ui-datepicker-div {
+	font-size: 75%;
+}
+
+.otherSettings > div > span.text {
+	font-weight: normal;
+}
+.mainSettings > div > span,
+.otherSettings > div > span {
+	font-weight: bold;
+}
+
+#inner-col-left {
+	position: absolute;
+	top: 45px;
+	width: 28%;
+	left: 15px;
+}
+
+/* @group Header */
+
+.header-over-content {
+	clear: both;
+	display: block;
+	height: 1.5em;
+	color: #008000;
+	font-weight: bold;
+	font-size: 150%;
+	text-align: left;
+	padding-left: 30px;
+	letter-spacing: 1px;
+	word-spacing: 1px;
+}
+
+#nome-jardim {
+	
+}
+
+.programa.show .nome,
+.programa.show #activo,
+.programa.show #buttons {
+	display: inline-block;
+	width: 33%;
+	#float: left;
+	margin-bottom: 5px;
+}
+
+.programa.show .nome {
+	font-size: 150%;
+	font-weight: bold;
+}
+
+.programa.show #activo {
+	text-align: center;
+}
+
+.programa.show #activo span.activo {
+	font-weight: bold;
+	background-color: #a5ed00;
+	color: black;
+}
+
+/* default é desactivado */
+.programa.show #activo span {
+	background-color: #ed0000;
+	color: white;
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+#buttons {
+	text-align: right;
+}
+
+/* @group Changes Buttons */
+
+#buttons input.changes,
+.newValue input[type=submit] {
+	padding: 3px 12px;
+	background-color: #fcfaeb;
+	text-decoration: none;
+	border: 1px solid silver;
+	color: #3f3f3f;
+	display: inline-block;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+.recorrencia label {
+	padding-left: 15px;
+	padding-bottom: 5px;
+}
+
+#buttons input.changes:hover,
+.newValue input[type=submit]:hover {
+	border: 1px solid gray;
+	background-color: #fcf5c4;
+	color: #000;	
+}
+
+#buttons input.changes:hover,
+.newValue input[type=submit]:active {
+	border-style: inset;
+}
+
+/* @end */
+
+
+
+/* @end */
+
+/* @group Edição */
+
+/* @group Header */
+
+.programa.edit .header {
+	position: relative;
+}
+
+.programa.edit .nome,
+.programa.edit .activo,
+.programa.edit #buttons {
+	display: inline-block;
+	width: 33%;
+	#float: left;
+	margin-bottom: 5px;
+}
+
+
+.programa.edit .nome input {
+	font-weight: bold;
+	margin: 0;
+	font-size: 151%;
+	width: 85%;
+}
+
+.programa.edit .activo{
+	width: 130px;
+	margin-left: 59px;
+	text-align: center;
+}
+
+.programa.edit #buttons {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+}
+
+/* @end */
+
+.programa.edit .mainSettings {
+	width: 27%;
+	position: absolute;
+}
+
+.accoes ul {
+	overflow: auto;
+	max-height: 270px;
+}
+
+.arranques li {
+	position: relative;
+}
+
+.programa.edit .otherSettings {
+	clear: both;
+	display: inline-block;
+	#display: block;
+	margin-top: 500px;
+}
+
+.programa.edit .otherSettings .header {
+	font-weight: bold;
+	font-size: 120%;
+}
+
+.programa.edit .accoes ul,
+.programa.edit .arranques ul {
+	margin-bottom: 12px;
+	margin-top: 12px;
+}
+
+.programa.edit .accoes ul li,
+.programa.edit .arranques ul li
+ {
+	list-style: none;
+	margin-right: 5px;
+}
+
+.programa.edit .otherSettings div {
+	margin-bottom: 10px;
+}
+
+.programa.edit .otherSettings .inner-col-left {
+	float: left;
+}
+.programa.edit .otherSettings .inner-col-right {
+	float: right;
+}
+
+.programa.edit .otherSettings .inner-col-left,
+.programa.edit .otherSettings .inner-col-right {
+	width: 49%;
+	
+}
+
+
+.programa.edit li .remove {
+	
+	opacity: 0.5;
+	cursor: pointer;
+	margin-left: -21px;
+	padding-right: 5px;
+	background: url(images/remove.png) no-repeat 0 1px;
+	display: inline-block;
+	width: 7px;
+	height: 13px;
+	vertical-align: -1px;
+	position: absolute;
+}
+
+.programa.edit li .remove:hover {
+	opacity: 0.7;
+}
+
+.programa.edit li .remove:active {
+	opacity: 1;
+}
+
+.programa.edit .recorrencia .recMensal .eou {
+	text-align: center;
+}
+
+.programa.edit .accoes li {
+	padding-left: 37px;
+	margin-left: -37px;
+	position: relative;
+	height: 1.2em;
+	cursor: move;
+}
+
+.programa.edit label {
+	display: inline-block;	
+}
+
+.programa.edit .controle input[type=radio] {
+	margin-left: 14px;
+}
+
+
+.programa.edit .controle div {
+	margin-bottom: 5px;
+}
+
+.programa.edit .arranques,
+.programa.edit .accoes,
+.programa.edit .activo,
+.programa.edit .controle,
+.programa.edit .tipoPrograma,
+.programa.edit .tipoRega,
+.programa.edit .limites,
+.programa.edit .recorrencia,
+.programa.edit .cobertura {
+	border: 1px solid gray;
+	background-color: rgba(0,0,0,0.05);
+	padding: 5px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;	
+}
+
+.programa.edit .cobertura label {
+	font-size: 80%;
+	margin-right: 0.3em;
+}
+
+.programa.edit .cobertura div {
+	margin-bottom: 7px;
+}
+
+/* @end */
+
+.vertical-arrow {
+	display: inline-block;
+	position: absolute;	background: url(images/ui-icons_222222_256x240.png) no-repeat -126px -50px;
+	width: 12px;
+	height: 12px;
+	left: -4px;
+	cursor: move;
+	margin-top: 1px;
+}
+
+.highlight {
+	border: 1px solid #f9dd34; 
+	background: #fdf1aa url(images/ui-bg_glass_55_fdf1aa_1x400.png) 50% 50% repeat-x;
+	line-height: 1.2em;
+}
+
+input.time {
+	width: 2em;
+	text-align: center;
+}
+.newValue input[type=submit] {
+	text-indent: -99999px;
+	overflow: hidden;
+	width: 17px;
+	height: 17px;
+	margin: 0;
+	background-position: -33px -129px;
+	background-image: url(images/ui-icons_222222_256x240.png);
+	padding: 0;
+}
+
+.accoes ul.sortable li {
+	border-style: none;
+	font: 95% "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+
+}
+
+.recMensal input.dia {
+	font-size: 70%;
+	background-color: #f7f7f7;
+	margin: 0 0 3px;
+	padding: 1px 0;
+	border: 1px dotted #d2d2d2;
+}
+
+.recMensal .semana .dia {
+	padding-right: 3px;
+	padding-left: 3px;
+	#padding-left: 0px;
+	#padding-right: 0px;
+}
+
+.recMensal .mes input.dia {
+	width: 19px;
+}
+
+.recMensal input.dia:active,
+.recMensal  input.dia.selected:active {
+	border-color: #e3c200;
+	background-color: #e3c200;
+	border-style: solid;
+}
+
+.recMensal input.dia.selected {
+	border-color: #e3c200;
+	background-color: #fdf1aa;
+	border-style: solid;
+}
+
+.recMensal .mes, .recMensal .semana {
+	margin-left: 19px;
+	margin-bottom: 10px;
+	margin-top: 5px;
+}
+
+div.recorrencia div.recOcasional {
+}
+
+.newValue {
+	border-top: 1px solid gray;
+	padding-top: 6px;
+	text-align: center;
+}
+
+.recorrencia {
+	position: relative;
+}
+
+#placeholder {
+	position: absolute;
+	top: 50px;
+	padding: 10px;
+	background-color: #fdf1aa;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	left: 5px;
+	z-index: 1;
+}
+
+.mapa {
+	width: 69%;
+	right: 15px;
+	height: 500px;
+	position: absolute;
+	z-index: 3;
+	border: 1px solid gray;
+}
+
+#mapa.inEdition {
+	top: 50px;
+/*	position: absolute;
+	right: 13px;
+	width: 68%;
+	height: 500px;
+*/}
