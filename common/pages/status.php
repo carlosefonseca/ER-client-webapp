@@ -1,11 +1,18 @@
-<div class="sidebar-left meteo">
-	<div><span>Temperatura Média:</span>20º C</div>
-	<div><span>Humidade Média:</span>20 mm</div>
-	<div><span>Caudal Médio:</span>224 m<sup>3</sup></div>
-	<div><span>Caudal Total:</span>126789 m<sup>3</sup></div>
+<div class="sidebar-left">
+	<div id="act-desac-todos-jardins">
+		<a id="act-todos-jardins">Activar todos os jardins</a>
+		<a id="desact-todos-jardins">Desactivar todos os jardins</a>
+	</div>
+
+	<ul class="meteo">
+    	<li><span>Temperatura Média:</span>20º C</li>
+    	<li><span>Humidade Média:</span>20 mm</li>
+    	<li><span>Caudal Médio:</span>224 m<sup>3</sup></li>
+    	<li><span>Caudal Total:</span>126789 m<sup>3</sup></li>
+    </ul>
 </div>
 
-<div class="content with-left-sidebar" style="height:700px">
+<div class="content with-left-sidebar" style="height:600px">
 <? 
 global $canEditMarkers;
 
@@ -42,14 +49,53 @@ if ($canEditMarkers = hasPermission("edit_markers")): ?>
 	$("#marker_dialg").dialog({
 		bgiframe: true,
 		autoOpen: false,
-		height: 300,
+//		width: 800,
+//		height: 400,
 		modal: true,
 		buttons: {
-		    'Aceder aos Programas': function() {
+		    'Ver/Editar Programas': function() {
 		    	window.location = "programs-"+selectedMarker;
 		    },
-		    'Parar os programas': function () {
-				alert("A ser implementado brevemente.");
+		    'Activar a programação do Jardim': function () {
+				var answer = confirm("Activar a programação do jardim '"+markers[selectedMarker].name+"'?");
+				if(answer) {
+					$.ajax({
+						type: "POST",
+						url: "actions.php",
+						data: "action=actJardim&id="+selectedMarker,
+						dataType: "text",
+						success: function(txt){
+							if(txt != "OK") {
+								alert("ERRO!\n\n"+txt);
+								return;
+							} else {
+								reloadJardins();
+							}
+						}
+					})
+			    	$(this).dialog('close');
+				}
+		    },
+		    'Desactivar a programação do Jardim': function () {
+				//alert("A ser implementado brevemente.");
+				var answer = confirm("Desactivar a programação do jardim '"+markers[selectedMarker].name+"'?");
+				if(answer) {
+					$.ajax({
+						type: "POST",
+						url: "actions.php",
+						data: "action=desactJardim&id="+selectedMarker,
+						dataType: "text",
+						success: function(txt){
+							if(txt != "OK") {
+								alert("ERRO!\n\n"+txt);
+								return;
+							} else {
+								reloadJardins();
+							}
+						}
+					})
+			    	$(this).dialog('close');
+				}				
 		    },
 		    'Cancelar': function() {
 		    	$(this).dialog('close');
@@ -58,5 +104,46 @@ if ($canEditMarkers = hasPermission("edit_markers")): ?>
 		close: function() {
 		}
 	});		
-		
+
+
+	$("#act-todos-jardins").click(function () {
+		var answer = confirm("Activar a programação todos os Jardins?");
+		if(answer) {
+			$.ajax({
+				type: "POST",
+				url: "actions.php",
+				data: "action=actJardins",
+				dataType: "text",
+				success: function(txt){
+					if(txt != "OK") {
+						alert("ERRO!\n\n"+txt);
+						return;
+					} else {
+						reloadJardins();
+					}
+				}
+			})
+		}
+	})
+	$("#desact-todos-jardins").click(function () {
+		var answer = confirm("Desactivar a programação todos os jardins?");
+		if(answer) {
+			$.ajax({
+				type: "POST",
+				url: "actions.php",
+				data: "action=desactJardins",
+				dataType: "text",
+				success: function(txt){
+					if(txt != "OK") {
+						alert("ERRO!\n\n"+txt);
+						return;
+					} else {
+						reloadJardins();
+					}
+				}
+			})
+		}
+	})
+	
 	</script>
+<div>

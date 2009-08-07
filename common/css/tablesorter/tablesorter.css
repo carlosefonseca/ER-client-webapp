@@ -66,3 +66,34 @@ table.tablesorter tfoot tr th.space {
 	border-bottom-style: none;
 	border-left-style: none;
 }
+
+.data span.ok {
+	color: green;
+}
+
+.data span.erro {
+	color: red;
+}
+
+.data span.off {
+	color: gray;
+}
+
+.data td.c24h,
+.data td.cvar,
+.data td.ctot {
+	text-align: right;
+	padding-right: 10px;
+}
+
+.data td.stat span.s0,
+.data td.sact span.s0 {
+	color: red;
+	font-weight: bold;
+}
+
+.data td.stat span.s1,
+.data td.sact span.s1 {
+	color: green;
+	font-weight: bold;
+}

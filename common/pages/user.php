@@ -4,9 +4,7 @@ $D = false;
 
 function processChanges() {
 	$passSQL = "";
-	if(strlen($_POST['pass1'])>0 && strlen($_POST['pass1'])<4) {
-		return "A password tem que ter pelo menos 4 caracteres";
-	} else if(strlen($_POST['pass1'])>3) {
+	if(strlen($_POST['pass1'])>3) {
 		if(strlen($_POST['pass2'])>3) {
 			if ($_POST['pass1'] == $_POST['pass2']) {
 				//filter SOME evil stuff

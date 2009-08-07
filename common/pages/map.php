@@ -37,6 +37,7 @@ function createMarker(map, point, id, nome, status, data) {
 	var marker = new GMarker(point, markerOptions);
 	marker.id = id;
 	marker.status = status;
+	marker.name = nome;
 	GEvent.addListener(marker, "click", function() {
 //		marker.openInfoWindowHtml("<h3>#"+id+" - "+nome+"</h3>"+data);
 		selectedMarker = id;
@@ -45,6 +46,11 @@ function createMarker(map, point, id, nome, status, data) {
 	});
 	
 	GEvent.addListener(marker, "mouseover", function() {
+		switch(status) {
+			case "0": estado = "OK"; break;
+			case "off": estado = "Desactivado"; break;
+			default: estado = status+" erros!"; break;
+		}
 		marker.openInfoWindowHtml("<h3>#"+id+" - "+nome+"</h3>"+data);
 	});
 
@@ -76,8 +82,10 @@ function displayMarker(map, marker) {
 	if ((marker.constructor.toString().indexOf("Object") == -1) && (marker.constructor.toString().indexOf("Array") == -1)) { //Se marker é apenas um pobre coitado
 		map.addOverlay(marker);
 		marker.disableDragging();
-		if (marker.status == "ok") {
+		if (marker.status == "0") {
 			marker.setImage("../common/css/markers/green.png");
+		} else if (marker.status == "off") {
+			marker.setImage("../common/css/markers/grey.png");
 		} else {
 			marker.setImage("../common/css/markers/red.png");
 		}
@@ -89,10 +97,12 @@ function displayMarker(map, marker) {
 		for(i in marker) {
 			map.addOverlay(marker[i]);
 			marker[i].disableDragging();
-			if (marker[i].status == "ok") {
+			if (marker[i].status == "0") {
 				marker[i].setImage("../common/css/markers/green.png");
+			} else if (marker[i].status == "off") {
+				marker[i].setImage("../common/css/markers/grey.png");
 			} else {
-				marker.setImage("../common/css/markers/red.png");
+				marker[i].setImage("../common/css/markers/red.png");
 			}
 			var pos = marker[i].getLatLng();
     		if (pos.lat() < min_lat) { min_lat = pos.lat(); }
@@ -111,44 +121,18 @@ function displayMarker(map, marker) {
 	}
 }
 
-/* //NOT IN USE
-function loadMarkersFromXML(data) {
-	map.clearOverlays();
-	var xml = GXml.parse(data);
-	var markers = xml.documentElement.getElementsByTagName("marker");
-	
-	var max_lat = -999;
-	var max_lng = -999;
-	var min_lat =  999;
-	var min_lng =  999;
 
-	for (var i = 0; i < markers.length; i++) {
-		var lat 	= parseFloat(markers[i].getAttribute("lat"));
-		var lng 	= parseFloat(markers[i].getAttribute("lng"));
-		var id		= markers[i].getAttribute("id");
-		var nome	= markers[i].getAttribute("nome");
-		var status	= markers[i].getAttribute("status");
-		var data	= markers[i].getAttribute("data");
-
-		if (lat < min_lat) { min_lat = lat; }
-		if (lat > max_lat) { max_lat = lat; }
-		if (lng < min_lng) { min_lng = lng; }
-		if (lng > max_lng) { max_lng = lng; }
-
-		var latlng	= new GLatLng(lat,lng);
-
-		var m = createMarker(map, latlng, id, nome, status, data);
-	}
-	if (markers.length) {
-		c_lat = (max_lat + min_lat)/2;
-		c_lng = (max_lng + min_lng)/2;
-		center = new GLatLng(c_lat, c_lng);
-		map.setCenter(center);
-		map.savePosition();
-	}
-}*/
-
-
+function reloadJardins() {
+	$.ajax({
+		type: "GET",
+		url: "jardins.php",
+		success: function (txt) {
+			map.clearOverlays();
+    		eval(txt);
+    		displayMarker(map, markers);
+		}
+	})
+}
 </script>
 
 <div id="map_canvas" style="width: 100%; height: 100%"></div>

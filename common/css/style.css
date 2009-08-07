@@ -191,8 +191,6 @@ div#edit_markers {
 .sidebar-left {
 	-moz-border-radius: 15px;
 	-webkit-border-radius: 15px;
-	border-bottom: 1px solid silver;
-	border-right: 1px solid silver;
 	width: 170px;
 	padding: 10px;
 	position: absolute;
@@ -354,13 +352,15 @@ div#edit_markers {
 
 /* @group status */
 
-.sidebar-left.meteo {
+.sidebar-left .meteo {
 	background-color: inherit;
 	border-style: none;
 	padding-top: 0px;
+	list-style: none;
+	padding: 0;
 }
 
-.sidebar-left.meteo div {
+.sidebar-left .meteo li {
 	padding: 10px;
 	margin-bottom: 10px;
 	background: white;
@@ -370,7 +370,7 @@ div#edit_markers {
 	font-size: 150%;
 }
 
-.sidebar-left.meteo div span {
+.sidebar-left .meteo li span {
 	display: block;
 	font-size: 70%;
 }
@@ -428,3 +428,17 @@ p.login.error {
 }
 
 /* @end */
+
+td.c24h {
+	text-align: right;
+}
+
+td.stat span.0,
+td.sact span.0 {
+	color: red;
+}
+
+td.stat span.1,
+td.sact span.1 {
+	color: green;
+}

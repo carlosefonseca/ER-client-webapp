@@ -76,6 +76,6 @@ function loadContent($file) {
 
 	<div id="message"></div>
 
-	<div class="footer">&copy; EngiRega 2009 <small>| <a href="changelog">v0.7b</a></small></div>
+	<div class="footer">&copy; EngiRega 2009 <small>| <a href="changelog">v0.8</a></small></div>
 </body>
 </html>

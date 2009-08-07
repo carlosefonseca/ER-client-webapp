@@ -82,6 +82,11 @@ function checkLogin(){
 	}
 }
 
+
+function requireLogin() {
+	if(!checkLogin()) header("Location: login");
+}
+
 /**
  * Determines whether or not to display the login
  * form or to show the user that he is logged in

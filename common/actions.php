@@ -4,22 +4,29 @@ require_once("../common/funcoes.php");
 //Página requer que o utilizador se tenha autenticado
 session_start();
 require_once(u("user.php"));
-checkLogin();
+requireLogin();
 
-function hasPermissionToGarden() {
+define("PROGS_PATH","serverfiles/programas");
+define("ALTERACOES_FILE","serverfiles/Alteracoes.txt");
+
+function hasPermissionToGarden($id = null) {
 	global $client;
-	if(!isset($_POST["garden"])) die("ERROR: No GARDEN set");
-	$id = $_POST["garden"]; //Numero do Jardim
+	if(!$id && !isset($_POST["garden"])) die("ERROR: No GARDEN set");
+	if(!$id) {
+		$id = $_POST["garden"]; //Numero do Jardim
+	}
 	
 	//Verificar a existencia do jardim
 	require_once("DBconnect.php");
-	$q = "SELECT id FROM jardins WHERE client like '%$client%' AND id='$id'";
+	$q = "SELECT id,acronym FROM jardins WHERE client like '%$client%' AND id='$id'";
 	$res=mysql_query($q) or die(mysql_error());
 
 	if(mysql_num_rows($res)!=1 || (!hasPermission("j$j")&&!hasPermission("j*"))) {
 		die("PERMISSION DENIED");
 	}
-	return $id;
+	
+	$r = mysql_fetch_array($res);
+	return $r[1];
 }
 
 
@@ -28,7 +35,7 @@ function getPrograma($id) {
 
 	$id = normaliza($id);
 	
-	$progs = leProgramacao("programas/p$nJ.txt");
+	$progs = leProgramacao(PROGS_PATH."/$nJ.txt");
 	if ($p = $progs[$id]) {
 		die(json_encode($p->toBrowser()));
 	} else {
@@ -36,24 +43,27 @@ function getPrograma($id) {
 	}
 }
 
-function apagarPrograma() {
+function apagarPrograma($pID) {
 	if (!hasPermission("edit_program")) {
 		die("PERMISSION DENIED");
 	}
 	
 	$nJ = hasPermissionToGarden(); //Morre se o user nao tiver acesso ao jardim
 	
-	$progs = leProgramacao("programas/p$nJ.txt");
-	unset($progs[$_POST["id"]]);
-	escreveProgramacao($progs,"programas/p$nJ.txt");
+	$progs = leProgramacao(PROGS_PATH."/$nJ.txt");
+	$nome = $progs[$pID]->nome;
+	unset($progs[$pID]);
+	escreveProgramacao($progs,PROGS_PATH."/$nJ.txt");
+	escreveAlteracao(ALTERACOES_FILE,$nJ,"PR",$nome);
 	die("OK");
 }
+
 
 function getListaProgramas() {
 	$nJ = hasPermissionToGarden(); //Morre se o user nao tiver acesso ao jardim
 
-	if(!file_exists("programas/p$nJ.txt")) die("[]");
-	$progs = leProgramacao("programas/p$nJ.txt");
+	if(!file_exists(PROGS_PATH."/$nJ.txt")) die("[]");
+	$progs = leProgramacao(PROGS_PATH."/$nJ.txt");
 	$a = array();
 	foreach($progs as $key => $p) {
 		$a[] = $p->activo.$p->nome;
@@ -61,87 +71,119 @@ function getListaProgramas() {
 	die(json_encode($a));
 }
 
-function activarPrograma() {
-	if(!isset($_POST["id"])) die("ERROR: No ID set");
+
+function activarPrograma($pID) {
+	if(!isset($pID)) die("ERROR: No ID set");
 	$nJ = hasPermissionToGarden(); //Morre se o user nao tiver acesso ao jardim
-	$progs = leProgramacao("programas/p$nJ.txt");
-	$p = $progs[$_POST["id"]];
+	$progs = leProgramacao(PROGS_PATH."/$nJ.txt");
+	$p = $progs[$pID];
 	$p->activar();
-	escreveProgramacao($progs, "programas/p$nJ.txt");
+	escreveProgramacao($progs, PROGS_PATH."/$nJ.txt");
+	escreveAlteracao(ALTERACOES_FILE,$nJ,"PR",$p->nome);
 	die(json_encode($p->toBrowser()));
 }
 
-function desactivarPrograma() {
-	if(!isset($_POST["id"])) die("ERROR: No ID set");
+
+function desactivarPrograma($pID) {
+	if(!isset($pID)) die("ERROR: No ID set");
 	$nJ = hasPermissionToGarden(); //Morre se o user nao tiver acesso ao jardim
-	$progs = leProgramacao("programas/p$nJ.txt");
-	$p = $progs[$_POST["id"]];
+	$progs = leProgramacao(PROGS_PATH."/$nJ.txt");
+	$p = $progs[$pID];
 	$p->desactivar();
-	escreveProgramacao($progs, "programas/p$nJ.txt");
+	escreveProgramacao($progs, PROGS_PATH."/$nJ.txt");
+	escreveAlteracao(ALTERACOES_FILE,$nJ,"PR",$p->nome);
 	die(json_encode($p->toBrowser()));
 }
 
 
-function savePrograma() {	
-	if(!isset($_POST["id"])) die("ERROR: No ID.");
-	if(!isset($_POST["data"])) die("ERROR: No DATA.");
+
+function savePrograma($id, $data) {	
+	if(!isset($id)) die("ERROR: No ID.");
+	if(!isset($data)) die("ERROR: No DATA.");
 	
 	$nJ = hasPermissionToGarden(); //Morre se o user nao tiver acesso ao jardim
-	
+//	die("->$nJ<-");
 	$d = str_replace(array("\\\"","\\\\","£"), array("\"","\\","+"), $_POST["data"]); 
 
 	$p = new Programa();
-    $p->recorrencia = new Recorrencia();
-    $p->updateFromSite(json_decode($d));
-    $newId = $p->getKey();
+	$p->recorrencia = new Recorrencia();
+	$p->updateFromSite(json_decode($d));
+	$newId = $p->getKey();
 
-	$id = $_POST["id"];
-
-	if(file_exists("programas/p$nJ.txt")) {
-		$progs = leProgramacao("programas/p$nJ.txt");
+	if(file_exists(PROGS_PATH."/$nJ.txt")) {
+		$progs = leProgramacao(PROGS_PATH."/$nJ.txt");
 	}
-		
- 	$progs[$newId] = $p;
+
+	$progs[$newId] = $p;
 	if ($id != $newId && $id != "NOVO") {
 		unset($progs[$id]);
 	}
 	
-	escreveProgramacao($progs, "programas/p$nJ.txt");
+	escreveProgramacao($progs, PROGS_PATH.'/'.$nJ.".txt");
+	escreveAlteracao(ALTERACOES_FILE,$nJ,"PR",$p->nome);
 	die(json_encode($progs[$newId]->toBrowser()));
 }
 
-function setGardenPlaces() {
+
+function setGardenPlaces($id, $lat, $lng) {
 	if (!hasPermission("edit_markers")) {
 		die("PERMISSION DENIED");
 	}
 
-	$id  = addslashes($_POST["id" ]);
-	$lat = addslashes($_POST["lat"]);
-	$lng = addslashes($_POST["lng"]);
+	$id  = addslashes($id);
+	$lat = addslashes($lat);
+	$lng = addslashes($lng);
 
 	include("DBconnect.php");
-	$q = "UPDATE  `jardins` SET  lat = '$lat', lng = '$lng' WHERE CONVERT(  `jardins`.`id` USING utf8 ) =  '$id' LIMIT 1 ;";
+	$q = "UPDATE  `jardins` SET  lat = '$lat', lng = '$lng' WHERE CONVERT(`jardins`.`id` USING utf8 ) =  '$id' LIMIT 1 ;";
 	mysql_query($q) or die("SQL Error");
 
 	die("OK");
 }
+
+function actDeactJardins($pID, $accao) {
+	$jardinsAcessiveis = getUserGardens();
+
+//	$file = "dados/activos.txt";
+//	$activos = parseDataFile($file);
+	if ($pID == "*") {
+		foreach($jardinsAcessiveis as $i) {
+			$nJ = hasPermissionToGarden($i);
+			$activos[$nJ] = ($accao=="act"?1:0);
+		}
+		//print_r($activos);
+	} else {
+		if(!isset($pID)) die("ERROR: No ID.");
+		$nJ = hasPermissionToGarden($pID);
+		$activos[$nJ] = ($accao=="act"?1:0);
+	}
+	escreveAlteracao(ALTERACOES_FILE,$activos, "IO");
+	updateActivos($activos);
+	die("OK");
+}
+
 global $client;
 
 if( isset( $_POST['action'])) {
 	switch($_POST['action']) {
-		case "apagarPrograma":		apagarPrograma();		break;
-		case "desactivarPrograma":	desactivarPrograma(); 	break;
-		case "activarPrograma":		activarPrograma(); 		break;
+		case "apagarPrograma":		apagarPrograma($_POST["id"]);		break;
+		case "desactivarPrograma":	desactivarPrograma($_POST["id"]); 	break;
+		case "activarPrograma":		activarPrograma($_POST["id"]); 		break;
 		case "getPrograma":			getPrograma($_POST["id"]); 	break;
 //		case "getProgramaJSON":		getProgramaJSON(); 		break;
 		case "getEditPrograma":		getEditPrograma(); 		break;
-		case "setPrograma":			savePrograma(); 		break;
+		case "setPrograma":			savePrograma($_POST["id"],$_POST["data"]); 		break;
 		case "getListaProgramas":	getListaProgramas(); 	break;
-		case "updateMarker":		setGardenPlaces();		break;
+		case "updateMarker":		setGardenPlaces($_POST["id"],$_POST["lat"],$_POST["lng"]);		break;
+		case "actJardins":			actDeactJardins("*","act");	break;
+		case "desactJardins":		actDeactJardins("*","deact");	break;		
+		case "actJardim":			actDeactJardins($_POST["id"],"act");	break;
+		case "desactJardim":		actDeactJardins($_POST["id"],"deact");break;		
 		default:					die("UNKNOWN COMMAND\n\n".print_r($_POST,true));
 	}
 } else {
-	die("ACTION COMMAND NEED");
+	actDeactJardins("act");
+	//die("ACTION COMMAND NEED");
 }
 
 
