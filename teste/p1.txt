@@ -1,0 +1,45 @@
+'Activo(0/1),Livre1(#), Livre2(#),ETR,Geral(0/1/2),%Rega(100),Rotativo(1),Tempo de rotativo(000000),Se o programa é recorrente não limitado/recorrente limitado/semanal(0/1/3), Dia de inicio do programa(000296),dia fim(000297), Outros para ajudar a escrever se o programa é limitado ou não e as datas por extenso de inicio e fim do programa,#Se 0 ou 2#:dias de intervalo(000000), Ocorrencias(000005) #se 3#dias da semana(0/1)0000000 Dias do Mês(0/1)0000000000000000000000000000000
+'mais inf
+
+InicioDePrograma
+Programa3
+0000
+0 000 3 000 000 0 000000 3 000000 000000 0 00/00/0000 00/00/0000 1000010 1000000001000000000000000000001 1
+037812
+000331,1+2
+FimDePrograma
+InicioDePrograma
+Programa4
+0000
+0 000 3 000 000 0 000000 3 000000 000000 0 00/00/0000 00/00/0000 1001000 0000000000000000000000000000001 0
+037812
+000331,1+2
+000060,3
+FimDePrograma
+InicioDePrograma
+Programa E4
+0000
+0 000 3 000 000 0 000000 0 000000 000000 0 00/00/0000 00/00/0000 000000 000000
+036000
+000300,2
+FimDePrograma
+InicioDePrograma
+ProgramaE1
+0000
+0 000 3 000 000 0 000000 0 000000 000000 0 00/00/0000 00/00/0000 000000 000000
+
+FimDePrograma
+InicioDePrograma
+ProgramaE2
+0000
+0 000 3 000 000 0 000000 0 000000 000000 0 00/00/0000 00/00/0000 000000 000000
+036000
+FimDePrograma
+InicioDePrograma
+ProgramaE3
+0000
+0 000 3 000 000 0 000000 0 000000 000000 0 00/00/0000 00/00/0000 000000 000000
+036120
+000300,2
+000600,5
+FimDePrograma

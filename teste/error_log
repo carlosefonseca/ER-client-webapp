@@ -1,0 +1,105 @@
+[24-Jul-2009 01:22:28] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 25
+[24-Jul-2009 01:22:51] PHP Parse error:  syntax error, unexpected T_STRING, expecting '{' in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 37
+[24-Jul-2009 12:06:15] PHP Parse error:  syntax error, unexpected T_STRING, expecting '{' in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 33
+[24-Jul-2009 12:06:50] PHP Parse error:  syntax error, unexpected T_STRING, expecting '{' in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 33
+[24-Jul-2009 12:06:51] PHP Parse error:  syntax error, unexpected T_STRING, expecting '{' in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 33
+[24-Jul-2009 12:33:14] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 110
+[24-Jul-2009 12:34:15] PHP Parse error:  syntax error, unexpected '<' in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 111
+[24-Jul-2009 12:34:56] PHP Parse error:  syntax error, unexpected T_ENDWHILE in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 120
+[24-Jul-2009 12:35:10] PHP Parse error:  syntax error, unexpected T_ELSE in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 113
+[24-Jul-2009 12:35:13] PHP Parse error:  syntax error, unexpected T_ELSE in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 113
+[24-Jul-2009 16:07:02] PHP Parse error:  syntax error, unexpected ':' in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 25
+[24-Jul-2009 17:57:34] PHP Parse error:  syntax error, unexpected ';' in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 163
+[24-Jul-2009 17:58:18] PHP Fatal error:  Cannot redeclare echovalornd() (previously declared in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php:149) in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 149
+[24-Jul-2009 17:58:44] PHP Fatal error:  Cannot redeclare echovalornd() (previously declared in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php:149) in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 149
+[24-Jul-2009 19:52:21] PHP Parse error:  syntax error, unexpected '{' in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 110
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  explode() [<a href='function.explode'>function.explode</a>]: Empty delimiter in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 29
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:07:06] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:08:27] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:12:44] PHP Parse error:  syntax error, unexpected ')', expecting ';' in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[24-Jul-2009 20:33:49] PHP Parse error:  syntax error, unexpected ')', expecting ';' in /home/eurcom/public_html/EngiRega/dev/common/pages/data.php on line 150
+[28-Jul-2009 10:11:03] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/eurcom/public_html/EngiRega/dev/common/funcoes.php on line 352
+[28-Jul-2009 12:09:22] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/eurcom/public_html/EngiRega/dev/common/funcoes.php on line 352
+[31-Jul-2009 12:07:22] PHP Fatal error:  Call to undefined function  parsedatafile() in /home/eurcom/public_html/EngiRega/dev/common/jardins.php on line 14
+[02-Ago-2009 15:10:11] PHP Fatal error:  Call to undefined function  parsedatafile() in /home/eurcom/public_html/EngiRega/dev/common/jardins.php on line 14
+[02-Ago-2009 15:10:34] PHP Fatal error:  Call to undefined function  parsedatafile() in /home/eurcom/public_html/EngiRega/dev/common/jardins.php on line 14
+[05-Aug-2009 00:09:33] PHP Warning:  include(../common/jardins.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory in /home/eurcom/public_html/EngiRega/dev/teste/jardins.php on line 3
+[05-Aug-2009 00:09:33] PHP Warning:  include(../common/jardins.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory in /home/eurcom/public_html/EngiRega/dev/teste/jardins.php on line 3
+[05-Aug-2009 00:09:33] PHP Warning:  include() [<a href='function.include'>function.include</a>]: Failed opening '../common/jardins.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/eurcom/public_html/EngiRega/dev/teste/jardins.php on line 3
+[05-Aug-2009 00:09:47] PHP Parse error:  syntax error, unexpected T_ECHO in /home/eurcom/public_html/EngiRega/dev/common/jardins.php on line 35
+[05-Ago-2009 11:52:23] PHP Parse error:  syntax error, unexpected T_STRING, expecting ':' or '{' in /home/eurcom/public_html/EngiRega/dev/common/jardins.php on line 52
+[05-Ago-2009 11:53:10] PHP Parse error:  syntax error, unexpected T_STRING, expecting ':' or '{' in /home/eurcom/public_html/EngiRega/dev/common/jardins.php on line 52
+[05-Aug-2009 11:53:45] PHP Parse error:  syntax error, unexpected T_STRING, expecting ':' or '{' in /home/eurcom/public_html/EngiRega/dev/common/jardins.php on line 52
+[05-Ago-2009 12:00:35] PHP Parse error:  syntax error, unexpected T_DEFAULT in /home/eurcom/public_html/EngiRega/dev/common/jardins.php on line 56
+[05-Ago-2009 12:00:51] PHP Parse error:  syntax error, unexpected T_DEFAULT in /home/eurcom/public_html/EngiRega/dev/common/jardins.php on line 56
+[05-Aug-2009 12:00:56] PHP Parse error:  syntax error, unexpected T_DEFAULT in /home/eurcom/public_html/EngiRega/dev/common/jardins.php on line 56
+[06-Ago-2009 22:27:57] PHP Fatal error:  Call to undefined function  parsedatafile() in /home/eurcom/public_html/EngiRega/dev/common/actions.php on line 147
+[06-Ago-2009 22:39:35] PHP Fatal error:  Call to undefined function  parsedatafile() in /home/eurcom/public_html/EngiRega/dev/common/actions.php on line 147
+[06-Ago-2009 23:43:52] PHP Fatal error:  Call to undefined function  parsedatafile() in /home/eurcom/public_html/EngiRega/dev/common/actions.php on line 147
+[06-Ago-2009 23:47:28] PHP Fatal error:  Call to undefined function  parsedatafile() in /home/eurcom/public_html/EngiRega/dev/common/actions.php on line 146
+[07-Ago-2009 11:43:59] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/funcoes.php on line 340
+[07-Ago-2009 11:43:59] PHP Warning:  fopen(/MastersList.txt) [<a href='function.fopen'>function.fopen</a>]: failed to open stream: Permission denied in /home/eurcom/public_html/EngiRega/dev/common/funcoes.php on line 349
+[07-Ago-2009 11:44:43] PHP Warning:  Invalid argument supplied for foreach() in /home/eurcom/public_html/EngiRega/dev/common/funcoes.php on line 340
+[07-Ago-2009 11:44:43] PHP Warning:  fopen(/MastersList.txt) [<a href='function.fopen'>function.fopen</a>]: failed to open stream: Permission denied in /home/eurcom/public_html/EngiRega/dev/common/funcoes.php on line 349
+[07-Ago-2009 12:51:17] PHP Warning:  array_search() [<a href='function.array-search'>function.array-search</a>]: Wrong datatype for second argument in /home/eurcom/public_html/EngiRega/dev/common/funcoes.php on line 323
+[07-Ago-2009 12:51:17] PHP Warning:  array_search() [<a href='function.array-search'>function.array-search</a>]: Wrong datatype for second argument in /home/eurcom/public_html/EngiRega/dev/common/funcoes.php on line 325
+[07-Ago-2009 12:57:58] PHP Warning:  fread() [<a href='function.fread'>function.fread</a>]: Length parameter must be greater than 0 in /home/eurcom/public_html/EngiRega/dev/common/funcoes.php on line 444
+[07-Aug-2009 13:40:52] PHP Warning:  require_once(../common/funcoes.php) [<a href='function.require-once'>function.require-once</a>]: failed to open stream: No such file or directory in /home/eurcom/public_html/EngiRega/dev/common/actions.php on line 2
+[07-Aug-2009 13:40:52] PHP Fatal error:  require_once() [<a href='function.require'>function.require</a>]: Failed opening required '../common/funcoes.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/eurcom/public_html/EngiRega/dev/common/actions.php on line 2
+[07-Ago-2009 13:41:04] PHP Warning:  fread() [<a href='function.fread'>function.fread</a>]: Length parameter must be greater than 0 in /home/eurcom/public_html/EngiRega/dev/common/funcoes.php on line 446
+[07-Aug-2009 14:03:11] PHP Parse error:  syntax error, unexpected T_IS_EQUAL, expecting ')' in /home/eurcom/public_html/EngiRega/dev/common/funcoes.php on line 313
+[07-Aug-2009 14:03:32] PHP Parse error:  syntax error, unexpected T_IS_EQUAL, expecting ')' in /home/eurcom/public_html/EngiRega/dev/common/funcoes.php on line 313
+[07-Aug-2009 14:03:58] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/eurcom/public_html/EngiRega/dev/common/funcoes.php on line 332
+[07-Ago-2009 14:35:42] PHP Warning:  fopen() [<a href='function.fopen'>function.fopen</a>]: Filename cannot be empty in /home/eurcom/public_html/EngiRega/dev/common/funcoes.php on line 330
+[07-Ago-2009 14:35:42] PHP Warning:  fclose(): supplied argument is not a valid stream resource in /home/eurcom/public_html/EngiRega/dev/common/funcoes.php on line 332
