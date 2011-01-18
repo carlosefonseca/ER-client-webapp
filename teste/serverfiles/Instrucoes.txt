@@ -1,0 +1,5 @@
+Aqui são postas as alterações que a net quer fazer aos perifericos sejam alterações de estado ou de programas
+ex medrosa alterar para programas ligados, Parque marques de pombal alterar programa de rega
+MEDRO#IO#1
+PMPOM#PR#Rega
+BACAS#IO#0

@@ -1,0 +1,99 @@
+/* @override http://engirega.eu-r.com/dev/common/css/tablesorter/tablesorter.css */
+
+table.tablesorter {
+	font-size: 12px;
+	border-collapse: collapse;
+	margin: 10px auto;
+	
+}
+
+table.tablesorter tfoot {
+	margin-top: 5px;
+}
+
+table.tablesorter tbody {
+	border-top: 1px solid #85be00;
+	border-bottom: 1px solid #85be00;
+}
+
+table.tablesorter thead th {
+	padding: 0 0 4px;
+	background-position: 0 center;
+	color: #0e610e;
+	text-align: left;
+}
+table.tablesorter td {
+	padding: 6px;
+	text-align: center;
+	border-left: 1px solid #85be00;
+	border-right: 1px solid #85be00;
+}
+table.tablesorter .even {
+	background-color: #f4f4f4;
+}
+table.tablesorter .odd {
+	background-color: #e1edc5;
+}
+table.tablesorter .header {
+	height: auto;
+	background: #d4f97b url(bg.gif) no-repeat right center;
+	border: 1px solid #85be00;
+	padding: 8px 20px 8px 10px;
+	text-align: center;
+}
+table.tablesorter .headerSortUp {
+	background-image: url(asc.gif);
+}
+table.tablesorter .headerSortDown {
+	background-image: url(desc.gif);
+}
+
+table.tablesorter tfoot {
+	background-color: #d4f97b;
+}
+
+table.tablesorter tfoot th {
+	border-left: 1px solid #85be00;
+	border-right: 1px solid #85be00;
+}
+
+table.tablesorter tfoot tr.last th {
+	border-bottom: 1px solid #85be00;
+}
+
+table.tablesorter tfoot tr th.space {
+	background-color: white;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+
+.data span.ok {
+	color: green;
+}
+
+.data span.erro {
+	color: red;
+}
+
+.data span.off {
+	color: gray;
+}
+
+.data td.c24h,
+.data td.cvar,
+.data td.ctot {
+	text-align: right;
+	padding-right: 10px;
+}
+
+.data td.stat span.s0,
+.data td.sact span.s0 {
+	color: red;
+	font-weight: bold;
+}
+
+.data td.stat span.s1,
+.data td.sact span.s1 {
+	color: green;
+	font-weight: bold;
+}

@@ -1,0 +1,444 @@
+/* @override 
+	http://localhost/~carlos/EngiRega/css/style.css
+	http://cef.selfip.net/EngiRega/common/css/style.css
+	http://engirega.eu-r.com/common/css/style.css
+	http://engirega.eu-r.com/dev/common/css/style.css
+*/
+
+/* Reset some stuff */
+body, html, input, td, div, span, img, form, li /*, ul*/ {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: #e1edc5;
+	padding: 10px;
+	font: 85% "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+a, a:link {
+	color: green;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+input[type=text]:focus,
+input[type=password]:focus {
+	background-color: rgba(253,255,0,0.21);
+}
+
+input[type=text],
+input[type=password] {
+	border: 1px solid gray;
+}
+
+
+/* @group Header */
+body > .header {
+	position: relative;
+	height: 94px;
+}
+
+body > .header .logo {
+	width: 330px;
+	height: 80px;
+	background: url(images/engirega.jpg) 0 -16px;
+	border: 2px solid white;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	position: relative;
+}
+
+body > .header .engirega {
+	text-indent: -999px;
+}
+
+body > .header .client {
+	position: absolute;
+	bottom: -13px;
+	padding: 3px 10px;
+	background-color: green;
+	border: 2px solid white;
+	-moz-border-radius: 13px;
+	-webkit-border-radius: 13px;
+	width: 70%;
+	text-align: center;
+	margin-left: 10%;
+	font-weight: bold;
+}
+
+body > .header .client a {
+	color: white;	
+}
+
+/* @group User */
+
+.header .user {
+	display: inline-block;
+	padding: 5px 20px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	background-color: white;
+	border: 1px solid #85be00;
+	font-size: 80%;
+}
+
+.header .user li {
+	float: left;
+	list-style-type: none;
+	border-left: 1px solid #85be00;
+	padding-right: 10px;
+	padding-bottom: 0;
+	padding-left: 10px;	
+}
+
+.header .user li.first {
+	border-left-style: none;
+}
+/*
+.user form input[type=text],
+.user form input[type=password] {
+	border: 1px solid #85be00;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+.user form input[type=submit] {
+}*/
+
+/* @end */
+
+/* @group Nav */
+
+.primary-menu {
+	display: inline-block;
+	padding: 10px 20px;
+	position: absolute;
+	right: 0;
+	-moz-border-radius: 18px;
+	-webkit-border-radius: 18px;
+	background-color: white;
+	border-bottom: 1px solid silver;
+	border-right: 1px solid silver;
+	bottom: 0;
+}
+
+.primary-menu li {
+	float: left;
+	list-style-type: none;
+	border-left: 1px solid #85be00;
+	padding-right: 10px;
+	padding-bottom: 0;
+	padding-left: 10px;
+}
+
+.primary-menu li.first {
+	border-left-style: none;
+}
+
+.primary-menu li.active {
+}
+
+/* @end */
+
+/* @end */
+
+/* @group Content */
+
+input.button {
+	padding: 3px 12px;
+	text-decoration: none;
+	border: 2px outset gray;
+	color: #3f3f3f;
+	display: inline-block;
+	background-color: white;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+#userperm {
+	display: inline;
+	position: absolute;
+	top: 33px;
+	right: 0;
+}
+
+input.button:active {
+	border: 2px inset gray;
+}
+
+div#edit_markers {
+	position: absolute;
+	left: 117px;
+	z-index: 4;
+	top: 21px;
+}
+
+.mainWrap {
+	font: 95% "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	position: relative;
+	overflow: hidden;
+	margin-top: 20px;
+}
+
+.sidebar-left {
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	width: 170px;
+	padding: 10px;
+	position: absolute;
+	left: 0px;
+}
+
+.content {
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	background-color: white;
+	border: 2px solid #85be00;
+	padding: 15px;
+	overflow: hidden;
+	position: relative;
+	list-style-type: none;
+}
+
+.content.with-left-sidebar {
+	margin-left: 210px;
+	
+}
+
+.content .map {
+}
+
+.content .map img {
+	width: 100%;
+}
+
+/* @group gardens */
+
+.gardens {
+	position: relative;
+}
+
+.gardens .garden {
+	position: absolute;
+	top: 0;
+	left: 0;
+	list-style-type: none;
+}
+
+.gardens .garden .status {
+	width: 19px;
+	height: 32px;
+	position: absolute;
+	top: -31px;
+	left: -10px;
+}
+
+.garden .status.ok {	background-image: url(images/green-marker.png); }
+.garden .status.ok ~ .ballon { border-color: green;}
+.garden .status.ko ~ .ballon { border-color: red;}
+
+.garden .status.ko {
+	background-image: url(images/red-marker.png);
+}
+
+.gardens .garden .ballon {
+	display: none;
+	top: -15px;
+	right: -113px;
+	background-color: white;
+	padding: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-width: 2px;
+	border-style: solid;
+	margin-left: 25px;
+	margin-top: -50px;
+}
+
+.gardens .garden:hover {
+	z-index: 1;
+}
+.gardens .garden:hover .ballon {
+	display: inherit;
+}
+
+#zona1.garden {	top: 34%;	left: 22%;	}
+#zona2.garden {	top: 59%;	left: 30%;	}
+#zona3.garden {	top: 38%;	left: 56%;	}
+#zona4.garden {	top: 34%;	left: 83%;	}
+
+
+
+/* @end */
+
+.content h1 {
+	text-align: left;
+	color: green;
+	border-bottom: 2px solid green;
+	line-height: 90%;
+	margin-bottom: 20px;
+}
+
+
+
+/* @end */
+
+#message {
+	background-color: rgba(0,255,0,0.2);
+	padding: 3px 20px;
+	border: 1px solid #62cc62;
+	width: 250px;
+	text-align: center;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	display: none;
+	position: fixed;
+	top: 127px;
+	margin: 0 40%;
+}
+
+/* @group login */
+
+.content.login {
+	width: 300px;
+	min-height: 0px;
+	margin: auto;
+	padding-left: 30px;
+	padding-right: 30px;
+	font-size: 120%;
+}
+
+.content.login h3 {
+	color: green;
+	text-align: right;
+	font-weight: normal;
+	font-family: "Helvetica Neue-UltraLight", "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+.content.login #username,
+.content.login #password {
+	padding-bottom: 10px;
+	margin: auto;
+	width: 200px;
+}
+
+.content.login span {
+	display: block;
+	color: green;
+}
+
+.content.login input[type=text],
+.content.login input[type=password] {
+	width: 200px;
+}
+
+.content.login #submit {
+	text-align: center;
+	padding-top: 5px;
+}
+.content.login #submit input {
+	width: 100px;
+}
+
+/* @end */
+
+/* @group status */
+
+.sidebar-left .meteo {
+	background-color: inherit;
+	border-style: none;
+	padding-top: 0px;
+	list-style: none;
+	padding: 0;
+}
+
+.sidebar-left .meteo li {
+	padding: 10px;
+	margin-bottom: 10px;
+	background: white;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	text-align: center;
+	font-size: 150%;
+}
+
+.sidebar-left .meteo li span {
+	display: block;
+	font-size: 70%;
+}
+
+/* @end */
+
+.footer {
+	text-align: center;
+	padding: 10px;
+	font-size: 80%;
+	color: green;
+}
+
+p.login.error {
+	font-size: 85%;
+	border: 1px solid #f00;
+	background-color: #fdd;
+	padding: 5px;
+	text-align: center;
+	width: 190px;
+	margin: auto;
+}
+
+/* @group user-account */
+
+.content.user-account {
+	margin: auto;
+	padding: 30px 60px;
+	width: 283px;
+}
+
+.content.user-account p label {
+	font-weight: bold;
+}
+
+.content.user-account fieldset {
+	border: 1px solid green;
+	display: inline;
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+.content.user-account p.error {
+	font-size: 95%;
+	border: 1px solid #f00;
+	background-color: #fdd;
+	padding: 5px;
+	text-align: center;
+}
+
+.content.user-account #password label {
+	display: block;
+	width: 115px;
+	float: left;
+}
+
+/* @end */
+
+td.c24h {
+	text-align: right;
+}
+
+td.stat span.0,
+td.sact span.0 {
+	color: red;
+}
+
+td.stat span.1,
+td.sact span.1 {
+	color: green;
+}

@@ -1,0 +1,25 @@
+/* @override http://engirega.eu-r.com/dev/common/css/meteo.css */
+
+fieldset {
+	border: 1px solid green;
+	display: inline;
+	vertical-align: top;
+}
+
+fieldset ul {
+	padding: 0px;
+	list-style-position: inside;
+	list-style-type: none;
+	text-align: right;
+}
+
+fieldset legend {
+	font-weight: bold;
+	color: green;
+}
+
+fieldset ul span.unid {
+	width: 30px;
+	display: inline-block;
+	text-align: left;
+}
