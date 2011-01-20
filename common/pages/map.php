@@ -18,8 +18,10 @@ function initialize() {
 	center = new GLatLng(<? echo $c_lat;?>,<? echo $c_lng;?>);
     map.setCenter(center, <? echo isset($zoom)?$zoom:"13";?>);
 	map.setUIToDefault();
+	map.checkResize();
   }
 }
+
 
 function createMarkerAndPoint(map, lat, lng, id, nome, status, data) {
 	if (lat == 0 || lng == 0) { 
@@ -30,14 +32,19 @@ function createMarkerAndPoint(map, lat, lng, id, nome, status, data) {
 	createMarker(map, point, id, nome, status, data);
 }
 
-// Creates a marker
-function createMarker(map, point, id, nome, status, data) {
+// Creates a marker. If point === false, middle of map is used
+function createMarker(map, point, id, nome, status, data) { createMarker(map, point, id, nome, status, data, true); }
+
+function createMarker(map, point, id, nome, status, data, info) {
 	// Set up our GMarkerOptions object
 	markerOptions = { <? if ($canEditMarkers) echo "draggable: true"; ?> };
+	if (point === false) { point = map.getCenter(); }
 	var marker = new GMarker(point, markerOptions);
 	marker.id = id;
 	marker.status = status;
 	marker.name = nome;
+
+if (info) {
 	GEvent.addListener(marker, "click", function() {
 //		marker.openInfoWindowHtml("<h3>#"+id+" - "+nome+"</h3>"+data);
 		selectedMarker = id;
@@ -61,21 +68,26 @@ function createMarker(map, point, id, nome, status, data) {
 	GEvent.addListener(marker, "dragstart", function() {
 		map.closeInfoWindow();
 	});
+}
+	GEvent.addListener(marker, "dragend", function() { 
+		updateLocation(this);
+	});
 
-    GEvent.addListener(marker, "dragend", function() {
-		$.ajax({
-			type: "POST",
-			url: "../common/actions.php",
-			data: "action=updateMarker&id="+this.id+"&lat="+this.getLatLng().lat()+"&lng="+this.getLatLng().lng(),
-			success: function (msg) {
-				if (msg != "OK")
-					alert("Erro ao guardar o marcador!\n\n"+msg);
-			}
-		})
-    });
 	markers[id] = marker;
 //	displayMarker(map, marker);
 	return marker;
+}
+
+function updateLocation(marker) {
+	$.ajax({
+		type: "POST",
+		url: "../common/actions.php",
+		data: "action=updateMarker&id="+marker.id+"&lat="+marker.getLatLng().lat()+"&lng="+marker.getLatLng().lng(),
+		success: function (msg) {
+			if (msg != "OK")
+				alert("Erro ao guardar o marcador!\n\n"+msg);
+		}
+	})
 }
 
 function displayMarker(map, marker) {
@@ -126,6 +138,18 @@ function reloadJardins() {
 	$.ajax({
 		type: "GET",
 		url: "jardins.php",
+		success: function (txt) {
+			map.clearOverlays();
+    		eval(txt);
+    		displayMarker(map, markers);
+		}
+	})
+}
+function loadJardim(id) {
+	markers = new Object();
+	$.ajax({
+		type: "GET",
+		url: "jardins.php?id="+id,
 		success: function (txt) {
 			map.clearOverlays();
     		eval(txt);

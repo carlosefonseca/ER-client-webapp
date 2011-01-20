@@ -1,8 +1,14 @@
 <?
+global $REDIRECT;
+$REDIRECT = false;
 global $PATH;
 if (!isset($PATH)) { $PATH = "../common/"; }
 define("ILOG", 0);
 
+// Converte URLs para o formato ?q=pagina se o MOD_REWRITE não estiver a funcionar
+function l($url, $return = false) { $o = $REDIRECT?"":"?q=".$url; if ($return) return $o; else echo $o; }
+
+// Aponta os urls para a pasta 'common'.
 function u($url) { global $PATH; return $PATH."$url"; }
 function eu($url) { echo u($url); }
 
@@ -150,7 +156,6 @@ function time2sec( $time ) {
 }
 
 
-//print_r(Sec2Time("028860"));
 
 /**
  * Converte string com dias do mês para texto.
@@ -176,6 +181,7 @@ function diasMes2Human($t) {
  *
  * @param string com 7 zeros ou uns, correspondente aos dias da semana activados ou desactivados
  * @return string
+ * exemplo diasSemana2human("0010010"); => "Quartas, Sábados"
  */
 function diasSemana2Human($t) {
 	$dias = strposall($t, "1");
@@ -196,7 +202,6 @@ function diasSemana2Human($t) {
 	return(substr($out, 0, -2));
 }
 
-//echo diasSemana2human("0010010");
 
 
 
@@ -210,12 +215,10 @@ function diasSemana2Human($t) {
  * @return array or false 
  */ 
 function strposall($haystack,$needle){ 
-	
 	$s=0; 
 	$i=0; 
 	
 	while (is_integer($i)){ 
-		
 		$i = strpos($haystack,$needle,$s); 
 		
 		if (is_integer($i)) { 
@@ -383,6 +386,42 @@ function escreveAlteracao($fn,$jardim, $tipo, $arg = null) {
 }
 
 
+/* Converte um array numa tabela HTML */
+function array2table($arr, $useFirstRowForHeaders=false) {
+	$o = "";
+	$keys = array();
+	if ($useFirstRowForHeaders) {
+		$headers = $arr[0];
+		unset($arr[0]);
+	}
+	foreach($arr as $row) {
+		$o.='<tr>';
+		$rowkeys = array_keys($row);
+		foreach($keys as $k) {
+			if (array_key_exists($k, $row)) {
+				$o .= "<td>".$row[$k]."</td>";
+			} else {
+				$o .= "<td></td>";
+			}
+		}
+		foreach (array_diff($rowkeys, $keys) as $newkey) {
+			$o .= "<td class='new'>".$row[$newkey]."</td>";
+			$keys[] = $newkey;
+		}
+		$o .= "</tr>";
+	}
+	$head = "<table class='autogen'><tr>";
+	foreach($keys as $k) {
+		if ($useFirstRowForHeaders && array_key_exists($k, $headers))
+			$head .= "<th>".$headers[$k]."</th>";
+		else 
+			$head .= "<th>$k</th>";
+	}
+	$o = $head . "</tr>" . $o . "</table>";
+	return $o;
+}
+
+
 
 ///////////////////////// DATA FILES //////////////////////////
 
@@ -485,6 +524,7 @@ function parseProgramasAct($fn) {
 
 function parseMaster($fn) {
 	$raw = getDataInFile($fn);
+#	unset($raw[0]);
 	foreach($raw as $l) {
 		$lv = explode("#", $l);
 		$data[] = array('n' 	 => $lv[0], 'ident' => $lv[1],	'contacto' => $lv[2], 
@@ -497,8 +537,9 @@ function parseMaster($fn) {
 function getDataInFile($fn) {
 	if(!file_exists($fn) || !filesize($fn)) { return array(); }
 	$fp = fopen($fn, "r");
-	$data = fread($fp, filesize($fn));
+	$data = rtrim(fread($fp, filesize($fn)));
 	fclose($fp);
+	$data = mb_convert_encoding($data, 'UTF-8', "ISO-8859-1");
 	$array = explode("\n",str_replace("\r", "", $data));
 	return $array;
 }

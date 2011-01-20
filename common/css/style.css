@@ -442,3 +442,16 @@ td.stat span.1,
 td.sact span.1 {
 	color: green;
 }
+
+table.autogen td, table.autogen th {
+	padding: 0px 5px;
+	text-align: left;
+}
+/*
+table.autogen, table.autogen td, table.autogen th {
+	border-collapse: collapse;
+	border-color: #8d9734;
+	border-style: solid;
+	border-width: 1px;
+}
+*/

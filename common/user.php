@@ -32,7 +32,7 @@ function confirmUser($username, $password){
 
 	/* Verify that user is in database */
 	
-	$q = "select permissions from users where user = '$username' && pass='$password' && client like '%$client%'";
+	$q = "select permissions from users where user = '$username' && pass='$password' && (client like '%$client%' OR client like '*')";
 	$result = mysql_query($q);
 	if(!$result || (mysql_numrows($result) < 1)){
 		return 0; //Indicates username failure
@@ -88,7 +88,7 @@ function checkLogin(){
 
 
 function requireLogin() {
-	if(!checkLogin()) header("Location: login");
+	if(!checkLogin()) header("Location: ".L(login,true));
 }
 
 /**
@@ -100,12 +100,12 @@ function displayLogin(){
 	global $logged_in;
 	if($logged_in){
 		echo "<h3>Logged In!</h3>";
-		echo "Bem-vindo <b>$_SESSION[username]</b>, you are logged in. <a href=\"logout.php\">Logout</a>";
+		echo "Bem-vindo <b>$_SESSION[username]</b>. <a href=\"".L("logout",true)."\">Logout</a>";
 	}
 	else{
 ?>
 
-<form action="login" method="post">
+<form action="<? L("login"); ?>" method="post">
 <h3>Login :: Área de Cliente</h3>
 <div id="username"><span>Utilizador: </span><input type="text" name="user" maxlength="30" size="15"></div>
 <div id="password"><span>Password: </span><input type="password" name="pass" maxlength="30" size="15"></div>

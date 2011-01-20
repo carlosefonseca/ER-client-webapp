@@ -7,7 +7,14 @@ require_once("../common/user.php");
 requireLogin();
 global $client;
 
+$id = false;
+if(isset($_GET["id"])) {
+	$id = mysql_real_escape_string($_GET["id"]);
+}
+
+
 $q = "SELECT * FROM jardins WHERE client LIKE '$client'".getUserGardens(true);
+if ($id !== false) {$q.=" AND id = '$id'";}
 $res = mysql_query($q) or die("LN11: $q => ".mysql_error());
 
 if(mysql_num_rows($res)!=0):
