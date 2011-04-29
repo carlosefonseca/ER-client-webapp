@@ -14,8 +14,8 @@ var markers = new Object();
 
 function initialize() {
   if (GBrowserIsCompatible()) {
-    map = new GMap2(document.getElementById("map_canvas"));
-	center = new GLatLng(<? echo $c_lat;?>,<? echo $c_lng;?>);
+    map = new google.maps.Map(document.getElementById("map_canvas"));
+	center = new google.maps.LatLng(<? echo $c_lat;?>,<? echo $c_lng;?>);
     map.setCenter(center, <? echo isset($zoom)?$zoom:"13";?>);
 	map.setUIToDefault();
 	map.checkResize();
@@ -25,34 +25,34 @@ function initialize() {
 
 function createMarkerAndPoint(map, lat, lng, id, nome, status, data) {
 	if (lat == 0 || lng == 0) { 
-		point = new GLatLng(<? echo $c_lat;?>,<? echo $c_lng;?>); 
+		point = new google.maps.LatLng(<? echo $c_lat;?>,<? echo $c_lng;?>); 
 	} else {
-		point = new GLatLng(lat,lng); 
+		point = new google.maps.LatLng(lat,lng); 
 	}
-	createMarker(map, point, id, nome, status, data);
+	createMarker(map, point, id, nome, status, data, true);
 }
 
 // Creates a marker. If point === false, middle of map is used
 function createMarker(map, point, id, nome, status, data) { createMarker(map, point, id, nome, status, data, true); }
 
 function createMarker(map, point, id, nome, status, data, info) {
-	// Set up our GMarkerOptions object
+	// Set up our google.maps.MarkerOptions object
 	markerOptions = { <? if ($canEditMarkers) echo "draggable: true"; ?> };
 	if (point === false) { point = map.getCenter(); }
-	var marker = new GMarker(point, markerOptions);
+	var marker = new google.maps.Marker(point, markerOptions);
 	marker.id = id;
 	marker.status = status;
 	marker.name = nome;
 
 if (info) {
-	GEvent.addListener(marker, "click", function() {
+	google.maps.Event.addDomListener(marker, "click", function() {
 //		marker.openInfoWindowHtml("<h3>#"+id+" - "+nome+"</h3>"+data);
 		selectedMarker = id;
 		$("span.ui-dialog-title").html(nome);
 		$('#marker_dialg').dialog('open');
 	});
 	
-	GEvent.addListener(marker, "mouseover", function() {
+	google.maps.Event.addDomListener(marker, "mouseover", function() {
 		switch(status) {
 			case "0": estado = "OK"; break;
 			case "off": estado = "Desactivado"; break;
@@ -61,15 +61,15 @@ if (info) {
 		marker.openInfoWindowHtml("<h3>#"+id+" - "+nome+"</h3>"+data);
 	});
 
-	GEvent.addListener(marker, "mouseout", function() {
+	google.maps.Event.addDomListener(marker, "mouseout", function() {
 		map.closeInfoWindow();
 	});
 
-	GEvent.addListener(marker, "dragstart", function() {
+	google.maps.Event.addDomListener(marker, "dragstart", function() {
 		map.closeInfoWindow();
 	});
 }
-	GEvent.addListener(marker, "dragend", function() { 
+	google.maps.Event.addDomListener(marker, "dragend", function() { 
 		updateLocation(this);
 	});
 
@@ -125,7 +125,7 @@ function displayMarker(map, marker) {
 		var c_lat = (max_lat + min_lat)/2;
 		var c_lng = (max_lng + min_lng)/2;
 		if(c_lat && c_lng) {
-			center = new GLatLng(c_lat,c_lng);
+			center = new google.maps.LatLng(c_lat,c_lng);
 			map.panTo(center);
 		} else {
 			map.returnToSavedPosition();
