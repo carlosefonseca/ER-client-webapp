@@ -559,5 +559,36 @@ function parseDataFiles($root) {
 	return $data;
 }
 
-clearLog();
+
+function updateDbWithMasterFile($master, $client) {
+	$q = "SELECT acronym, lat, lng FROM jardins WHERE client LIKE '$client'".getUserGardens(true);
+	$res = mysql_query($q) or die("$q => ".mysql_error()." [".mysql_errno()."]");
+
+	$gps = array();
+	while ($r = mysql_fetch_array($res)) {
+		$gps[$r["acronym"]] = array("lat" => $r["lat"], "lng" => $r["lng"]);
+	}
+
+	$q = "DELETE FROM `jardins`;\n";
+	$res = mysql_query($q) or die("$q => ".mysql_error()." [".mysql_errno()."]");
+	$q = "INSERT INTO `jardins` (`client`,`id`,`acronym`,`name`,`lat`, `lng`,`contact`)\nVALUES\n";
+	
+	foreach($master as $k => $v) {
+		if ($k == 0) {	// headers
+			continue;
+		}
+		$lat = 0;
+		$lng = 0;
+		if (array_key_exists($v["ident"], $gps)) {
+			$lat = $gps[$v["ident"]]["lat"];
+			$lng = $gps[$v["ident"]]["lng"];	
+		}
+
+		$q .= "\t('$client', ".$v["n"].", '".$v["ident"]."', '".$v["nome"]."', '$lat', '$lng', '".$v["contacto"]."'),\n";
+	}
+	$q = substr($q, 0, -2);
+	iLog("SQL: $q");
+	$res = mysql_query($q) or die("$q => ".mysql_error()." [".mysql_errno()."]");
+}
+
 ?>

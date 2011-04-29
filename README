@@ -1,0 +1,12 @@
+Alteração da base de dados
+
+CREATE TABLE `jardins` (
+  `client` varchar(50) CHARACTER SET latin1 NOT NULL DEFAULT '',
+  `id` int(3) NOT NULL,
+  `acronym` varchar(5) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `name` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `lat` varchar(20) CHARACTER SET latin1 NOT NULL DEFAULT '0',
+  `lng` varchar(20) CHARACTER SET latin1 DEFAULT '0',
+  `contact` varchar(14) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`client`,`id`,`acronym`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

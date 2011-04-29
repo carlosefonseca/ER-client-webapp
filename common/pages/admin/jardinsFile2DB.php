@@ -4,6 +4,8 @@ iLog($page);
 
 $master = parseMaster("serverfiles/MastersList.txt");
 
+
+// Acções
 if (isset($_GET["add"]) && !empty($_GET["add"])) {
 	# Adicionar o jardim especificado do txt para a DB
 	foreach($master as $v) {
@@ -17,7 +19,8 @@ if (isset($_GET["add"]) && !empty($_GET["add"])) {
 		}
 	}
 } else if (isset($_GET["updatedata"])) {
-	echo "<p style='color:red'>A funcionalidade de actualizar os dados da DB ainda não foi implementada</p>";
+	updateDbWithMasterFile($master, $client);
+	die("<meta http-equiv='refresh' content='0;$page' />");
 }
 
 
@@ -65,7 +68,7 @@ foreach($master as $k => $v) {	// master -> array com as cenas do TXT
 if (strlen($toAdd)>0) {
 	echo "<a href='".url("admin/jardinsFile2DB&add=".$toAdd)."'>Adicionar todos à BD</a>";
 }
-echo "<p><a href='javascript:alert(\"Ainda não está implementado :(\")'>Actualizar todos os dados da DB com os dados do ficheiro</a></p>";
+echo "<p><a href='$page&updatedata'>Actualizar todos os dados da DB com os dados do ficheiro</a></p>";
 // Constroi a tabela
 echo array2table($master, true);
 ?>
@@ -78,43 +81,43 @@ include(u("pages/map.php")); ?>
 </div>
 
 <script language="javascript">
-var editID = -1;
-var marker;
-var objs = Object();
-objs['Fechar'] = function() {window.location.reload();};
-objs['Colocar um Marcador'] = function() {
-		if (marker) {
-			marker.setLatLng(map.getCenter());
-		} else {
-			marker = createMarker(map, false, editID, "", "", "");
-			displayMarker(map, marker);
-			marker.enableDragging();
-		}
-		updateLocation(marker);
-	};
-$("#editGPS").dialog({
-	autoOpen: false,
-	width: "90%",
-	height: "600",
-	modal: true,
-});
-
-function addGPS(id, nome) {
-	$("#editGPS").dialog("option","buttons",{"Fechar":objs['Fechar'],"Colocar um Marcador":objs['Colocar um Marcador']})
-	$("#editGPS").dialog("option", "title",nome).dialog("open");
-	editID = id;
-	map.checkResize();
-}
-function editGPS(id, nome) {
-	$("#editGPS").dialog("option","buttons",{"Fechar":function(){$(this).dialog("close");},"Reposicionar Marcador Aqui":objs['Colocar Marcador Aqui']});
-	$("#editGPS").dialog("option", "title",nome).dialog("open");
-	editID = id;
-	var markers = new Object();
-	loadJardim(id);
-	//		markers[id].enableDragging();
-	map.checkResize();
-}
-$("table.autogen").tablesorter({
-	widgets: ['zebra']
-});
+	var editID = -1;
+	var marker;
+	var objs = Object();
+	objs['Fechar'] = function() {window.location.reload();};
+	objs['Colocar um Marcador'] = function() {
+			if (marker) {
+				marker.setLatLng(map.getCenter());
+			} else {
+				marker = createMarker(map, false, editID, "", "", "");
+				displayMarker(map, marker);
+				marker.enableDragging();
+			}
+			updateLocation(marker);
+		};
+	$("#editGPS").dialog({
+		autoOpen: false,
+		width: "90%",
+		height: "600",
+		modal: true,
+	});
+	
+	function addGPS(id, nome) {
+		$("#editGPS").dialog("option","buttons",{"Fechar":objs['Fechar'],"Colocar um Marcador":objs['Colocar um Marcador']})
+		$("#editGPS").dialog("option", "title",nome).dialog("open");
+		editID = id;
+		map.checkResize();
+	}
+	function editGPS(id, nome) {
+		$("#editGPS").dialog("option","buttons",{"Fechar":function(){$(this).dialog("close");},"Reposicionar Marcador Aqui":objs['Colocar Marcador Aqui']});
+		$("#editGPS").dialog("option", "title",nome).dialog("open");
+		editID = id;
+		var markers = new Object();
+		loadJardim(id);
+		//		markers[id].enableDragging();
+		map.checkResize();
+	}
+	$("table.autogen").tablesorter({
+		widgets: ['zebra']
+	});
 </script>
