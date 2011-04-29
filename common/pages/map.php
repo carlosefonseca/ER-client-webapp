@@ -3,6 +3,7 @@ global $c_lat;
 global $c_lng;
 global $zoom;
 global $canEditMarkers;
+iLog("<Map>");
 ?>
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAAAXja6TyGWuD4IaWbzAXbvxSLjE9tukku2vkqMEHoc5mw6LJAEBRj_whLfeS6X4EmxvGFhH_BczregQ"></script>
 <script type="text/javascript">
@@ -139,6 +140,7 @@ function reloadJardins() {
 		type: "GET",
 		url: "jardins.php",
 		success: function (txt) {
+			iLog("Ajaxing jardins");
 			map.clearOverlays();
     		eval(txt);
     		displayMarker(map, markers);
@@ -168,3 +170,4 @@ function loadJardim(id) {
 	$("body").unload(function () { GUnload(); });
 
 </script>
+<? iLog("</Map>"); ?>

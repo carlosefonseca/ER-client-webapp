@@ -113,7 +113,7 @@ function displayLogin(){
 <font size="2">Remember me next time</td></tr>*/?>
 <?	if (isset($_GET['e'])) {echo "<p class='login error'>O nome de utilizador e password que introduziu não existem.</p>";} ?>
 <div id="submit"><input type="submit" name="sublogin" value="Login"></div>
-<p><a href="newaccount">Criar uma conta</a></p>
+<p><a href="<? l("newaccount"); ?>">Criar uma conta</a></p>
 </form>
 <?
 	}
@@ -171,7 +171,7 @@ if(isset($_POST['sublogin'])){
 
 	/* Quick self-redirect to avoid resending data on refresh */
 	//echo "<meta http-equiv=\"Refresh\" content=\"0;url=$HTTP_SERVER_VARS[PHP_SELF]\">";
-	header("Location: $HTTP_SERVER_VARS[PHP_SELF]");
+	header("Location: $_SERVER[PHP_SELF]");
 	return;
 } else {
 	if(isset($_GET['q']) && $_GET['q'] == 'logout') {

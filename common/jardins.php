@@ -1,8 +1,11 @@
-<? 	# ISTO DEVIA SER Sî UM OBJECTO JSON E A LîGICA DEVIA TAR TODA NO MAP.PHP... mas pronto assim ficam mais coisas na parte do php
+<? iLog("<jardins>"); ?>
+<? 	# ISTO DEVIA SER SO' UM OBJECTO JSON E A LOGICA DEVIA TAR TODA NO MAP.PHP...
+	# mas pronto assim ficam mais coisas na parte do php
 	# OUTPUTS JAVASCRIPT CODE FOR SETTING GMAP2 MARKERS AND CENTER
+
 require("../common/DBconnect.php");
 require_once("../common/funcoes.php");
-session_start();
+//session_start();
 require_once("../common/user.php");
 requireLogin();
 global $client;
@@ -13,9 +16,11 @@ if(isset($_GET["id"])) {
 }
 
 
-$q = "SELECT * FROM jardins WHERE client LIKE '$client'".getUserGardens(true);
+$q = "SELECT * FROM jardins WHERE client LIKE '$client'".getUserGardens(true)." AND lat <> 0";
 if ($id !== false) {$q.=" AND id = '$id'";}
 $res = mysql_query($q) or die("LN11: $q => ".mysql_error());
+iLog("Select jardins: ".mysql_num_rows($res));
+
 
 if(mysql_num_rows($res)!=0):
 
@@ -95,3 +100,4 @@ map.setCenter(center);
 map.savePosition();
 <?	}	
 endif; ?>
+<? iLog("</jardins>"); ?>

@@ -1,3 +1,4 @@
+<? iLog("<status>"); ?>
 <div class="sidebar-left">
 	<div id="act-desac-todos-jardins">
 		<a id="act-todos-jardins">Activar todos os jardins</a>
@@ -5,10 +6,7 @@
 	</div>
 
 	<ul class="meteo">
-    	<li><span>Temperatura Média:</span>20º C</li>
-    	<li><span>Humidade Média:</span>20 mm</li>
-    	<li><span>Caudal Médio:</span>224 m<sup>3</sup></li>
-    	<li><span>Caudal Total:</span>126789 m<sup>3</sup></li>
+    	<li>LISTA DE JARDINS</li>
     </ul>
 </div>
 
@@ -147,3 +145,4 @@ if ($canEditMarkers = hasPermission("edit_markers")): ?>
 	
 	</script>
 <div>
+<? iLog("</status>"); ?>

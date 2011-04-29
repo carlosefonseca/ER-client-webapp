@@ -3,10 +3,13 @@ global $REDIRECT;
 $REDIRECT = false;
 global $PATH;
 if (!isset($PATH)) { $PATH = "../common/"; }
-define("ILOG", 0);
+define("ILOG", 1);
+
+$REDIRECT = false;
 
 // Converte URLs para o formato ?q=pagina se o MOD_REWRITE não estiver a funcionar
-function l($url, $return = false) { $o = $REDIRECT?"":"?q=".$url; if ($return) return $o; else echo $o; }
+function l($url, $return = false) { global $REDIRECT; $o = $REDIRECT?"":"?q=".$url; if ($return) return $o; else echo $o; }
+function url($url) { global $REDIRECT; return $REDIRECT?"":"?q=".$url;}
 
 // Aponta os urls para a pasta 'common'.
 function u($url) { global $PATH; return $PATH."$url"; }
@@ -317,9 +320,10 @@ function leMeteo($fn = "meteo.txt") {
 */
 
 function iLog($txt, $var = null) {
+	//echo $txt;
 	if(!ILOG) return;
 
-	if($fp = fopen("iLog.txt", "a")) {
+	if($fp = fopen("/Users/carlos/Sites/Engirega/iLog.txt", "a")) {
 		if (isset($var)) {
 			fwrite($fp, $txt.": ");
 			if(is_array($var)) {
@@ -328,16 +332,16 @@ function iLog($txt, $var = null) {
 				fwrite($fp, "\"",$var."\"\n\n");
 			}
 		} else {
-			fwrite($fp, "== $txt ==\n\n");
+			fwrite($fp, "$txt\n");
 		}
 		fclose($fp);
 	}
 }
 
 function clearLog() {
-	if(!ILOG) return;
+	/*if(!ILOG) return;
 	$fp = fopen("iLog.txt", "w");
-	fclose($fp);
+	fclose($fp);*/
 }
 
 function escreveAlteracao($fn,$jardim, $tipo, $arg = null) {

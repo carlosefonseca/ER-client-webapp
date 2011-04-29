@@ -1,4 +1,12 @@
 <?
+/*ini_set('error_reporting', E_ALL);
+error_reporting(E_ALL);
+ini_set('log_errors',TRUE);
+ini_set('html_errors',FALSE);
+ini_set('error_log','/Users/carlos/Sites/Engirega/app.log');
+ini_set('display_errors',FALSE);
+*/
+
 //if(!isset($client)) { echo '<meta http-equiv="refresh" content="0;.." />'; die(); }
 
 include("../common/funcoes.php");
@@ -14,10 +22,12 @@ if(isset($_GET["q"])) {
 		$page = strtr($p, ".", "  ");
 		$pages = explode("/", $page, 2);
 		$file = u("pages/". $pages[0].".php");
-		$params = $pages[1];
+		if (count($pages) > 1) {
+			$params = $pages[1];
+		}
 	} else {
 		$page = "login";
-		$file = u("pages/login.php");	   
+		$file = u("pages/login.php");
 	}
 } else {
 	if ($logged_in) {
@@ -25,7 +35,7 @@ if(isset($_GET["q"])) {
 		$file = u("pages/status.php");
 	} else {
 		$page = "login";
-		$file = u("pages/login.php");		
+		$file = u("pages/login.php");
 	}
 }
 
@@ -36,6 +46,8 @@ function loadContent($file) {
 		echo "404 Page '$file' not found! Página '$file' não encontrada!";
 	}
 }
+
+iLog("\n".date("Y-m-d H:i:s").": REQ. ".($logged_in?$_SESSION['username'].(hasPermission("admin")?"(A)":""):"!LI")." PAGE:$file PARMS:".$params);
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
