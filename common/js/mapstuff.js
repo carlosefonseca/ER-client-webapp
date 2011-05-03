@@ -1,7 +1,7 @@
 var selectedMarker;
 var map;
 var center;
-var markers = new Object();
+var markers = {};
 
 function initialize() {
     var latlng = new google.maps.LatLng(center_lat, center_lng);
@@ -18,7 +18,16 @@ function initialize() {
 
 
 function createMarkersFromJardins(map, jardins) {
+	console.log("A preparar markers");
+	console.log(jardins);
+
+	var min_lat = 9999;
+	var min_lng = 9999;
+	var max_lat = -9999;
+	var max_lng = -9999;
+
 	for (j in jardins) {
+		console.log(jardins[j]);
 		slaves = "";
 		for (s in jardins[j].slaves) {
 			slaves += "<span class='s"+jardins[j].slaves[s]+"'>"+(s+1)+"</span> ";
@@ -41,11 +50,19 @@ function createMarkersFromJardins(map, jardins) {
 				"</table>";
 
 		createMarker(map, jardins[j].lat, jardins[j].lng, j, jardins[j].name, jardins[j].status, more);
+
+		if (jardins[j].lat < min_lat) { min_lat = jardins[j].lat; }
+		if (jardins[j].lat > max_lat) { max_lat = jardins[j].lat; }
+		if (jardins[j].lng < min_lng) { min_lng = jardins[j].lng; }
+		if (jardins[j].lng > max_lng) { max_lng = jardins[j].lng; }
 	}
+	var center = new google.maps.LatLng((min_lat*1+max_lat*1)/2 , (min_lng*1+max_lng*1)/2);
+	map.setCenter(center);
 }
 
 
 function createMarker(map, lat, lng, id, title, status, info) {
+	console.log("A criar marker "+id+" ["+lat+","+lng+"] "+title);
 	markerIcon = "";
 	if (status == "0") {
 		markerIcon = "../common/css/markers/green.png";
@@ -219,17 +236,13 @@ function clearOverlays() {
 }
 
 function loadJardim(id) {
-	markers = new Object();
+//	markers = new Object();
 	$.ajax({
 		type: "GET",
 		url: "jardins.php?id="+id,
 		success: function (txt) {
-			console.log(txt);
-			clearOverlays();
 			jardim = JSON.parse(txt)
-			console.log(jardim);
-			createMarkersFromJardins(jardim);
-			displayMarker(map, markers);
+			createMarkersFromJardins(map, jardim);
 		}
 	})
 }

@@ -74,10 +74,10 @@ echo array2table($master, true);
 ?>
 
 
-<div id="editGPS" style="display:none">
+<div id="editGPS">
 <? 	global $canEditMarkers;
 $canEditMarkers = true;
-include(u("pages/map.php")); ?>
+//include(u("pages/map.php")); ?>
 </div>
 
 <script language="javascript">
@@ -103,6 +103,7 @@ include(u("pages/map.php")); ?>
 	});
 	
 	function addGPS(id, nome) {
+		initialize();
 		$("#editGPS").dialog("option","buttons",{"Fechar":objs['Fechar'],"Colocar um Marcador":objs['Colocar um Marcador']})
 		$("#editGPS").dialog("option", "title",nome).dialog("open");
 		editID = id;
@@ -111,11 +112,12 @@ include(u("pages/map.php")); ?>
 	function editGPS(id, nome) {
 		$("#editGPS").dialog("option","buttons",{"Fechar":function(){$(this).dialog("close");},"Reposicionar Marcador Aqui":objs['Colocar Marcador Aqui']});
 		$("#editGPS").dialog("option", "title",nome).dialog("open");
-		editID = id;
+/*		editID = id;
 		var markers = new Object();
 		loadJardim(id);
 		//		markers[id].enableDragging();
 		google.maps.event.trigger(map, 'resize');
+*/		$("#editGPS").html("<iframe style='width:100%;height:100%' src='http://localhost/~carlos/engirega/teste/index.php?q=admin/editGPS&full&id="+id+"'></iframe>");
 	}
 	$("table.autogen").tablesorter({
 		widgets: ['zebra']

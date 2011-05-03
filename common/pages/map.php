@@ -16,12 +16,10 @@ require_once("../common/funcoes.php");
 </div>
 
 <script>
-	var center_lat = <? echo getMapCenter("lat"); ?>;
-	var center_lng = <? echo getMapCenter("lng"); ?>;
-	var zoom = <? echo $zoom; ?>;
+var center_lat = <? echo getMapCenter("lat"); ?>;
+var center_lng = <? echo getMapCenter("lng"); ?>;
+var zoom = <? echo $zoom; ?>;
 
-	initialize();
-	$("body").unload(function () { GUnload(); });
-
+$("body").unload(function () { GUnload(); });
 </script>
 <? iLog("</Map>"); ?>

@@ -24,6 +24,7 @@ if ($canEditMarkers = hasPermission("edit_markers")): ?>
 
 </div>
 	<script>
+		initialize();
 		//All markers
 		info = JSON.parse('<? include("jardins.php"); ?>');
 		jardins = info['jardins'];
