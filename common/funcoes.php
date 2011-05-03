@@ -2,6 +2,7 @@
 global $REDIRECT;
 $REDIRECT = false;
 global $PATH;
+global $mapCenter;
 if (!isset($PATH)) { $PATH = "../common/"; }
 define("ILOG", 1);
 
@@ -19,6 +20,30 @@ function eu($url) { echo u($url); }
 date_default_timezone_set("Europe/Lisbon");
 setlocale(LC_ALL, 'pt_PT');
 
+
+// Obtém as coords centrais para o mapa
+function getMapCenter($get = null) {
+	global $client;
+	if (!isset($mapCenter) || $mapCenter == null) {
+		$q = "SELECT * FROM `clientes` WHERE `id` LIKE '$client' AND `center_lat` <> '0'";
+		$res = mysql_query($q) or die(mysql_error());
+		if (mysql_num_rows($res) > 0) {
+			$r = mysql_fetch_assoc($res);
+			$mapCenter = array('lat' => $r['center_lat'], 'lng' => $r['center_lng']);
+		} else {
+			updateCenterCoords();
+		}
+	}
+	if ($get == null) {
+		return $mapCenter;
+	} else if ($get == 'lat') {
+		return $mapCenter['lat'];
+	} else if ($get == 'lng') {
+		return $mapCenter['lng'];
+	} else {
+		return null;
+	}
+}
 
 //Obtem um array com os jardins que o utilizador pode aceder
 // OU, caso true seja passado por argumento
@@ -591,4 +616,28 @@ function updateDbWithMasterFile($master, $client) {
 	$res = mysql_query($q) or die("$q => ".mysql_error()." [".mysql_errno()."]");
 }
 
-?>
+function updateCenterCoords() {
+	global $client;
+	$q = "SELECT lat, lng FROM `jardins` WHERE client LIKE '$client' AND lat <> 0 AND lng <> 0";
+	$result = mysql_query($q) or die ("SQL Error while getting lat/lon from DB");
+	
+	$min_lat =  999;
+	$max_lat = -999;
+	$min_lng =  999;
+	$max_lng = -999;
+	
+	while ($r = mysql_fetch_assoc($result)) {
+		if ($r['lat'] && $r['lng']) {
+			if ($r['lat'] < $min_lat) { $min_lat = $r['lat']; }
+			if ($r['lat'] > $max_lat) { $max_lat = $r['lat']; }
+			if ($r['lng'] < $min_lng) { $min_lng = $r['lng']; }
+			if ($r['lng'] > $max_lng) { $max_lng = $r['lng']; }
+		}
+	}
+	
+	$mapCenter = array( 'lat'=> str_replace(",",".",($min_lat+$max_lat)/2), 'lng'=>str_replace(",",".",($min_lng+$max_lng)/2));
+	iLog(print_r($mapCenter, true));
+	$q = "UPDATE `clientes` SET `center_lat`='".$mapCenter['lat']."', `center_lng`='".$mapCenter['lng']."' WHERE `id` LIKE '$client'";
+	iLog("--- $q");
+	mysql_query($q) or die("SQL Error while setting new center coordinates.");
+}

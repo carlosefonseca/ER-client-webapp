@@ -138,6 +138,8 @@ function setGardenPlaces($id, $lat, $lng) {
 	$q = "UPDATE  `jardins` SET  lat = '$lat', lng = '$lng' WHERE CONVERT(`jardins`.`id` USING utf8 ) =  '$id' LIMIT 1 ;";
 	mysql_query($q) or die("SQL Error");
 
+	updateCenterCoords();
+
 	die("OK");
 }
 

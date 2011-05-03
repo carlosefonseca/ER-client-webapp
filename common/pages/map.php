@@ -166,6 +166,10 @@ function loadJardim(id) {
 </div>
 
 <script>
+	var center_lat = <? echo getMapCenter("lat"); ?>;
+	var center_lng = <? echo getMapCenter("lng"); ?>;
+	var zoom = <? echo $zoom; ?>;
+
 	initialize();
 	$("body").unload(function () { GUnload(); });
 
