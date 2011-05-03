@@ -25,7 +25,10 @@ if ($canEditMarkers = hasPermission("edit_markers")): ?>
 </div>
 	<script>
 		//All markers
-		<? include("jardins.php"); ?>
+		info = JSON.parse('<? include("jardins.php"); ?>');
+		jardins = info['jardins'];
+		mapInfo = info['map'];
+		createMarkersFromJardins(map, jardins);
 		displayMarker(map, markers);
 		
 <?	if ($canEditMarkers): ?>

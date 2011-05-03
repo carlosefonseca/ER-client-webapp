@@ -106,7 +106,7 @@ include(u("pages/map.php")); ?>
 		$("#editGPS").dialog("option","buttons",{"Fechar":objs['Fechar'],"Colocar um Marcador":objs['Colocar um Marcador']})
 		$("#editGPS").dialog("option", "title",nome).dialog("open");
 		editID = id;
-		map.checkResize();
+		google.maps.event.trigger(map, 'resize');
 	}
 	function editGPS(id, nome) {
 		$("#editGPS").dialog("option","buttons",{"Fechar":function(){$(this).dialog("close");},"Reposicionar Marcador Aqui":objs['Colocar Marcador Aqui']});
@@ -115,7 +115,7 @@ include(u("pages/map.php")); ?>
 		var markers = new Object();
 		loadJardim(id);
 		//		markers[id].enableDragging();
-		map.checkResize();
+		google.maps.event.trigger(map, 'resize');
 	}
 	$("table.autogen").tablesorter({
 		widgets: ['zebra']
