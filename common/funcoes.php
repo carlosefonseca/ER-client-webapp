@@ -594,7 +594,7 @@ function updateDbWithMasterFile($master, $client) {
 		$gps[$r["acronym"]] = array("lat" => $r["lat"], "lng" => $r["lng"]);
 	}
 
-	$q = "DELETE FROM `jardins`;\n";
+	$q = "DELETE FROM `jardins` WHERE client LIKE '$client';";
 	$res = mysql_query($q) or die("$q => ".mysql_error()." [".mysql_errno()."]");
 	$q = "INSERT INTO `jardins` (`client`,`id`,`acronym`,`name`,`lat`, `lng`,`contact`)\nVALUES\n";
 	
