@@ -1,7 +1,18 @@
 <?
-define("ILOG", 0);
+global $REDIRECT;
+$REDIRECT = false;
+global $PATH;
+if (!isset($PATH)) { $PATH = "../common/"; }
+define("ILOG", 1);
 
-function u($url) { return "../common/$url"; }
+$REDIRECT = false;
+
+// Converte URLs para o formato ?q=pagina se o MOD_REWRITE não estiver a funcionar
+function l($url, $return = false) { global $REDIRECT; $o = $REDIRECT?"":"?q=".$url; if ($return) return $o; else echo $o; }
+function url($url) { global $REDIRECT; return $REDIRECT?"":"?q=".$url;}
+
+// Aponta os urls para a pasta 'common'.
+function u($url) { global $PATH; return $PATH."$url"; }
 function eu($url) { echo u($url); }
 
 // FUNÇÕES AUXILIARES
@@ -148,7 +159,6 @@ function time2sec( $time ) {
 }
 
 
-//print_r(Sec2Time("028860"));
 
 /**
  * Converte string com dias do mês para texto.
@@ -174,6 +184,7 @@ function diasMes2Human($t) {
  *
  * @param string com 7 zeros ou uns, correspondente aos dias da semana activados ou desactivados
  * @return string
+ * exemplo diasSemana2human("0010010"); => "Quartas, Sábados"
  */
 function diasSemana2Human($t) {
 	$dias = strposall($t, "1");
@@ -194,7 +205,6 @@ function diasSemana2Human($t) {
 	return(substr($out, 0, -2));
 }
 
-//echo diasSemana2human("0010010");
 
 
 
@@ -208,12 +218,10 @@ function diasSemana2Human($t) {
  * @return array or false 
  */ 
 function strposall($haystack,$needle){ 
-	
 	$s=0; 
 	$i=0; 
 	
 	while (is_integer($i)){ 
-		
 		$i = strpos($haystack,$needle,$s); 
 		
 		if (is_integer($i)) { 
@@ -249,7 +257,7 @@ function arrayTime2Sec($a) {
 
 
 
-include("../common/programas/programa.class.php");
+include($PATH."programas/programa.class.php");
 
 function leProgramacao($fn = "11Programas.txt") {
 	//Verificar a existencia do ficheiro e abre-o
@@ -312,9 +320,10 @@ function leMeteo($fn = "meteo.txt") {
 */
 
 function iLog($txt, $var = null) {
+	//echo $txt;
 	if(!ILOG) return;
 
-	if($fp = fopen("iLog.txt", "a")) {
+	if($fp = fopen("/Users/carlos/Sites/Engirega/iLog.txt", "a")) {
 		if (isset($var)) {
 			fwrite($fp, $txt.": ");
 			if(is_array($var)) {
@@ -323,16 +332,16 @@ function iLog($txt, $var = null) {
 				fwrite($fp, "\"",$var."\"\n\n");
 			}
 		} else {
-			fwrite($fp, "== $txt ==\n\n");
+			fwrite($fp, "$txt\n");
 		}
 		fclose($fp);
 	}
 }
 
 function clearLog() {
-	if(!ILOG) return;
+	/*if(!ILOG) return;
 	$fp = fopen("iLog.txt", "w");
-	fclose($fp);
+	fclose($fp);*/
 }
 
 function escreveAlteracao($fn,$jardim, $tipo, $arg = null) {
@@ -378,6 +387,42 @@ function escreveAlteracao($fn,$jardim, $tipo, $arg = null) {
 	if(!$fp = fopen($fn, "w")) die("ERRO AO ACEDER AO FICHEIRO DE ALTERAÇÕES");
 	fwrite($fp, $out);
 	fclose($fp);
+}
+
+
+/* Converte um array numa tabela HTML */
+function array2table($arr, $useFirstRowForHeaders=false) {
+	$o = "";
+	$keys = array();
+	if ($useFirstRowForHeaders) {
+		$headers = $arr[0];
+		unset($arr[0]);
+	}
+	foreach($arr as $row) {
+		$o.='<tr>';
+		$rowkeys = array_keys($row);
+		foreach($keys as $k) {
+			if (array_key_exists($k, $row)) {
+				$o .= "<td>".$row[$k]."</td>";
+			} else {
+				$o .= "<td></td>";
+			}
+		}
+		foreach (array_diff($rowkeys, $keys) as $newkey) {
+			$o .= "<td class='new'>".$row[$newkey]."</td>";
+			$keys[] = $newkey;
+		}
+		$o .= "</tr>";
+	}
+	$head = "<table class='autogen'><tr>";
+	foreach($keys as $k) {
+		if ($useFirstRowForHeaders && array_key_exists($k, $headers))
+			$head .= "<th>".$headers[$k]."</th>";
+		else 
+			$head .= "<th>$k</th>";
+	}
+	$o = $head . "</tr>" . $o . "</table>";
+	return $o;
 }
 
 
@@ -481,12 +526,24 @@ function parseProgramasAct($fn) {
 	return $data;
 }
 
+function parseMaster($fn) {
+	$raw = getDataInFile($fn);
+#	unset($raw[0]);
+	foreach($raw as $l) {
+		$lv = explode("#", $l);
+		$data[] = array('n' 	 => $lv[0], 'ident' => $lv[1],	'contacto' => $lv[2], 
+						'ligado' => $lv[3], 'area'  => $lv[4], 	'nome' 	   => $lv[5]);
+	}
+	return $data;
+}
+
 //open and read data file
 function getDataInFile($fn) {
 	if(!file_exists($fn) || !filesize($fn)) { return array(); }
 	$fp = fopen($fn, "r");
-	$data = fread($fp, filesize($fn));
+	$data = rtrim(fread($fp, filesize($fn)));
 	fclose($fp);
+	$data = mb_convert_encoding($data, 'UTF-8', "ISO-8859-1");
 	$array = explode("\n",str_replace("\r", "", $data));
 	return $array;
 }
@@ -502,5 +559,36 @@ function parseDataFiles($root) {
 	return $data;
 }
 
-clearLog();
+
+function updateDbWithMasterFile($master, $client) {
+	$q = "SELECT acronym, lat, lng FROM jardins WHERE client LIKE '$client'".getUserGardens(true);
+	$res = mysql_query($q) or die("$q => ".mysql_error()." [".mysql_errno()."]");
+
+	$gps = array();
+	while ($r = mysql_fetch_array($res)) {
+		$gps[$r["acronym"]] = array("lat" => $r["lat"], "lng" => $r["lng"]);
+	}
+
+	$q = "DELETE FROM `jardins`;\n";
+	$res = mysql_query($q) or die("$q => ".mysql_error()." [".mysql_errno()."]");
+	$q = "INSERT INTO `jardins` (`client`,`id`,`acronym`,`name`,`lat`, `lng`,`contact`)\nVALUES\n";
+	
+	foreach($master as $k => $v) {
+		if ($k == 0) {	// headers
+			continue;
+		}
+		$lat = 0;
+		$lng = 0;
+		if (array_key_exists($v["ident"], $gps)) {
+			$lat = $gps[$v["ident"]]["lat"];
+			$lng = $gps[$v["ident"]]["lng"];	
+		}
+
+		$q .= "\t('$client', ".$v["n"].", '".$v["ident"]."', '".$v["nome"]."', '$lat', '$lng', '".$v["contacto"]."'),\n";
+	}
+	$q = substr($q, 0, -2);
+	iLog("SQL: $q");
+	$res = mysql_query($q) or die("$q => ".mysql_error()." [".mysql_errno()."]");
+}
+
 ?>

@@ -1,14 +1,39 @@
+<<<<<<< HEAD
+<? iLog("<jardins>"); ?>
+<? 	# ISTO DEVIA SER SO' UM OBJECTO JSON E A LOGICA DEVIA TAR TODA NO MAP.PHP...
+	# mas pronto assim ficam mais coisas na parte do php
+	# OUTPUTS JAVASCRIPT CODE FOR SETTING GMAP2 MARKERS AND CENTER
+
+require("../common/DBconnect.php");
+require_once("../common/funcoes.php");
+//session_start();
+=======
 <? 	# ISTO DEVIA SER Sî UM OBJECTO JSON E A LîGICA DEVIA TAR TODA NO MAP.PHP... mas pronto assim ficam mais coisas na parte do php
 	# OUTPUTS JAVASCRIPT CODE FOR SETTING GMAP2 MARKERS AND CENTER
 require("../common/DBconnect.php");
 require_once("../common/funcoes.php");
 session_start();
+>>>>>>> 62f5d2252b428e533ffafa773842968fa47e686a
 require_once("../common/user.php");
 requireLogin();
 global $client;
 
+<<<<<<< HEAD
+$id = false;
+if(isset($_GET["id"])) {
+	$id = mysql_real_escape_string($_GET["id"]);
+}
+
+
+$q = "SELECT * FROM jardins WHERE client LIKE '$client'".getUserGardens(true)." AND lat <> 0";
+if ($id !== false) {$q.=" AND id = '$id'";}
+$res = mysql_query($q) or die("LN11: $q => ".mysql_error());
+iLog("Select jardins: ".mysql_num_rows($res));
+
+=======
 $q = "SELECT * FROM jardins WHERE client LIKE '$client'".getUserGardens(true);
 $res = mysql_query($q) or die(mysql_error());
+>>>>>>> 62f5d2252b428e533ffafa773842968fa47e686a
 
 if(mysql_num_rows($res)!=0):
 
@@ -20,7 +45,11 @@ if(mysql_num_rows($res)!=0):
 	if ($active == NULL) {die("ERROR: ACTIVE INFO NOT AVAILABLE");}
 */
 	//$status = $data
+<<<<<<< HEAD
+//	echo print_r($data,true);
+=======
 	//echo print_r($data,true);
+>>>>>>> 62f5d2252b428e533ffafa773842968fa47e686a
 
 	$max_lat = $max_lng = -9999;
 	$min_lat = $min_lng =  9999;
@@ -87,4 +116,9 @@ if(mysql_num_rows($res)!=0):
 map.setCenter(center);
 map.savePosition();
 <?	}	
+<<<<<<< HEAD
 endif; ?>
+<? iLog("</jardins>"); ?>
+=======
+endif; ?>
+>>>>>>> 62f5d2252b428e533ffafa773842968fa47e686a

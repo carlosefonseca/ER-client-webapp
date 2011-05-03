@@ -2,6 +2,7 @@
 global $permissions;
 global $logged_in;
 
+
 function hasPermission($permission) {
 	if (strpos($_SESSION["permissions"], $permission) === false) {
 		return false;
@@ -18,8 +19,10 @@ function hasPermission($permission) {
  * match up, it returns an error code (1 or 2). 
  * On success it returns 0.
  */
+
 function confirmUser($username, $password){
 	global $permissions;
+	global $client;
 	require_once(u("DBconnect.php"));
 	/* Add slashes if necessary (for query) */
 	if(!get_magic_quotes_gpc()) {
@@ -28,7 +31,8 @@ function confirmUser($username, $password){
 	}
 
 	/* Verify that user is in database */
-	$q = "select permissions from users where user = '$username' && pass='$password' && client like '%$client%'";
+	
+	$q = "select permissions from users where user = '$username' && pass='$password' && (client like '%$client%' OR client like '*')";
 	$result = mysql_query($q);
 	if(!$result || (mysql_numrows($result) < 1)){
 		return 0; //Indicates username failure
@@ -84,7 +88,7 @@ function checkLogin(){
 
 
 function requireLogin() {
-	if(!checkLogin()) header("Location: login");
+	if(!checkLogin()) header("Location: ".L(login,true));
 }
 
 /**
@@ -96,12 +100,12 @@ function displayLogin(){
 	global $logged_in;
 	if($logged_in){
 		echo "<h3>Logged In!</h3>";
-		echo "Bem-vindo <b>$_SESSION[username]</b>, you are logged in. <a href=\"logout.php\">Logout</a>";
+		echo "Bem-vindo <b>$_SESSION[username]</b>. <a href=\"".L("logout",true)."\">Logout</a>";
 	}
 	else{
 ?>
 
-<form action="login" method="post">
+<form action="<? L("login"); ?>" method="post">
 <h3>Login :: Área de Cliente</h3>
 <div id="username"><span>Utilizador: </span><input type="text" name="user" maxlength="30" size="15"></div>
 <div id="password"><span>Password: </span><input type="password" name="pass" maxlength="30" size="15"></div>
@@ -109,7 +113,7 @@ function displayLogin(){
 <font size="2">Remember me next time</td></tr>*/?>
 <?	if (isset($_GET['e'])) {echo "<p class='login error'>O nome de utilizador e password que introduziu não existem.</p>";} ?>
 <div id="submit"><input type="submit" name="sublogin" value="Login"></div>
-<p><a href="newaccount">Criar uma conta</a></p>
+<p><a href="<? l("newaccount"); ?>">Criar uma conta</a></p>
 </form>
 <?
 	}
@@ -137,12 +141,11 @@ if(isset($_POST['sublogin'])){
 	/* Checks that username is in database and password is correct */
 	$md5pass = md5($_POST['pass']);
 	$result = confirmUser($_POST['user'], $md5pass);
-
 	/* Check error codes */
 	if($result == 0){
-		header("Location: login&e");	
+//		header("Location: login&e");	
+		echo 'That username/password doesn\'t exist in our database.';
 		return ;
-//		die('That username/password doesn\'t exist in our database.');
 	}
 	else if($result == 2){
 		die('Incorrect password, please try again.');
@@ -152,7 +155,7 @@ if(isset($_POST['sublogin'])){
 	$_POST['user'] = stripslashes($_POST['user']);
 	$_SESSION['username'] = $_POST['user'];
 	$_SESSION['password'] = $md5pass;
-//	$_SESSION['permissions'] = $permissions;
+	$_SESSION['permissions'] = $permissions;
 
 	/**
  	* This is the cool part: the user has requested that we remember that
@@ -168,7 +171,7 @@ if(isset($_POST['sublogin'])){
 
 	/* Quick self-redirect to avoid resending data on refresh */
 	//echo "<meta http-equiv=\"Refresh\" content=\"0;url=$HTTP_SERVER_VARS[PHP_SELF]\">";
-	header("Location: $HTTP_SERVER_VARS[PHP_SELF]");
+	header("Location: $_SERVER[PHP_SELF]");
 	return;
 } else {
 	if(isset($_GET['q']) && $_GET['q'] == 'logout') {

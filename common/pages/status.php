@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+<? iLog("<status>"); ?>
+=======
+>>>>>>> 62f5d2252b428e533ffafa773842968fa47e686a
 <div class="sidebar-left">
 	<div id="act-desac-todos-jardins">
 		<a id="act-todos-jardins">Activar todos os jardins</a>
@@ -5,10 +9,14 @@
 	</div>
 
 	<ul class="meteo">
+<<<<<<< HEAD
+    	<li>LISTA DE JARDINS</li>
+=======
     	<li><span>Temperatura Média:</span>20º C</li>
     	<li><span>Humidade Média:</span>20 mm</li>
     	<li><span>Caudal Médio:</span>224 m<sup>3</sup></li>
     	<li><span>Caudal Total:</span>126789 m<sup>3</sup></li>
+>>>>>>> 62f5d2252b428e533ffafa773842968fa47e686a
     </ul>
 </div>
 
@@ -146,4 +154,9 @@ if ($canEditMarkers = hasPermission("edit_markers")): ?>
 	})
 	
 	</script>
+<<<<<<< HEAD
 <div>
+<? iLog("</status>"); ?>
+=======
+<div>
+>>>>>>> 62f5d2252b428e533ffafa773842968fa47e686a
