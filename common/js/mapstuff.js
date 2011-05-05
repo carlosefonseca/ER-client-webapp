@@ -19,8 +19,8 @@ function initialize() {
 
 
 function createMarkersFromJardins(map, jardins, info) {
-	console.log("A preparar markers");
-	console.log(jardins);
+//	console.log("A preparar markers");
+//	console.log(jardins);
 
 	var min_lat =  9999;
 	var min_lng =  9999;
@@ -33,7 +33,7 @@ function createMarkersFromJardins(map, jardins, info) {
 	}
 
 	for (j in jardins) {
-		console.log(jardins[j]);
+//		console.log(jardins[j]);
 		var slaves = "";
 		for (s in jardins[j].slaves) {
 			slaves += "<span class='s"+jardins[j].slaves[s]+"'>"+s+"</span> ";
@@ -81,7 +81,7 @@ function createMarkersFromJardins(map, jardins, info) {
 
 
 function createMarker(map, lat, lng, id, title, status, info) {
-	console.log("A criar marker "+id+" ["+lat+","+lng+"] "+title);
+//	console.log("A criar marker "+id+" ["+lat+","+lng+"] "+title);
 	markerIcon = "";
 	if (status == "0") {
 		markerIcon = "../common/css/markers/green.png";
@@ -100,7 +100,7 @@ function createMarker(map, lat, lng, id, title, status, info) {
 	});
 
 	if (typeof(info)=='string') {
-		console.log("info: "+info);
+//		console.log("info: "+info);
 
 		infobubbles[id] = new InfoBubble({
 			map: map,

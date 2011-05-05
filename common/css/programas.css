@@ -4,6 +4,7 @@
 	http://cef.selfip.net/EngiRega/common/css/programas.css
 	http://engirega.eu-r.com/common/css/programas.css
 	http://engirega.eu-r.com/dev/common/css/programas.css
+	http://localhost/~carlos/engirega/common/css/programas.css
 */
 
 /* Reset some stuff */
@@ -53,6 +54,7 @@ a:hover {
 	border-bottom: 1px solid #85be00;
 	font-size: 110%;
 	list-style-position: inside;
+	text-align: left;
 }
 
 #listaProgramas li.activo {
@@ -285,7 +287,7 @@ a:hover {
 	clear: both;
 	display: inline-block;
 	#display: block;
-	margin-top: 500px;
+	margin-top: 370px;
 }
 
 .programa.edit .otherSettings .header {
@@ -500,10 +502,11 @@ div.recorrencia div.recOcasional {
 .mapa {
 	width: 69%;
 	right: 15px;
-	height: 500px;
+	height: 360px;
 	position: absolute;
 	z-index: 3;
-	border: 1px solid gray;
+	border: 1px solid silver;
+	color: silver;
 }
 
 #mapa.inEdition {
