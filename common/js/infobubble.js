@@ -218,7 +218,7 @@ InfoBubble.prototype.buildDom_ = function() {
   close.src = 'http://maps.gstatic.com/intl/en_us/mapfiles/iw_close.gif';
 
   var that = this;
-  google.maps.Event.addDomListener(close, 'click', function() {
+  google.maps.event.addDomListener(close, 'click', function() {
     that.close();
     google.maps.event.trigger(that, 'closeclick');
   });
@@ -815,7 +815,7 @@ InfoBubble.prototype.addEvents_ = function() {
   this.listeners_ = [];
   for (var i = 0, event; event = events[i]; i++) {
     this.listeners_.push(
-      google.maps.Event.addDomListener(bubble, event, function(e) {
+      google.maps.event.addDomListener(bubble, event, function(e) {
         e.cancelBubble = true;
         if (e.stopPropagation) {
           e.stopPropagation();
@@ -1189,7 +1189,7 @@ InfoBubble.prototype.content_changed = function() {
       // Because we don't know the size of an image till it loads, add a
       // listener to the image load so the marker can resize and reposition
       // itself to be the correct height.
-      google.maps.Event.addDomListener(image, 'load', function() {
+      google.maps.event.addDomListener(image, 'load', function() {
         that.imageLoaded_();
       });
     }
@@ -1289,7 +1289,7 @@ InfoBubble.prototype.setTabStyle_ = function(tab) {
  */
 InfoBubble.prototype.addTabActions_ = function(tab) {
   var that = this;
-  tab.listener_ = google.maps.Event.addDomListener(tab, 'click', function() {
+  tab.listener_ = google.maps.event.addDomListener(tab, 'click', function() {
     that.setTabActive_(this);
   });
 };

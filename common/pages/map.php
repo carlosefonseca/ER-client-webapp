@@ -10,6 +10,7 @@ require_once("../common/funcoes.php");
 ?>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=pt"></script>
 <script type="text/javascript" src="../common/js/mapstuff.js"></script>
+<script type="text/javascript" src="../common/js/infobubble.js"></script>
 
 <div id="map_canvas" style="width: 100%; height: 100%"></div>
 	

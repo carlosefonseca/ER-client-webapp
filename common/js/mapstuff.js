@@ -2,6 +2,7 @@ var selectedMarker;
 var map;
 var center;
 var markers = {};
+var infobubbles = {};
 
 function initialize() {
     var latlng = new google.maps.LatLng(center_lat, center_lng);
@@ -28,18 +29,18 @@ function createMarkersFromJardins(map, jardins) {
 
 	for (j in jardins) {
 		console.log(jardins[j]);
-		slaves = "";
+		var slaves = "";
 		for (s in jardins[j].slaves) {
-			slaves += "<span class='s"+jardins[j].slaves[s]+"'>"+(s+1)+"</span> ";
+			slaves += "<span class='s"+jardins[j].slaves[s]+"'>"+s+"</span> ";
 		}
 		
-		sectores = "";
+		var sectores = "";
 		for (i in jardins[j].sectores) {
 			sectores += "<span class='s"+jardins[j].sectores[i]+"'>"+i+"</span> ";
 		}
 	
-		more =  "<h3>"+jardins[j].name+"</h3>"+
-				"<table border='0'>"+
+		var more =  "<b>"+jardins[j].name+"</b>"+
+				"<table class='mapbubble' border='0'>"+
 				"<tr><th>Estado:</th><td>"+jardins[j].estado+"</td></tr>"+
 				"<tr><th>Slaves:</th><td>"+slaves+"</td></tr>"+
 				"<tr><th>Sectores:</th><td>"+sectores+"</td></tr>"+
@@ -81,16 +82,28 @@ function createMarker(map, lat, lng, id, title, status, info) {
 
 	if (typeof(info)=='string') {
 		console.log("info: "+info);
+
+		infobubbles[id] = new InfoBubble({
+			map: map,
+			maxWidth: 400,
+			content: info,
+			disableAutoPan: true,
+			disableAnimation: true
+		});
+
+/*
 		var infowindow = new google.maps.InfoWindow({
 			content: info
 		});
-	
-		google.maps.event.addListener(marker, 'mouseover', function() {
-			infowindow.open(map,marker);
+*/	
+		google.maps.event.addDomListener(marker, 'mouseover', function() {
+//			infowindow.open(map,marker);
+			infobubbles[id].open(map, marker);
 		});
 		
 		google.maps.event.addDomListener(marker, "mouseout", function() {
-			infowindow.close();
+			infobubbles[id].close();
+			//infowindow.close();
 		});
 	}
 	markers[id] = marker;

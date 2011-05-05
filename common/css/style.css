@@ -433,6 +433,15 @@ td.c24h {
 	text-align: right;
 }
 
+table.mapbubble span.s0 {
+	color: red;
+}
+
+table.mapbubble span.s1 {
+	color: green;
+}
+
+
 td.stat span.0,
 td.sact span.0 {
 	color: red;
