@@ -367,6 +367,14 @@ div#edit_markers {
 
 /* @group status */
 
+#gardenList li {
+	text-align: left;
+}
+
+#gardenList li a {
+	padding: 4px 0;
+	display: inline-block;
+}
 .sidebar-left .meteo {
 	background-color: inherit;
 	border-style: none;

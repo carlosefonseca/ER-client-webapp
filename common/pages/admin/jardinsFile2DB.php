@@ -70,6 +70,7 @@ if (strlen($toAdd)>0) {
 	echo "<a href='".url("admin/jardinsFile2DB&add=".$toAdd)."'>Adicionar todos à BD</a>";
 }
 echo "<p><a href='$page&updatedata'>Actualizar todos os dados da DB com os dados do ficheiro</a></p>";
+
 // Constroi a tabela
 echo array2table($master, true);
 ?>

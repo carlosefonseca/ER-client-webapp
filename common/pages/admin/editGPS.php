@@ -34,9 +34,6 @@ if ($canEditMarkers = hasPermission("edit_markers")): ?>
 <? endif; ?>
 
 
-
-
-
 function updateLocation(marker) {
 	$.ajax({
 		type: "POST",

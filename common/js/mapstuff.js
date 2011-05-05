@@ -22,8 +22,8 @@ function createMarkersFromJardins(map, jardins, info) {
 	console.log("A preparar markers");
 	console.log(jardins);
 
-	var min_lat = 9999;
-	var min_lng = 9999;
+	var min_lat =  9999;
+	var min_lng =  9999;
 	var max_lat = -9999;
 	var max_lng = -9999;
 
@@ -122,10 +122,6 @@ function createMarker(map, lat, lng, id, title, status, info) {
 } 
 
 
-
-
-
-
 function reloadJardins() {
 	$.ajax({
 		type: "GET",
@@ -141,11 +137,11 @@ function reloadJardins() {
 
 // Removes the overlays from the map, but keeps them in the array
 function clearOverlays() {
-  if (markers) {
-    for (i in markers) {
-      markers[i].setMap(null);
-    }
-  }
+	if (markers) {
+		for (i in markers) {
+			markers[i].setMap(null);
+		}
+	}
 }
 
 function loadJardim(id, info, callback) {
