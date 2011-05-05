@@ -9,17 +9,8 @@ if ($canEditMarkers = hasPermission("edit_markers")): ?>
 <div style="width:100%; height:100%">
 <? include(u("pages/map.php")); ?>
 <script type="text/javascript">
-	if (!Object.keys) {
-		Object.keys = function(obj) {
-			var keys = new Array();
-			for (k in obj) if (obj.hasOwnProperty(k)) keys.push(k);
-			return keys;
-		};
-	}
-	
 	initialize();
-	map.setZoom(map.zoom+4);
-	map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+	map.setMapTypeId(google.maps.MapTypeId.HYBRID);
 <? if (isset($_GET['id'])): ?>
 	loadJardim(<? echo $_GET['id']; ?>, false, function () {
 		for (i in markers) {
@@ -31,6 +22,9 @@ if ($canEditMarkers = hasPermission("edit_markers")): ?>
 			google.maps.event.addDomListener(markers[i], "dragend", function() {
 				updateLocation(markers[i])
 			});
+		}
+		if (Object.keys(unknownGPS).length == 0) {
+			map.setZoom(map.zoom+4);
 		}
 	});
 <? endif; ?>

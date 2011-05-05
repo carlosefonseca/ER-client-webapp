@@ -3,6 +3,7 @@ var map;
 var center;
 var markers = {};
 var infobubbles = {};
+var unknownGPS = {};
 
 function initialize() {
     var latlng = new google.maps.LatLng(center_lat, center_lng);
@@ -27,6 +28,11 @@ function createMarkersFromJardins(map, jardins) {
 	var max_lat = -9999;
 	var max_lng = -9999;
 
+	var size = 0;
+	for (j in jardins) {
+		size++;
+	}
+
 	for (j in jardins) {
 		console.log(jardins[j]);
 /*		var slaves = "";
@@ -50,12 +56,25 @@ function createMarkersFromJardins(map, jardins) {
 //				"<tr><th>Caudal Total:</th><td>$cTotal</td></tr>".
 				"</table>";
 
-		createMarker(map, jardins[j].lat, jardins[j].lng, j, jardins[j].name, jardins[j].status, more);
+		if (jardins[j].tmplat != undefined) {
+			if (size == 1) {
+				createMarker(map, jardins[j].tmplat, jardins[j].tmplng, j,
+					jardins[j].name, jardins[j].status, "Posição Temporária!<br>Arraste para o local correcto");
+					
+				if (jardins[j].tmplat < min_lat) { min_lat = jardins[j].tmplat; }
+				if (jardins[j].tmplat > max_lat) { max_lat = jardins[j].tmplat; }
+				if (jardins[j].tmplng < min_lng) { min_lng = jardins[j].tmplng; }
+				if (jardins[j].tmplng > max_lng) { max_lng = jardins[j].tmplng; }
+			}
+			unknownGPS[j] = jardins[j];
+		} else {
+			createMarker(map, jardins[j].lat, jardins[j].lng, j, jardins[j].name, jardins[j].status, more);
 
-		if (jardins[j].lat < min_lat) { min_lat = jardins[j].lat; }
-		if (jardins[j].lat > max_lat) { max_lat = jardins[j].lat; }
-		if (jardins[j].lng < min_lng) { min_lng = jardins[j].lng; }
-		if (jardins[j].lng > max_lng) { max_lng = jardins[j].lng; }
+			if (jardins[j].lat < min_lat) { min_lat = jardins[j].lat; }
+			if (jardins[j].lat > max_lat) { max_lat = jardins[j].lat; }
+			if (jardins[j].lng < min_lng) { min_lng = jardins[j].lng; }
+			if (jardins[j].lng > max_lng) { max_lng = jardins[j].lng; }
+		}
 	}
 	var center = new google.maps.LatLng((min_lat*1+max_lat*1)/2 , (min_lng*1+max_lng*1)/2);
 	map.setCenter(center);

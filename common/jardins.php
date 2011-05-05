@@ -15,7 +15,7 @@ if(isset($_GET["id"])) {
 }
 
 
-$q = "SELECT * FROM jardins WHERE client LIKE '$client'".getUserGardens(true)." AND lat <> 0";
+$q = "SELECT * FROM jardins WHERE client LIKE '$client'".getUserGardens(true);
 if ($id !== false) {$q.=" AND id = '$id'";}
 $res = mysql_query($q) or die("$q => ".mysql_error());
 iLog("Select jardins: ".mysql_num_rows($res));
@@ -36,16 +36,15 @@ if(mysql_num_rows($res)!=0):
 	while ($r = mysql_fetch_assoc($res)) {
 		$id = $r['id'];	// index da BD
 		$jid = 'j'.$id;	// index no array que vem dos ficheiros
-/*		if (!array_key_exists($jid, $data["status"])) {
-			// caso o index da DB não exista nos ficheiros
-			iLog("Jardim com ID $id nao existe nos ficheiros.");
-			continue;	
-		}	*/
+
 		
 		$jardins[$r['id']] = array(	'name'=> utf8_encode($r['name']),
 									'lat' => $r['lat'], 'lng' => $r['lng']);
-		
-		
+
+		if ($r['lat'] == "" || $r['lat'] == "0") {
+			$jardins[$r['id']]['tmplat'] = getMapCenter("lat");
+			$jardins[$r['id']]['tmplng'] = getMapCenter("lng");
+		}
 
 		if (!array_key_exists($jid, $data["status"])) {
 			$dataj = array();

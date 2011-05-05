@@ -92,3 +92,11 @@ function fireAlert(txt) {
 	$("#alert").text(txt).fadeIn("fast");
 	setTimeout("$('#alert').fadeOut('fast')", 3000);
 }
+
+if (!Object.keys) {
+	Object.keys = function(obj) {
+		var keys = new Array();
+		for (k in obj) if (obj.hasOwnProperty(k)) keys.push(k);
+		return keys;
+	};
+}
