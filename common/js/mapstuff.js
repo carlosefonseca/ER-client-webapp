@@ -14,12 +14,11 @@ function initialize() {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-//	map.setUIToDefault();
 	google.maps.event.trigger(map, 'resize');
 }
 
 
-function createMarkersFromJardins(map, jardins) {
+function createMarkersFromJardins(map, jardins, info) {
 	console.log("A preparar markers");
 	console.log(jardins);
 
@@ -35,7 +34,7 @@ function createMarkersFromJardins(map, jardins) {
 
 	for (j in jardins) {
 		console.log(jardins[j]);
-/*		var slaves = "";
+		var slaves = "";
 		for (s in jardins[j].slaves) {
 			slaves += "<span class='s"+jardins[j].slaves[s]+"'>"+s+"</span> ";
 		}
@@ -44,12 +43,12 @@ function createMarkersFromJardins(map, jardins) {
 		for (i in jardins[j].sectores) {
 			sectores += "<span class='s"+jardins[j].sectores[i]+"'>"+i+"</span> ";
 		}
-*/	
+	
 		var more =  "<b>"+jardins[j].name+"</b>"+
 				"<table class='mapbubble' border='0'>"+
 				"<tr><th>Estado:</th><td>"+jardins[j].estado+"</td></tr>"+
-				"<tr><th>Slaves:</th><td>"+jardins[j].slaves+"</td></tr>"+
-				"<tr><th>Sectores:</th><td>"+jardins[j].sectores+"</td></tr>"+
+				"<tr><th>Slaves:</th><td>"+slaves+"</td></tr>"+
+				"<tr><th>Sectores:</th><td>"+sectores+"</td></tr>"+
 //				"<tr><th>Progs Activos:</th><td>$programas</td></tr>".
 //				"<tr><th>Tipo 1:</th><td>$mmT1 mm</td></tr>".
 //				"<tr><th>Caudal 24h:</th><td>$c24h ($variacao)</td></tr>".
@@ -151,10 +150,7 @@ function clearOverlays() {
 
 function loadJardim(id, info, callback) {
 	var url = "jardins.php?id="+id;
-	if (info == undefined || !info) {
-		url += "&noinfo";
-	}
-//	markers = new Object();
+
 	$.ajax({
 		type: "GET",
 		url: url,
@@ -164,7 +160,7 @@ function loadJardim(id, info, callback) {
 				return;
 			}
 			jardim = JSON.parse(txt)
-			createMarkersFromJardins(map, jardim);
+			createMarkersFromJardins(map, jardim, false);
 			if (callback != undefined) { callback(); }
 		}
 	})

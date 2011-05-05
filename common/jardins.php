@@ -54,18 +54,18 @@ if(mysql_num_rows($res)!=0):
 			$slaves = "";
 			$slavesArr = array();
 			for($i=0;$i< strlen($dataj["estado"]);$i++) {
-				$slaves .= "<span class=\"s".$dataj["estado"][$i]."\">".($i+1)."</span> ";
 				$slavesArr[$i+1] = $dataj["estado"][$i];
 			}
-			$jardins[$r['id']]['slaves'] = $slaves;
+			$jardins[$r['id']]['slaves'] = $slavesArr;
 	
 			$sectores = "";
+			$sectoresArr = array();
 			if ($data["secAct"][$jid] != null) {
 				foreach($data["secAct"][$jid] as $n => $s) {
-					$sectores .= "<span class=\"s$s\">$n</span> ";
+					$sectoresArr[$n] = $s;
 				}
 			}
-			$jardins[$r['id']]['sectores'] = $sectores;			
+			$jardins[$r['id']]['sectores'] = $sectoresArr;
 		}
 
 		if (array_key_exists($jid, $data["progAct"])) {
@@ -93,12 +93,7 @@ if(mysql_num_rows($res)!=0):
 			$jardins[$r['id']]['status'] = $st;
 			$jardins[$r['id']]['estado'] = $estado;
 		}
-
-/*		$jardins[$r['id']] = array( 	'name'=> utf8_encode($r['name']) , 
-										'lat' => $r['lat'], 'lng' => $r['lng'],
-										"status" => $st,
-										'estado' => $estado, 'slaves' => $slavesArr, 'sectores' => $data["secAct"][$jid] );
-*/	}
+	}
 	
 	if (!isset($_GET["id"])) {
 		$q = "SELECT center_lat, center_lng FROM clientes WHERE name LIKE '$client'";
@@ -109,6 +104,7 @@ if(mysql_num_rows($res)!=0):
 	} else {
 		$out = $jardins;
 	}
+	iLog(print_r($out, true));
 	echo json_encode($out);
 	
 	$c_lat = ($max_lat + $min_lat)/2;
