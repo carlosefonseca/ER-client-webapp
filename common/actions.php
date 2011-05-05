@@ -23,7 +23,7 @@ function hasPermissionToGarden($id = null) {
 	$q = "SELECT id,acronym FROM jardins WHERE client like '%$client%' AND id='$id'";
 	$res=mysql_query($q) or die(mysql_error());
 
-	if(mysql_num_rows($res)!=1 || (!hasPermission("j$j")&&!hasPermission("j*"))) {
+	if(mysql_num_rows($res)!=1 || (!hasPermission("j$id")&&!hasPermission("j*"))) {
 		die("PERMISSION DENIED");
 	}
 	

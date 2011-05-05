@@ -9,9 +9,9 @@ global $client;
 //e' necessario que tenha sido definida a var $params, para saber de qual jardim se vai obter as informacoes
 global $params;
 
-if(!isset($params) || !is_integer($params*1)) { ?>
+if(!isset($params) || !is_numeric($params)) { ?>
 	<div class="content"><strong>É necessário especificar o jardim. Volte ao mapa e seleccione um jardim.</strong></div>
-<? 	return;
+<? 	die();
 }
 
 $j = $params*1; //$j é o jardim.
@@ -31,7 +31,6 @@ $nomeJardim = $r[0];
 
 ?>
 	<link rel="stylesheet" type="text/css" href="../common/css/programas.css" />
-	<script src="../common/js/basicFunctions.js" type="text/javascript"></script>
 	<script src="../common/js/JSON.js" type="text/javascript"></script>
 	<script src="../common/js/i18n/ui.datepicker-pt-BR.js" type="text/javascript"></script>
 	<script type="text/javascript" src="../common/programas/programas.js"></script>

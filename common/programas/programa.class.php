@@ -47,7 +47,7 @@ class Programa {
 				$this->limitado,
 				$this->dataInicio,
 				$this->dataFim,
-				$tempRecorrenciaVars) = split("[ \n]", $prog_array[2], 14);
+				$tempRecorrenciaVars) = preg_split("/[ \n]/", $prog_array[2], 14);
 //				echo "-> ".$this->nome." > ".$prog_array[2];
 				
 				//die($prog_array[2]."\n\n\n\n".print_r($aaa,true));
@@ -69,7 +69,7 @@ class Programa {
 		$accoes = array();
 		for ($i = 4; (strpos($prog_array[$i], "FimDePrograma") === false) && ($i < count($prog_array)) ; $i++) {
 			$accao = new Accao();
-			list($accao->duracao, $accao->sectores) = split("[,]", $prog_array[$i]);
+			list($accao->duracao, $accao->sectores) = preg_split("/,/", $prog_array[$i], 2);
 			$accoes[] = $accao;
 		}
 
