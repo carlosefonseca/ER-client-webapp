@@ -38,9 +38,9 @@
 			infobubbles[$(this).attr("gid")].close();
 		});
 	
-	function openOptions(cena) {
-		selectedMarker = cena;
-		console.log(selectedMarker);
+	function openOptions(id) {
+		selectedMarker = id;
+		$("span.ui-dialog-title").html(markers[id].title);
 		$("#marker_dialg").dialog("open");
 	}
 	
@@ -51,7 +51,7 @@ $("#marker_dialg").dialog({
 	modal: true,
 	buttons: {
 		'Ver/Editar Programas': function() {
-			window.location = "programs-"+selectedMarker;
+			window.location = <? echo '"'.url('programs/"+selectedMarker'); ?>;
 		},
 		'Activar a programação do Jardim': function () {
 			var answer = confirm("Activar a programação do jardim '"+markers[selectedMarker].title+"'?");
