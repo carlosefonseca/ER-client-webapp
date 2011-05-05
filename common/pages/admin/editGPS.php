@@ -8,10 +8,13 @@ global $canEditMarkers;
 if ($canEditMarkers = hasPermission("edit_markers")): ?>
 <div style="width:100%; height:100%">
 <? include(u("pages/map.php")); ?>
+
 <script type="text/javascript">
 	initialize();
 	map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+
 <? if (isset($_GET['id'])): ?>
+
 	loadJardim(<? echo $_GET['id']; ?>, false, function () {
 		for (i in markers) {
 			markers[i].setDraggable(true);
@@ -27,6 +30,7 @@ if ($canEditMarkers = hasPermission("edit_markers")): ?>
 			map.setZoom(map.zoom+4);
 		}
 	});
+
 <? endif; ?>
 
 

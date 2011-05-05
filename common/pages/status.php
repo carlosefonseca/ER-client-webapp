@@ -11,12 +11,7 @@
 </div>
 
 <div class="content with-left-sidebar" style="height:600px">
-<? 
-global $canEditMarkers;
 
-if ($canEditMarkers = hasPermission("edit_markers")): ?>
-	<div id="edit_markers"><input type="button" value="Alterar Posições" class="button" /></div>
-<? endif; ?>
 	<? include("map.php"); ?>
 	<div id="marker_dialg" title="">
 		<p>O que deseja fazer neste jardim?</p>
@@ -30,29 +25,13 @@ if ($canEditMarkers = hasPermission("edit_markers")): ?>
 		jardins = info['jardins'];
 		mapInfo = info['map'];
 		createMarkersFromJardins(map, jardins);
-		displayMarker(map, markers);
 		
-<?	if ($canEditMarkers): ?>
-		$("#edit_markers input").click(function () {
-			if (markers[1].draggingEnabled()) {
-				// Desactivar
-				for(i in markers) {
-					markers[i].disableDragging();
-				}
-				$("#edit_markers input").attr("value","Alterar Posições");
-			} else { // activar
-				for(i in markers) {
-					markers[i].enableDragging();
-				}
-				$("#edit_markers input").attr("value","Concluir");
-			}
-		})
-<?	endif; ?>
+		for (i in markers)
+		
+
 	$("#marker_dialg").dialog({
 		bgiframe: true,
 		autoOpen: false,
-//		width: 800,
-//		height: 400,
 		modal: true,
 		buttons: {
 		    'Ver/Editar Programas': function() {
