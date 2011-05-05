@@ -1,3 +1,4 @@
+<div class="content" style="">
 <?
 $page = url("admin/jardinsFile2DB");
 iLog($page);
@@ -80,6 +81,7 @@ $canEditMarkers = true;
 //include(u("pages/map.php")); ?>
 </div>
 
+</div>
 <script language="javascript">
 	var editID = -1;
 	var marker;

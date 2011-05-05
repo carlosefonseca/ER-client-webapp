@@ -102,6 +102,10 @@ function normaliza ($string){
 	return utf8_encode($string); 
 } 
 
+function cleanString($str) {
+	return preg_replace("[^A-Za-z0-9]", "", $str );
+}
+
 function date2daysSince($date, $refdate = "2002/01/01") {
 	if($date == "00/00/0000") return "000000";
 	$refdate = strtotime($refdate);

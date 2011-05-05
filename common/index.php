@@ -47,9 +47,26 @@ function loadContent($file) {
 	}
 }
 
-iLog("\n".date("Y-m-d H:i:s").": REQ. ".($logged_in?$_SESSION['username'].(hasPermission("admin")?"(A)":""):"!LI")." PAGE:$file PARMS:".$params);
+iLog("\n".date("Y-m-d H:i:s").": REQ. ".($logged_in?$_SESSION['username'].(hasPermission("admin")?"(A)":""):"!LI")." PAGE:$file PARMS: '$params'");
 
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+if (isset($_GET['full'])):
+?><!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../common/css/style.css" />
+	<link rel="stylesheet" type="text/css" href="../common/css/jquery-ui.css" />
+	<script src="../common/js/jquery.js" type="text/javascript"></script>
+	<script src="../common/js/jquery-ui.js" type="text/javascript"></script>
+</head>
+<body class="full">
+<? loadContent($file); ?>
+</body>
+
+<? else:
+
+?><!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -77,7 +94,7 @@ iLog("\n".date("Y-m-d H:i:s").": REQ. ".($logged_in?$_SESSION['username'].(hasPe
 			<li class="first"><a href="<? L("status#content"); ?>">Estado</a></li>
 			<li><a href="<? L("data");?>">Dados Locais</a></li>
 			<li><a href="<? L("meteo");?>">Meteorologia</a></li>
-			<li><a href="">Advertisinsg</a></li>
+			<!--<li><a href="">Advertising</a></li>-->
 		</div>
 <? endif; ?>
 	</div><!-- //header -->
@@ -89,6 +106,7 @@ iLog("\n".date("Y-m-d H:i:s").": REQ. ".($logged_in?$_SESSION['username'].(hasPe
 
 	<div id="message"></div>
 
-	<div class="footer">&copy; EngiRega 2009 <small>| <a href="changelog">v0.8</a></small></div>
+	<div class="footer">&copy; EngiRega 2011 <small>| <a href="changelog">v0.8</a></small></div>
 </body>
 </html>
+<? endif;

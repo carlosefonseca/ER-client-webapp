@@ -6,15 +6,24 @@
 */
 
 /* Reset some stuff */
-body, html, input, td, div, span, img, form, li /*, ul*/ {
+body, html, input, td, div, span, img, form, li /*, ul*/, iframe {
 	margin: 0;
 	padding: 0;
+	border: none;
+}
+
+html, body {
+	height: 100%;
 }
 
 body {
 	background-color: #e1edc5;
 	padding: 10px;
 	font: 85% "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+body.full {
+	padding: 0;
 }
 
 a, a:link {
@@ -464,3 +473,7 @@ table.autogen, table.autogen td, table.autogen th {
 	border-width: 1px;
 }
 */
+
+#editGPS {
+	overflow: hidden;
+}

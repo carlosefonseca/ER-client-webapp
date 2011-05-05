@@ -91,82 +91,22 @@ function createMarker(map, lat, lng, id, title, status, info) {
 			disableAnimation: true
 		});
 
-/*
-		var infowindow = new google.maps.InfoWindow({
-			content: info
-		});
-*/	
 		google.maps.event.addDomListener(marker, 'mouseover', function() {
-//			infowindow.open(map,marker);
 			infobubbles[id].open(map, marker);
 		});
 		
 		google.maps.event.addDomListener(marker, "mouseout", function() {
 			infobubbles[id].close();
-			//infowindow.close();
+		});
+		
+		google.maps.event.addDomListener(marker, "dragstart", function() {
+			infobubbles[id].close();
 		});
 	}
 	markers[id] = marker;
 } 
 
 
-
-
-/*
-function createMarkerAndPoint(map, lat, lng, id, nome, status, data) {
-	if (lat == 0 || lng == 0) {
-		point = new google.maps.LatLng(center_lat,center_lng); 
-	} else {
-		point = new google.maps.LatLng(lat,lng); 
-	}
-	createMarker(map, point, id, nome, status, data, true);
-}*/
-
-// Creates a marker. If point === false, middle of map is used
-//function createMarker(map, point, id, nome, status, data) { createMarker(map, point, id, nome, status, data, true); }
-
-/*function createMarker(map, point, id, nome, status, data, info) {
-	// Set up our google.maps.MarkerOptions object
-	markerOptions = { /*<? if ($canEditMarkers) echo "draggable: true"; ?>* / };
-	if (point === false) { point = map.getCenter(); }
-	var marker = new google.maps.Marker(point, markerOptions);
-	marker.id = id;
-	marker.status = status;
-	marker.name = nome;
-
-	if (info) {
-		google.maps.event.addDomListener(marker, "click", function() {
-	//		marker.openInfoWindowHtml("<h3>#"+id+" - "+nome+"</h3>"+data);
-			selectedMarker = id;
-			$("span.ui-dialog-title").html(nome);
-			$('#marker_dialg').dialog('open');
-		});
-		
-		google.maps.event.addDomListener(marker, "mouseover", function() {
-			switch(status) {
-				case "0": estado = "OK"; break;
-				case "off": estado = "Desactivado"; break;
-				default: estado = status+" erros!"; break;
-			}
-			marker.openInfoWindowHtml("<h3>#"+id+" - "+nome+"</h3>"+data);
-		});
-	
-		google.maps.event.addDomListener(marker, "mouseout", function() {
-			map.closeInfoWindow();
-		});
-	
-		google.maps.event.addDomListener(marker, "dragstart", function() {
-			map.closeInfoWindow();
-		});
-	} // info
-	
-	google.maps.event.addDomListener(marker, "dragend", function() { 
-		updateLocation(this);
-	});
-
-	markers[id] = marker;
-	return marker;
-}*/
 
 function updateLocation(marker) {
 	$.ajax({
@@ -178,51 +118,6 @@ function updateLocation(marker) {
 				alert("Erro ao guardar o marcador!\n\n"+msg);
 		}
 	})
-}
-
-function displayMarker(map, marker) {
-/*	if ((marker.constructor.toString().indexOf("Object") == -1) && (marker.constructor.toString().indexOf("Array") == -1)) { //Se marker Ž apenas um pobre coitado
-		map.addOverlay(marker);
-		marker.disableDragging();
-		if (marker.status == "0") {
-			marker.setImage("../common/css/markers/green.png");
-		} else if (marker.status == "off") {
-			marker.setImage("../common/css/markers/grey.png");
-		} else {
-			marker.setImage("../common/css/markers/red.png");
-		}
-	} else { //Se marker Ž um array/object
-		var min_lat = 9999;
-		var min_lng = 9999;
-		var max_lat = -9999;
-		var max_lng = -9999;
-		for(i in marker) {
-			marker[i].setMap(map); 
-			
-			map.addOverlay(marker[i]);
-			marker[i].disableDragging();
-			if (marker[i].status == "0") {
-				marker[i].setImage("../common/css/markers/green.png");
-			} else if (marker[i].status == "off") {
-				marker[i].setImage("../common/css/markers/grey.png");
-			} else {
-				marker[i].setImage("../common/css/markers/red.png");
-			}
-			var pos = marker[i].getLatLng();
-			if (pos.lat() < min_lat) { min_lat = pos.lat(); }
-			if (pos.lat() > max_lat) { max_lat = pos.lat(); }
-			if (pos.lng() < min_lng) { min_lng = pos.lng(); }
-			if (pos.lng() > max_lng) { max_lng = pos.lng(); }
-		}
-		var c_lat = (max_lat + min_lat)/2;
-		var c_lng = (max_lng + min_lng)/2;
-		if(c_lat && c_lng) {
-			center = new google.maps.LatLng(c_lat,c_lng);
-			map.panTo(center);
-		} else {
-			map.returnToSavedPosition();
-		}
-	}*/
 }
 
 
@@ -248,14 +143,19 @@ function clearOverlays() {
   }
 }
 
-function loadJardim(id) {
+function loadJardim(id, info, callback) {
+	var url = "jardins.php?id="+id;
+	if (info == undefined || !info) {
+		url += "&noinfo";
+	}
 //	markers = new Object();
 	$.ajax({
 		type: "GET",
-		url: "jardins.php?id="+id,
+		url: url,
 		success: function (txt) {
 			jardim = JSON.parse(txt)
 			createMarkersFromJardins(map, jardim);
+			if (callback != undefined) { callback(); }
 		}
 	})
 }
