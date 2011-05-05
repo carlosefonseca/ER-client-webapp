@@ -88,3 +88,7 @@ function serialize(_obj)
 	}
 }
 
+function fireAlert(txt) {
+	$("#alert").text(txt).fadeIn("fast");
+	setTimeout("$('#alert').fadeOut('fast')", 3000);
+}

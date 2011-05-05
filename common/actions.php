@@ -2,15 +2,17 @@
 require_once("../common/funcoes.php");
 
 //Página requer que o utilizador se tenha autenticado
-session_start();
+if (!isset($_SESSION)) session_start();
 require_once(u("user.php"));
 requireLogin();
+
 
 define("PROGS_PATH","serverfiles/programas");
 define("ALTERACOES_FILE","serverfiles/Alteracoes.txt");
 
 function hasPermissionToGarden($id = null) {
 	global $client;
+	if (isset($client) && $client == "") { die("hasPermissionToGarden: Client not set"); }
 	if(!$id && !isset($_POST["garden"])) die("ERROR: No GARDEN set");
 	if(!$id) {
 		$id = $_POST["garden"]; //Numero do Jardim
@@ -126,19 +128,24 @@ function savePrograma($id, $data) {
 
 
 function setGardenPlaces($id, $lat, $lng) {
+	global $client;
+	if (isset($client) && $client == "") { die("setGardenPlaces: Client not set"); }
 	if (!hasPermission("edit_markers")) {
 		die("PERMISSION DENIED");
 	}
 
-	$id  = addslashes($id);
+	$id  = cleanString($id);
+	iLog("setGardenPlaces: $id, $lat, $lng");
+	if (!is_numeric($id)) { die("Identificador errado."); }
 	$lat = addslashes($lat);
 	$lng = addslashes($lng);
+	if (!is_numeric($lat) || !is_numeric($lng)) { die("Posição errada."); }
 
 	include("DBconnect.php");
-	$q = "UPDATE  `jardins` SET  lat = '$lat', lng = '$lng' WHERE CONVERT(`jardins`.`id` USING utf8 ) =  '$id' LIMIT 1 ;";
-	mysql_query($q) or die("SQL Error");
+	$q = "UPDATE  `jardins` SET  lat = '$lat', lng = '$lng' WHERE client LIKE '$client' AND CONVERT(`jardins`.`id` USING utf8 ) =  '$id' LIMIT 1 ;";
+	mysql_query($q) or die("SQL Error: ".mysql_error());
 
-	updateCenterCoords();
+	updateCenterCoords($client);
 
 	die("OK");
 }
@@ -164,7 +171,6 @@ function actDeactJardins($pID, $accao) {
 	die("OK");
 }
 
-global $client;
 
 if( isset( $_POST['action'])) {
 	switch($_POST['action']) {

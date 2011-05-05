@@ -5,8 +5,10 @@
 global $client;
 global $params;
 
-if(isset($params)) {
-	$file = u("pages/admin/".cleanString($params).".php");
+$params = cleanString($params);
+
+if(isset($params) && $params != "") {
+	$file = u("pages/admin/".$params.".php");
 	if (file_exists($file)) {
 		include($file);
 	} else {

@@ -18,16 +18,44 @@ if ($canEditMarkers = hasPermission("edit_markers")): ?>
 	}
 	
 	initialize();
+	map.setZoom(map.zoom+4);
+	map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
 <? if (isset($_GET['id'])): ?>
 	loadJardim(<? echo $_GET['id']; ?>, false, function () {
 		for (i in markers) {
 			markers[i].setDraggable(true);
+			google.maps.event.addDomListener(markers[i], "dragstart", function() {
+				infobubbles[i].close();
+			});
+		
+			google.maps.event.addDomListener(markers[i], "dragend", function() {
+				updateLocation(markers[i])
+			});
 		}
 	});
 <? endif; ?>
+
+
+
+
+
+function updateLocation(marker) {
+	$.ajax({
+		type: "POST",
+		url: "actions.php",
+		data: "action=updateMarker&id="+marker.id+"&lat="+marker.getPosition().lat()+"&lng="+marker.getPosition().lng(),
+		success: function (msg) {
+			if (msg != "OK") {
+				alert("Erro ao guardar o marcador! \n \n"+msg);
+			} else {
+				fireAlert("Posi√ß√£o actualizada.");
+			}
+		}
+	})
+}
+
 </script>
-</div>
 
 <? else: ?>
-Não tem permissões para alterar as posições dos jardins.
+N√£o tem permiss√µes para alterar as posi√ß√µes dos jardins.
 <? endif; ?>

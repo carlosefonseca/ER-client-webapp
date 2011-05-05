@@ -622,6 +622,7 @@ function updateDbWithMasterFile($master, $client) {
 
 function updateCenterCoords() {
 	global $client;
+	if ($client == "") { die("updateCenterCoords: Client not set"); }
 	$q = "SELECT lat, lng FROM `jardins` WHERE client LIKE '$client' AND lat <> 0 AND lng <> 0";
 	$result = mysql_query($q) or die ("SQL Error while getting lat/lon from DB");
 	
@@ -632,16 +633,22 @@ function updateCenterCoords() {
 	
 	while ($r = mysql_fetch_assoc($result)) {
 		if ($r['lat'] && $r['lng']) {
-			if ($r['lat'] < $min_lat) { $min_lat = $r['lat']; }
-			if ($r['lat'] > $max_lat) { $max_lat = $r['lat']; }
-			if ($r['lng'] < $min_lng) { $min_lng = $r['lng']; }
-			if ($r['lng'] > $max_lng) { $max_lng = $r['lng']; }
+			if ($r['lat']*1 < $min_lat) { $min_lat = $r['lat']*1; }
+			if ($r['lat']*1 > $max_lat) { $max_lat = $r['lat']*1; }
+			if ($r['lng']*1 < $min_lng) { $min_lng = $r['lng']*1; }
+			if ($r['lng']*1 > $max_lng) { $max_lng = $r['lng']*1; }
 		}
 	}
-	
 	$mapCenter = array( 'lat'=> str_replace(",",".",($min_lat+$max_lat)/2), 'lng'=>str_replace(",",".",($min_lng+$max_lng)/2));
-	iLog(print_r($mapCenter, true));
 	$q = "UPDATE `clientes` SET `center_lat`='".$mapCenter['lat']."', `center_lng`='".$mapCenter['lng']."' WHERE `id` LIKE '$client'";
 	iLog("--- $q");
 	mysql_query($q) or die("SQL Error while setting new center coordinates.");
+}
+
+function var_dump_str($var) {
+	ob_start();
+	var_dump($var);
+	$a=ob_get_contents();
+	ob_end_clean();
+	return $a;
 }

@@ -29,7 +29,7 @@ function createMarkersFromJardins(map, jardins) {
 
 	for (j in jardins) {
 		console.log(jardins[j]);
-		var slaves = "";
+/*		var slaves = "";
 		for (s in jardins[j].slaves) {
 			slaves += "<span class='s"+jardins[j].slaves[s]+"'>"+s+"</span> ";
 		}
@@ -38,12 +38,12 @@ function createMarkersFromJardins(map, jardins) {
 		for (i in jardins[j].sectores) {
 			sectores += "<span class='s"+jardins[j].sectores[i]+"'>"+i+"</span> ";
 		}
-	
+*/	
 		var more =  "<b>"+jardins[j].name+"</b>"+
 				"<table class='mapbubble' border='0'>"+
 				"<tr><th>Estado:</th><td>"+jardins[j].estado+"</td></tr>"+
-				"<tr><th>Slaves:</th><td>"+slaves+"</td></tr>"+
-				"<tr><th>Sectores:</th><td>"+sectores+"</td></tr>"+
+				"<tr><th>Slaves:</th><td>"+jardins[j].slaves+"</td></tr>"+
+				"<tr><th>Sectores:</th><td>"+jardins[j].sectores+"</td></tr>"+
 //				"<tr><th>Progs Activos:</th><td>$programas</td></tr>".
 //				"<tr><th>Tipo 1:</th><td>$mmT1 mm</td></tr>".
 //				"<tr><th>Caudal 24h:</th><td>$c24h ($variacao)</td></tr>".
@@ -77,7 +77,8 @@ function createMarker(map, lat, lng, id, title, status, info) {
 		position: new google.maps.LatLng(lat,lng),
 		title: title,
 		icon: markerIcon,
-		map: map
+		map: map,
+		id: id
 	});
 
 	if (typeof(info)=='string') {
@@ -98,27 +99,13 @@ function createMarker(map, lat, lng, id, title, status, info) {
 		google.maps.event.addDomListener(marker, "mouseout", function() {
 			infobubbles[id].close();
 		});
-		
-		google.maps.event.addDomListener(marker, "dragstart", function() {
-			infobubbles[id].close();
-		});
 	}
 	markers[id] = marker;
 } 
 
 
 
-function updateLocation(marker) {
-	$.ajax({
-		type: "POST",
-		url: "../common/actions.php",
-		data: "action=updateMarker&id="+marker.id+"&lat="+marker.getLatLng().lat()+"&lng="+marker.getLatLng().lng(),
-		success: function (msg) {
-			if (msg != "OK")
-				alert("Erro ao guardar o marcador!\n\n"+msg);
-		}
-	})
-}
+
 
 
 function reloadJardins() {
@@ -153,6 +140,10 @@ function loadJardim(id, info, callback) {
 		type: "GET",
 		url: url,
 		success: function (txt) {
+			if (txt == "" || txt == "[]") {
+				alert("Erro: Não foram carregados dados para o mapa!")
+				return;
+			}
 			jardim = JSON.parse(txt)
 			createMarkersFromJardins(map, jardim);
 			if (callback != undefined) { callback(); }

@@ -3,6 +3,7 @@
 	http://cef.selfip.net/EngiRega/common/css/style.css
 	http://engirega.eu-r.com/common/css/style.css
 	http://engirega.eu-r.com/dev/common/css/style.css
+	http://localhost/~carlos/engirega/common/css/style.css
 */
 
 /* Reset some stuff */
@@ -476,4 +477,21 @@ table.autogen, table.autogen td, table.autogen th {
 
 #editGPS {
 	overflow: hidden;
+}
+
+#alert {
+	width: 30%;
+	min-width: 200px;
+	text-align: center;
+	margin: auto;
+	position: absolute;
+	top: -1px;
+	left: 0;
+	right: 0;
+	padding: 8px;
+	background-color: #f0eb7b;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border: 1px solid #c7c233;
+	display: none;
 }

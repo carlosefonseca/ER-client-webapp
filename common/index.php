@@ -57,11 +57,14 @@ if (isset($_GET['full'])):
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="../common/css/style.css" />
 	<link rel="stylesheet" type="text/css" href="../common/css/jquery-ui.css" />
+	<script src="../common/js/basicFunctions.js" type="text/javascript"></script>
 	<script src="../common/js/jquery.js" type="text/javascript"></script>
 	<script src="../common/js/jquery-ui.js" type="text/javascript"></script>
 </head>
 <body class="full">
 <? loadContent($file); ?>
+<div id="alert"></div>
+</div>
 </body>
 
 <? else:
@@ -73,6 +76,7 @@ if (isset($_GET['full'])):
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="../common/css/style.css" />
 	<link rel="stylesheet" type="text/css" href="../common/css/jquery-ui.css" />
+	<script src="../common/js/basicFunctions.js" type="text/javascript"></script>
 	<script src="../common/js/jquery.js" type="text/javascript"></script>
 	<script src="../common/js/jquery-ui.js" type="text/javascript"></script>
 </head>
@@ -107,6 +111,8 @@ if (isset($_GET['full'])):
 	<div id="message"></div>
 
 	<div class="footer">&copy; EngiRega 2011 <small>| <a href="changelog">v0.8</a></small></div>
+	<div id="alert"></div>
+	</div>
 </body>
 </html>
 <? endif;
