@@ -196,6 +196,7 @@ div#edit_markers {
 	position: relative;
 	overflow: hidden;
 	margin-top: 20px;
+	text-align: center;
 }
 
 .sidebar-left {
@@ -216,11 +217,15 @@ div#edit_markers {
 	overflow: hidden;
 	position: relative;
 	list-style-type: none;
+	display: inline-block;
+	min-width: 20%;
+	min-height: 200px;
+	text-align: left;
 }
 
 .content.with-left-sidebar {
 	margin-left: 210px;
-	
+	display: block;	
 }
 
 .content .map {
