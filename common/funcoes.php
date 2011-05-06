@@ -69,13 +69,11 @@ function getUserGardens($asSql = false) {
 	} else {
 		$n = 0;
 		foreach($perms as $p) {	//CC
-			if (preg_match('/j(\d+)/',$p)) {
-				$n++;
-				if ($asSql) {
-					$q .= " id like '".substr($p,1)."' OR";
-				} else {
-					$jardins[] = substr($p,1);
-				}
+			$n++;
+			if ($asSql) {
+				$q .= " id like '".substr($p,1)."' OR";
+			} else {
+				$jardins[] = substr($p,1);
 			}
 		}
 		if ($n==0 && $asSql) {
