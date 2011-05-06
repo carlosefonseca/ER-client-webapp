@@ -367,14 +367,6 @@ div#edit_markers {
 
 /* @group status */
 
-#gardenList li {
-	text-align: left;
-}
-
-#gardenList li a {
-	padding: 4px 0;
-	display: inline-block;
-}
 .sidebar-left .meteo {
 	background-color: inherit;
 	border-style: none;
@@ -396,6 +388,43 @@ div#edit_markers {
 .sidebar-left .meteo li span {
 	display: block;
 	font-size: 70%;
+}
+
+#gardenList {
+	background: white;
+	list-style-position: inside;
+	width: 162px;
+	padding: 8px 14px;
+	border-radius: 12px;
+	margin-left: -4px;
+}
+
+#gardenList p {
+	font-weight: bold;
+}
+
+#gardenList li {
+	text-align: left;
+	list-style: none;
+}
+
+#gardenList li a {
+	padding: 4px 0;
+	display: inline-block;
+	vertical-align: middle;
+	width: 100%;
+}
+
+#gardenList li a.s0 {
+	color: green;
+}
+
+#gardenList li a.soff {
+	color: gray;
+}
+
+#gardenList li a {
+	color: red;
 }
 
 /* @end */

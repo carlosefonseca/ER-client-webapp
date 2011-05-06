@@ -38,7 +38,7 @@ $nomeJardim = $r[0];
 	<script>var JARDIM=<? echo $j;?></script> 
 	
 <div id="nome-jardim" class="header-over-content">
-	Programas do Jardim: <? echo utf8_encode($nomeJardim);?>
+	Programas do Jardim: <? echo $nomeJardim;?>
 </div>
 	
 <div id="listaProgramas" class="sidebar-left">

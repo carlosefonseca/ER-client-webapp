@@ -4,6 +4,7 @@ var center;
 var markers = {};
 var infobubbles = {};
 var unknownGPS = {};
+var jardins = {};
 
 function initialize() {
     var latlng = new google.maps.LatLng(center_lat, center_lng);
@@ -155,8 +156,9 @@ function loadJardim(id, info, callback) {
 				alert("Erro: Não foram carregados dados para o mapa!")
 				return;
 			}
-			jardim = JSON.parse(txt)
-			createMarkersFromJardins(map, jardim, false);
+			txtutf8 = Utf8.decode(txt);
+			jardins = JSON.parse(txtutf8)
+			createMarkersFromJardins(map, jardins, false);
 			if (callback != undefined) { callback(); }
 		}
 	})

@@ -48,6 +48,9 @@ $res = mysql_query($q);
 		<tbody>
 <? while($r = mysql_fetch_array($res)):
 	$id=$r["id"]; $jId="j".$id;
+	if (!array_key_exists("j".$id, $data["status"])) {
+		continue;
+	}
 	$st = $data["status"]["j".$id];
 	
 	$name = utf8_encode($r["name"]);
@@ -102,11 +105,14 @@ $res = mysql_query($q);
 				<th><? $t=sec2time($data["tempoultimarega"]["media"]);
 						printf("%d:%02d",$t["hours"]*60+$t["minutes"],$t["seconds"]);?></th>
 				<th><? echo $data["ultimarega"]["media"];?> mm</th>
-			</tr> */ ?>
+			</tr> */ 
+			
+			if (array_key_exists("total",$data["mmT1"])) { $mmT1Total = $data["mmT1"]["total"]; } else { $mmT1Total = ""; }
+			?>
 			<tr class="last">
 				<th colspan="5" class="space"></th>
 				<th>Total:</th>
-				<th><? echo $data["mmT1"]["total"];?> m<sup>3</sup>/mm</th>
+				<th><? echoValOrND($mmT1Total, "m<sup>3</sup>/mm");?></th>
 				<th colspan="2"><? echo $data["c24h"]["total"];?> m<sup>3</sup></th>
 				<th><? echo $data["cTotal"]["total"];?> m<sup>3</sup></th>
 <? /*				<th><? $t=sec2time($data["tempoultimarega"]["total"]);
