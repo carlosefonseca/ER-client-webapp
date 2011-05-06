@@ -5,8 +5,8 @@
 		<a id="desact-todos-jardins">Desactivar todos os jardins</a>
 	</div>
 
-	<p>LISTA DE JARDINS</p>
 	<ul id="gardenList">
+	<p>Lista de Jardins</p>
 	</ul>
 </div>
 
@@ -22,13 +22,14 @@
 	selectedMarker = 10;
 	initialize();
 	//All markers
-	info = JSON.parse('<? include("jardins.php"); ?>');
+	info = JSON.parse(Utf8.decode('<? include("jardins.php"); ?>'));
 	jardins = info['jardins'];
 	mapInfo = info['map'];
 	createMarkersFromJardins(map, jardins);
 	
-	for (i in markers) {
-		$("#gardenList").append($("<li><a href='javascript:openOptions("+i+");' gid='"+i+"'>"+markers[i].title+"</a></li>"));
+	// Lista lateral
+	for (i in jardins) {
+		$("#gardenList").append($("<li><a class='s"+jardins[i].status+"' href='javascript:openOptions("+i+");' gid='"+i+"'>"+i+". "+jardins[i].name+"</a></li>"));
 	}
 	$("#gardenList li a").hover(
 		function() {	// mouse enter

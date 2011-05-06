@@ -95,7 +95,7 @@ if (isset($_GET['full'])):
 		</div>
 		<? /* <div id="userperm"><? echo $_SESSION['permissions'];?></div> */ ?>
 		<div class="primary-menu">
-			<li class="first"><a href="<? L("status#content"); ?>">Estado</a></li>
+			<li class="first"><a href="<? L("status#content"); ?>">Mapa de Estado</a></li>
 			<li><a href="<? L("data");?>">Dados Locais</a></li>
 			<li><a href="<? L("meteo");?>">Meteorologia</a></li>
 			<!--<li><a href="">Advertising</a></li>-->

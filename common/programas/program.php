@@ -9,9 +9,9 @@ global $client;
 //e' necessario que tenha sido definida a var $params, para saber de qual jardim se vai obter as informacoes
 global $params;
 
-if(!isset($params) || !is_integer($params*1)) { ?>
+if(!isset($params) || !is_numeric($params)) { ?>
 	<div class="content"><strong>É necessário especificar o jardim. Volte ao mapa e seleccione um jardim.</strong></div>
-<? 	return;
+<? 	die();
 }
 
 $j = $params*1; //$j é o jardim.
@@ -31,7 +31,6 @@ $nomeJardim = $r[0];
 
 ?>
 	<link rel="stylesheet" type="text/css" href="../common/css/programas.css" />
-	<script src="../common/js/basicFunctions.js" type="text/javascript"></script>
 	<script src="../common/js/JSON.js" type="text/javascript"></script>
 	<script src="../common/js/i18n/ui.datepicker-pt-BR.js" type="text/javascript"></script>
 	<script type="text/javascript" src="../common/programas/programas.js"></script>
@@ -39,7 +38,7 @@ $nomeJardim = $r[0];
 	<script>var JARDIM=<? echo $j;?></script> 
 	
 <div id="nome-jardim" class="header-over-content">
-	Programas do Jardim: <? echo utf8_encode($nomeJardim);?>
+	Programas do Jardim: <? echo $nomeJardim;?>
 </div>
 	
 <div id="listaProgramas" class="sidebar-left">
@@ -128,12 +127,18 @@ $nomeJardim = $r[0];
 		
 		<div class="programa edit" style="display:none">
 			<div class="header">
-				<div class="nome"><input type="text" name="nome" onchange="update(this);"></div>
-				<div class="activo"><input type="checkbox" name="activo" id="activar" onchange="update(this);" /> <label for="activar">Activar programa</label></div>
+				<div class="nome"><input type="text" name="nome" placeholder="nome do programa" onchange="update(this);"></div>
+				<div class="activo">
+					<input type="checkbox" name="activo" id="activar" onchange="update(this);" /> 
+					<label for="activar">Activar programa</label>
+				</div>
 				<div id="buttons">
-					<input type="button" class="changes" id="delete" title="Apagar o programa" value="apagar" onclick="deleteProg();"/>&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="button" class="changes" id="save" title="Guardar as alterações ao programa" value="guardar" onclick="saveEdit();"/> 
-					<input type="button" class="changes" id="cancel" title="Não guardar as alterações ao programa" value="cancelar" onclick="cancelEdit();"/>
+					<input type="button" class="changes" id="delete" title="Apagar o programa"
+						value="apagar" onclick="deleteProg();"/>&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" class="changes" id="save" title="Guardar as alterações ao programa"
+						value="guardar" onclick="saveEdit();"/> 
+					<input type="button" class="changes" id="cancel" title="Não guardar as alterações ao programa"
+						value="cancelar" onclick="cancelEdit();"/>
 				</div>
 			</div>
 			<div class="mainSettings">
@@ -142,11 +147,11 @@ $nomeJardim = $r[0];
 					</ul>
 					<div class="newValue">Novo: 
 						<form id="newArranque" onsubmit="return newArranque(this);">
-							<input name="h" id="arranqueH" type="text" size="2" value="HH" class="time"
+							<input name="h" id="arranqueH" type="text" size="2" value="HH" placeholder="HH" class="time"
 										onfocus="if(this.value == 'HH') this.value = ''" 
-							/>:<input name="m" id="arranqueM" type="text" size="2" value="MM" class="time"
+							/>:<input name="m" id="arranqueM" type="text" size="2" value="MM" placeholder="MM" class="time"
 										onfocus="if(this.value == 'MM') this.value = ''" 
-							/>:<input name="s" id="arranqueS" type="text" size="2" value="SS" class="time"
+							/>:<input name="s" id="arranqueS" type="text" size="2" value="SS" placeholder="SS" class="time"
 										onfocus="if(this.value == 'SS') this.value = ''" />
 							<input type="submit" value="+" class="ui-icon ui-state-default ui-icon-circle-plus"/>
 						</form>
@@ -158,9 +163,9 @@ $nomeJardim = $r[0];
 					</ul>
 					<div class="newValue">Novo: 
 						<form id="newAccao" onsubmit="return newAccao(this);">
-							<input name="m" id="accaoM" type="text" size="3" value="MM" onfocus="if(this.value == 'MM') this.value = ''" class="time"
-						/>:<input name="s" id="accaoS" type="text" size="2" value="SS" onfocus="if(this.value == 'SS') this.value = ''" class="time"
-						/>:<input name="sectores" id="accaoSectores" type="text" size="15" value="Sector+Sector..." onfocus="if(this.value == 'Sector+Sector...') this.value = ''"/>
+							<input name="m" id="accaoM" type="text" size="3" value="MM" placeholder="MM" onfocus="if(this.value == 'MM') this.value = ''" class="time"
+						/>:<input name="s" id="accaoS" type="text" size="2" value="SS" placeholder="SS" onfocus="if(this.value == 'SS') this.value = ''" class="time"
+						/>:<input name="sectores" id="accaoSectores" type="text" size="15" value="Sector+Sector..." placeholder="Sector+Sector..." onfocus="if(this.value == 'Sector+Sector...') this.value = ''"/>
 							<input type="submit" value="+" class="ui-icon ui-state-default ui-icon-circle-plus"/>
 						</form>
 					</div>

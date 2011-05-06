@@ -331,9 +331,36 @@ function escreveProgramacao($programas, $fn = "11Programas.txt") {
 		$out .= $p->outputForFile();
 	}
 
+	$debug="File $fn: ";
+	if (is_file($fn)) {
+		$debug.="exists. ";
+		if (!is_writable($fn)) {
+			$debug.="is NOT writable. ";
+			if (chmod($fn, 0764)) {
+				$debug.="chmod OK. ";
+			} else {
+				$debug.="chmod FAILED. ";
+				iLog($debug);
+				die("ERRO AO ACEDER AO FICHEIRO '$fn'. Não tem permissões de escrita!");
+			}
+		} else {
+			$debug.="is writable. ";
+		}
+	} else {
+		$debug.="doesn't exist. ";
+	}
+	iLog($debug);
+
+	$fp;
 	// escreve no ficheiro
-	if(!$fp = fopen($fn, "w+")) die("ERRO AO ACEDER AO FICHEIRO DE ESCRITA");
-	fwrite($fp, $out);
+	if(!$fp = fopen($fn, "w+")) {
+		die("ERRO AO ACEDER AO FICHEIRO DE ESCRITA");
+	}
+	if (fwrite($fp, $out) != false) {
+		iLog("Ficheiro escrito.");
+	} else {
+		iLog("Ficheiro NAO escrito.");
+	}
 	fclose($fp);
 }
 
@@ -358,7 +385,7 @@ function iLog($txt, $var = null) {
 			if(is_array($var)) {
 				fwrite($fp, print_r($var, true)."\n");
 			} else {
-				fwrite($fp, "\"",$var."\"\n\n");
+				fwrite($fp, "\"".$var."\"\n\n");
 			}
 		} else {
 			fwrite($fp, "$txt\n");

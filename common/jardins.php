@@ -9,6 +9,8 @@ if (!isset($_SESSION)) session_start();
 require_once("../common/user.php");
 global $client;
 
+header('Content-Type: text/html; charset=utf-8');
+
 $id = false;
 if(isset($_GET["id"])) {
 	$id = mysql_real_escape_string($_GET["id"]);
@@ -22,13 +24,11 @@ iLog("Select jardins: ".mysql_num_rows($res));
 
 $jardins = array();
 
-
 if(mysql_num_rows($res)!=0):
 
 	$data = parseDataFiles("serverfiles");
 
-//	iLog(print_r($data, true));
-
+	iLog(print_r($data, true));
 
 	$max_lat = $max_lng = -9999;
 	$min_lat = $min_lng =  9999;
@@ -84,7 +84,7 @@ if(mysql_num_rows($res)!=0):
 
 		if (array_key_exists("activo", $dataj)) {
 			$st = ($dataj["activo"]*1)?$dataj["erros"]:"off";	// estados: off ou numero de erros. 
-			switch($st) {	// acho que isto est· no JS... se estiver deve-se tirar
+			switch($st) {	// acho que isto est√° no JS... se estiver deve-se tirar
 				case "0": 	$estado = "OK"; break;
 				case "off":	$estado = "Desactivado"; break;
 				case "1": 	$estado = "1 erro!"; break;
