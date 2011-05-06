@@ -50,9 +50,9 @@ function getMapCenter($get = null) {
 function getUserGardens($asSql = false) {
 	global $client;
 	$jardins = array();
-	$perms = explode(",", $_SESSION["permissions"]);
+	$perms = $_SESSION["permGardens"];
 
-	if(hasPermission("j*")) {	//SE PODE VER TODOS OS JARDINS
+	if(hasGardenPermission("*")) {	//SE PODE VER TODOS OS JARDINS
 		if ($asSql) { return ""; } else {
 		
 			//GET GARDENS

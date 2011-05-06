@@ -4,11 +4,17 @@ global $logged_in;
 
 
 function hasPermission($permission) {
-	if (strpos($_SESSION["permissions"], $permission) === false) {
-		return false;
-	} else {
-		return true;
+	if ($permission[0] == 'j') {
+		return hasGardenPermission($permission);
 	}
+	return (in_array($permission, $_SESSION["permissions"]) || in_array("admin", $_SESSION["permissions"]));
+}
+
+function hasGardenPermission($garden) {
+	if ($garden[0] == 'j') {
+		$garden = substr($garden, 1);
+	}
+	return (in_array('*', $_SESSION["permGardens"]) || in_array($garden, $_SESSION["permGardens"]));
 }
 
 /**
@@ -32,15 +38,19 @@ function confirmUser($username, $password){
 
 	/* Verify that user is in database */
 	
-	$q = "select permissions from users where user = '$username' && pass='$password' && (client like '%$client%' OR client like '*')";
+	$q = "select users.user, email, gardens, permissions.permissions
+		  from users inner join permissions on (users.user=permissions.user)
+		  WHERE permissions.client = '$client' && users.user = '$username' && pass='$password';";
+
 	$result = mysql_query($q);
-	if(!$result || (mysql_numrows($result) < 1)){
+	if(!$result || (mysql_numrows($result) != 1)){
 		return 0; //Indicates username failure
 	}
 
 	/* Retrieve password from result, strip slashes */
 	$dbarray = mysql_fetch_array($result);
-	$_SESSION["permissions"] = $dbarray['permissions'];
+	$_SESSION["permissions"] = explode(",", $dbarray['permissions']);
+	$_SESSION["permGardens"] = explode(",", $dbarray['gardens']);
 	return 1;
 /*	$dbarray['password']  = stripslashes($dbarray['password']);
 	$password = stripslashes($password);
