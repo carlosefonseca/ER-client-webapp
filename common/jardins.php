@@ -30,7 +30,7 @@ if(mysql_num_rows($res)!=0):
 
 	$data = parseDataFiles("serverfiles");
 
-	iLog(print_r($data, true));
+#	iLog(print_r($data, true));
 
 	$max_lat = $max_lng = -9999;
 	$min_lat = $min_lng =  9999;
@@ -106,7 +106,7 @@ if(mysql_num_rows($res)!=0):
 	} else {
 		$out = $jardins;
 	}
-	iLog(print_r($out, true));
+#	iLog(print_r($out, true));
 	echo json_encode($out);
 	
 	$c_lat = ($max_lat + $min_lat)/2;
