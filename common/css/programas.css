@@ -476,6 +476,7 @@ input.time {
 }
 
 div.recorrencia div.recOcasional {
+	line-height: 1.8em;
 }
 
 .newValue {

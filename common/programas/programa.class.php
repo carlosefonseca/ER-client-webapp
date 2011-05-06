@@ -53,7 +53,7 @@ class Programa {
 				//die($prog_array[2]."\n\n\n\n".print_r($aaa,true));
 		
 		$this->cobertura = substr($tempProgCobertura, 0,2)+1;
-		$this->programa = substr($tempProgCobertura, -1);
+		$this->programa = substr($tempProgCobertura, -1);	// 9-> nada; 1-> Rega; 2-> Geada; 3-> Fonte; 4-> Show; ??-> Neb.
 		$this->recorrencia = new Recorrencia($tempRecorrencia, $tempRecorrenciaVars);
 		$this->mm *= 1;
 		$this->maxRega *= 1;
@@ -124,11 +124,10 @@ class Programa {
 		switch ($this->programa) {
 			case 1:  return "Rega";
 			case 2:  return "Geada";
-			case 9:  return "Neb";
-/*			case 3:  return "Fonte";
-			case 4:  return "Show"; */
+			case 3:  return "Fonte";
+			case 4:  return "Show";
+//			case 9:  return "Neb";
 			default: return "";
-
 		}
 	}
 
@@ -136,9 +135,9 @@ class Programa {
 		switch ($p) {
 			case "Rega":  $this->programa = "1"; break;
 			case "Geada": $this->programa = "2"; break;
-			case "Neb":	  $this->programa = "9"; break;
-/*			case "Fonte": $this->programa = 
-			case "Show":  $this->programa = */
+			case "Fonte": $this->programa = "3"; break; 
+			case "Show":  $this->programa = "4"; break;
+//			case "Neb":	  $this->programa = "9"; break;
 			default: 	  $this->programa = "0"; break;
 		}
 	}

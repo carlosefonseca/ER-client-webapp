@@ -32,7 +32,7 @@ class Recorrencia {
 						$this->tipo = 'm';
 						$this->diasSemana = $vars[0];
 						$this->diasMes  = $vars[1];
-						$this->eou = $vars[2];	//acho que 1:e 0:ou
+						$this->eou = $vars[2];	// 0:e 1:ou
 						break;						
 		}		
 	}

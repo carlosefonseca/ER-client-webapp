@@ -119,11 +119,11 @@ $nomeJardim = $r[0];
 		
 		
 		<div id="mapa" class="mapa" style="display:none">
-			Mapa das Zonas deste Jardim
+			<p style="margin-top:100px;text-align:center">Mapa dos sectores deste Jardim</p>
 	    </div>
 		
 		
-		<!-- EDIÇÃO -->
+		<!-- EDIÇÃO #################################################################-->
 		
 		<div class="programa edit" style="display:none">
 			<div class="header">
@@ -200,8 +200,8 @@ $nomeJardim = $r[0];
 							<input type="button" class="dia" name="diasSemana[6]" value="Domingos" onclick="updateDiaSemana(this);"/>
 						</div>
 						<div class="eou">
-							<label for="eou_e"><input name="eou" value="1" type="radio" id="eou_e" onclick="update(this);"/> e</label>
-							<label for="eou_ou"><input name="eou" value="0" type="radio" id="eou_ou" onclick="update(this);"/> ou</label>
+							<label for="eou_e"><input name="eou" value="0" type="radio" id="eou_e" onclick="update(this);"/> e</label>
+							<label for="eou_ou"><input name="eou" value="1" type="radio" id="eou_ou" onclick="update(this);"/> ou</label>
 						</div>
 						Dias do Mês:
 						<div class="mes">
@@ -213,8 +213,8 @@ $nomeJardim = $r[0];
 					</div>
 					
 					<div class="recOcasional">
-						Dias de Intervalo: <input type="text" name="diasIntervalo" size="3" onchange="update(this);"/><br/>
-						Número de Ocorrências: <input type="text" name="nOcorrencias" size="3" onchange="update(this);"/>
+						Dias de Intervalo: <input type="text" name="diasIntervalo" size="3" onchange="update(this);"/> (0 para todos os dias)<br/>
+						Número de Ocorrências: <input type="text" name="nOcorrencias" size="3" onchange="update(this);"/> (0 para não limitar)
 					</div>
 				</div>
 				
@@ -241,12 +241,12 @@ $nomeJardim = $r[0];
 				</div>
 
 				<div class="tipoPrograma">Programa de: 
-					<label for="pRega" ><input type="radio" name="programa" value="Rega" 	id="pRega"  onclick="update(this);"/> Rega</label>
-					<label for="pGeada"><input type="radio" name="programa" value="Geada"	id="pGeada" onclick="update(this);"/> Geada</label>
-					<label for="pNeb"  ><input type="radio" name="programa" value="Neb"		id="pNeb"   onclick="update(this);"/> Neblização</label>
-					<? /*<label for="prg3"><input type="radio" name="programa" value="fonte"	 id="prg3" onclick="update(this);"/> Fonte</label>
-					<label for="prg4"><input type="radio" name="programa" value="show"	 id="prg4" onclick="update(this);"/> Show</label>*/?>
-				</div>
+					<label for="pRega" ><input type="radio" name="programa" value="Rega"  id="pRega"  onclick="update(this);"/> Rega</label>
+					<label for="pGeada"><input type="radio" name="programa" value="Geada" id="pGeada" onclick="update(this);"/> Geada</label>
+<? /*				<label for="pFonte"><input type="radio" name="programa" value="Fonte" id="pFonte" onclick="update(this);"/> Fonte</label>
+					<label for="pShow" ><input type="radio" name="programa" value="Show"  id="pShow"  onclick="update(this);"/> Show</label>
+					<label for="pNeb"  ><input type="radio" name="programa" value="Neb"	  id="pNeb"   onclick="update(this);"/> Neblização</label>
+ */ ?>			</div>
 				
 				<div class="controle">
 					<span>Controle:</span>

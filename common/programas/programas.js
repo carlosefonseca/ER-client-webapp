@@ -263,7 +263,7 @@ function fillHTML(p) {
 				str += ((i*1)+1)+", ";
 			}
 		}
-		$(".programa.show .recorrencia div").append(" "+(p["recorrencia"]["eou"]*1?"e":"ou")+"<br/>Dias do Mês: "+str.substr(0,str.length-2));
+		$(".programa.show .recorrencia div").append(" "+(p["recorrencia"]["eou"]*1?"ou":"e")+"<br/>Dias do Mês: "+str.substr(0,str.length-2));
 	} //fim recorrencia
 	
 	//LIMITADO
@@ -349,7 +349,7 @@ function fillFields(p) {
 		$(".recorrencia #rMensal").attr("checked",1);
 		$(".recorrencia .recOcasional").hide();
 		$(".recorrencia .recMensal").show();
-		$(".recorrencia #eou_"+(p["recorrencia"]["eou"]*1?"e":"ou")).attr("checked",1);
+		$(".recorrencia #eou_"+(p["recorrencia"]["eou"]*1?"ou":"e")).attr("checked",1);
 		for(var i=0; i<7; i++) {
 			if (p["recorrencia"]["diasSemana"].charAt(i)*1) {
 				$(".recMensal .semana .dia[name=diasSemana["+i+"]]").addClass("selected");
@@ -527,6 +527,7 @@ function newArranque(form) {
 	}
 	
 	data["arranques"].push(((h+'').length==1?"0"+h:h)+":"+((m+'').length==1?"0"+m:m)+":"+((s+'').length==1?"0"+s:s));
+	data["arranques"].sort();
 	fillArranques(data);
 	return false;
 }
@@ -551,16 +552,24 @@ function newAccao(form) {
 
 function update(obj) {
 	switch (obj.name) {
-		case "recorrencia":	data["recorrencia"]["tipo"] = obj.value.substr(0,1); break;
-		case "activo":		data[obj.name] = obj.checked?1:0; break;
+		case "recorrencia":		data["recorrencia"]["tipo"] = obj.value.substr(0,1); break;
+		case "activo":			data[obj.name] = obj.checked?1:0; break;
 		case "diasIntervalo":
 		case "nOcorrencias":	data["recorrencia"][obj.name] = obj.value; break;
-		case "tipoRega":		if(obj.value == "s") {$('.tipoRega input[type=text]').attr('disabled',1); data["rotativo"] = 0;}
-								else {$('.tipoRega input[type=text]').attr('disabled',0);data["rotativo"] = 1;} break;						case "rotativoMin":
+		case "tipoRega":		if(obj.value == "s") {	$('.tipoRega input[type=text]').attr('disabled',1); data["rotativo"] = 0;
+								} else {				$('.tipoRega input[type=text]').attr('disabled',0); data["rotativo"] = 1;
+								} break;
+		case "rotativoMin":
 		case "rotativoSeg":		data["tempoRot"] = $("#trmm").val()+":"+$("#trss").val(); break;
 		case "eou":				data["recorrencia"]["eou"] = obj.value; break;
 
-		case "limitado":	if(obj.checked){$(".limites div").slideDown();data["limitado"]=1}else{$(".limites div").slideUp();data["limitado"]=0};break;
+		case "limitado":		if(obj.checked) {
+									$(".limites div").slideDown();
+									data["limitado"]=1
+								} else {
+									$(".limites div").slideUp();
+									data["limitado"]=0
+								}; break;
 		case "controle":
 		case "valorEspcf":
 		case "programa":		
