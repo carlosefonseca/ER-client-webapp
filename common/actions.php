@@ -10,6 +10,8 @@ requireLogin();
 define("PROGS_PATH","serverfiles/programas");
 define("ALTERACOES_FILE","serverfiles/Alteracoes.txt");
 
+
+/* Verifica se o utilizador por aceder ao jardim e retorna o Acr. desse jadrim */
 function hasPermissionToGarden($id = null) {
 	global $client;
 	if (isset($client) && $client == "") { die("hasPermissionToGarden: Client not set"); }
@@ -17,13 +19,13 @@ function hasPermissionToGarden($id = null) {
 	if(!$id) {
 		$id = $_POST["garden"]; //Numero do Jardim
 	}
-	
+
 	//Verificar a existencia do jardim
 	require_once("DBconnect.php");
 	$q = "SELECT id,acronym FROM jardins WHERE client like '%$client%' AND id='$id'";
 	$res=mysql_query($q) or die(mysql_error());
 
-	if(mysql_num_rows($res)!=1 || (!hasPermission("j$id")&&!hasPermission("j*"))) {
+	if(mysql_num_rows($res)!=1 || !hasGardenPermission($id)) {
 		die("PERMISSION DENIED");
 	}
 	
