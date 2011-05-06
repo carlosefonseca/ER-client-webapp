@@ -6,7 +6,10 @@
 		Correcção de vários problemas que surgiram devido à paragem no desenvolvimento.<br>
 		Melhorias de vários.<br>
 		Barra lateral no mapa mostra os jardins.<br>
-		Testes da interacção com a aplicação e correcção de bugs encontrados.
+		Testes da interacção com a aplicação e correcção de bugs encontrados.<br>
+		A caminho:
+		<ul>Administração de utilizadores<br>
+		</ul>
 	</ul>
 
 	v0.8
