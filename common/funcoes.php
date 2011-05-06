@@ -67,9 +67,10 @@ function getUserGardens($asSql = false) {
 			return $jardins;
 		};
 	} else {
-		if ($asSql) $q = " AND (";
+		$n = 0;
 		foreach($perms as $p) {	//CC
 			if (preg_match('/j(\d+)/',$p)) {
+				$n++;
 				if ($asSql) {
 					$q .= " id like '".substr($p,1)."' OR";
 				} else {
@@ -77,8 +78,11 @@ function getUserGardens($asSql = false) {
 				}
 			}
 		}
+		if ($n==0 && $asSql) {
+			return " AND FALSE";
+		}
 		if ($asSql) {
-			return substr($q,0,-2).")";
+			return " AND (".substr($q,0,-2).")";
 		} else {
 			return $jardins;
 		}
@@ -379,7 +383,7 @@ function iLog($txt, $var = null) {
 	//echo $txt;
 	if(!ILOG) return;
 
-	if($fp = fopen("/Users/carlos/Sites/Engirega/iLog.txt", "a")) {
+	if($fp = fopen("log.txt", "a")) {
 		if (isset($var)) {
 			fwrite($fp, $txt.": ");
 			if(is_array($var)) {

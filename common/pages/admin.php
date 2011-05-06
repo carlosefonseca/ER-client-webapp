@@ -5,6 +5,10 @@
 global $client;
 global $params;
 
+if(!hasPermission("admin")) {
+	die('<meta http-equiv="refresh" content="0;'.url("status").'">');
+}
+
 $params = cleanString($params);
 
 if(isset($params) && $params != "") {
@@ -19,7 +23,9 @@ if(isset($params) && $params != "") {
 ?>
 <div class="content" style="">
 	<h2>Opções</h2>
-	<ul><li><a href="<? L("admin/jardinsFile2DB");?>">Jardins</a></li></ul>
+	<ul><li><a href="<? L("admin/jardinsFile2DB");?>">Jardins</a></li>
+		<li><a href="<? L("admin/users");?>">Utilizadores</a></li>
+	</ul>
 </div>
 <?
 }

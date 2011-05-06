@@ -320,6 +320,13 @@ div#edit_markers {
 	margin: 0 40%;
 }
 
+input.botao {
+	padding: 3px 20px;
+	background: #EEE;
+	border: 1px solid silver;
+	border-radius: 5px
+}
+
 /* @group login */
 
 .content.login {
@@ -358,9 +365,6 @@ div#edit_markers {
 .content.login #submit {
 	text-align: center;
 	padding-top: 5px;
-}
-.content.login #submit input {
-	width: 100px;
 }
 
 /* @end */
@@ -477,6 +481,10 @@ p.login.error {
 	display: block;
 	width: 115px;
 	float: left;
+}
+
+.newaccount tr {
+	line-height: 1.6em;
 }
 
 /* @end */

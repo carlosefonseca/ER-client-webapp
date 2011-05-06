@@ -9,7 +9,9 @@ if (!isset($_SESSION)) session_start();
 require_once("../common/user.php");
 global $client;
 
-header('Content-Type: text/html; charset=utf-8');
+if (!headers_sent()) {
+	header('Content-Type: text/html; charset=utf-8');
+}
 
 $id = false;
 if(isset($_GET["id"])) {

@@ -21,30 +21,36 @@
 <script>
 	selectedMarker = 10;
 	initialize();
-	//All markers
-	info = JSON.parse(Utf8.decode('<? include("jardins.php"); ?>'));
-	jardins = info['jardins'];
-	mapInfo = info['map'];
-	createMarkersFromJardins(map, jardins);
-	
-	// Lista lateral
-	for (i in jardins) {
-		$("#gardenList").append($("<li><a class='s"+jardins[i].status+"' href='javascript:openOptions("+i+");' gid='"+i+"'>"+i+". "+jardins[i].name+"</a></li>"));
+	txt = '<? include("jardins.php"); ?>';
+	if (txt == "" || txt == "[]") {
+		alert("Erro: Não foram carregados dados para o mapa! Pode ter ocorrido um erro ou pode não ter permissões para ver os dados.")
+	} else {
+		//All markers
+		info = JSON.parse(Utf8.decode(txt));
+		jardins = info['jardins'];
+		mapInfo = info['map'];
+		createMarkersFromJardins(map, jardins);
+		
+		// Lista lateral
+		for (i in jardins) {
+			if ( unknownGPS[i] == undefined ) {
+				$("#gardenList").append($("<li><a class='s"+jardins[i].status+"' href='javascript:openOptions("+i+");' gid='"+i+"'>"+i+". "+jardins[i].name+"</a></li>"));
+			}
+		}
+		$("#gardenList li a").hover(
+			function() {	// mouse enter
+				infobubbles[$(this).attr("gid")].open(map, markers[$(this).attr("gid")]);
+			},
+			function() {	// mouse enter
+				infobubbles[$(this).attr("gid")].close();
+			});
+		
+		function openOptions(id) {
+			selectedMarker = id;
+			$("span.ui-dialog-title").html(markers[id].title);
+			$("#marker_dialg").dialog("open");
+		}
 	}
-	$("#gardenList li a").hover(
-		function() {	// mouse enter
-			infobubbles[$(this).attr("gid")].open(map, markers[$(this).attr("gid")]);
-		},
-		function() {	// mouse enter
-			infobubbles[$(this).attr("gid")].close();
-		});
-	
-	function openOptions(id) {
-		selectedMarker = id;
-		$("span.ui-dialog-title").html(markers[id].title);
-		$("#marker_dialg").dialog("open");
-	}
-	
 
 $("#marker_dialg").dialog({
 	bgiframe: true,

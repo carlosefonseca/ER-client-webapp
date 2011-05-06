@@ -1,8 +1,9 @@
 <?
-global $D;
+//global $D;
 $D = false;
 
 function processChanges() {
+	global $D;
 	$passSQL = "";
 	if(strlen($_POST['pass1'])>3) {
 		if(strlen($_POST['pass2'])>3) {
@@ -51,6 +52,7 @@ function processChanges() {
 
 
 if(isset($_POST["changeUserAccount"])) {
+	global $D;
 	$r = processChanges();
 	if ($D) echo $r;
 	if ($r != "") { // "" é quando corre bem
@@ -67,10 +69,10 @@ if(isset($_POST["changeUserAccount"])) {
 <div class="content user-account">
 	<h1>Conta de Utilizador</h1>
 
-<? if ($success): ?>
+<? if (isset($success) && $success): ?>
 	<p>Alterações efectuadas.</p>
 	<p>Vai ser redireccionado para a página inicial.</p>
-	<meta http-equiv="refresh" content="4;status">
+	<meta http-equiv="refresh" content="4;<? echo url("status"); ?>">
 <? else:
 	//require_once("../common/DBconnect.php");
 	$q = "SELECT * FROM users WHERE user like '".$_SESSION['username']."' LIMIT 1;";
@@ -79,7 +81,7 @@ if(isset($_POST["changeUserAccount"])) {
 ?>
 	<p>Pode alterar aqui os dados associados à conta.<br/>&nbsp;</p>
 
-	<form action="user" method="post">
+	<form action="<? echo url("user"); ?>" method="post">
 		<p><label>Nome de Utilizador:</label> <? echo $user['user'];?></p>
 		<p><label for="email">E-mail:</label> <input type="text" name="email" id="email" value="<? echo $user['email'];?>" size="30" /></p>
 		<? if (isset($error)) echo "<p class='error'>$error</p>"; ?>
@@ -88,7 +90,7 @@ if(isset($_POST["changeUserAccount"])) {
 			<p><label for="pass1">Nova Password:</label> <input type="password" name="pass1" id="pass1"/></p>
 			<p><label for="pass2">Alterar Password:</label> <input type="password" name="pass2" id="pass2"/></p>
 		</fieldset>
-		<p align="center"><input type="submit" name="changeUserAccount" value="Guardar Alterações"/></p>
+		<p align="center"><input type="submit" name="changeUserAccount" class="botao" value="Guardar Alterações"/></p>
 	</form>
 <? endif; ?>
 </div>

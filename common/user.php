@@ -112,7 +112,7 @@ function displayLogin(){
 <? /*<tr><td colspan="2" align="left"><input type="checkbox" name="remember">
 <font size="2">Remember me next time</td></tr>*/?>
 <?	if (isset($_GET['e'])) {echo "<p class='login error'>O nome de utilizador e password que introduziu não existem.</p>";} ?>
-<div id="submit"><input type="submit" name="sublogin" value="Login"></div>
+<div id="submit"><input type="submit" name="sublogin" class="botao" value="Login"></div>
 <p><a href="<? l("newaccount"); ?>">Criar uma conta</a></p>
 </form>
 <?
@@ -143,8 +143,8 @@ if(isset($_POST['sublogin'])){
 	$result = confirmUser($_POST['user'], $md5pass);
 	/* Check error codes */
 	if($result == 0){
-//		header("Location: login&e");	
-		echo 'That username/password doesn\'t exist in our database.';
+		header("Location: ".url("login&e"));	
+//		echo 'That username/password doesn\'t exist in our database.';
 		return ;
 	}
 	else if($result == 2){

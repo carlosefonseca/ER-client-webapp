@@ -63,16 +63,17 @@ if (isset($_POST['submit'])) { // if form has been submitted
 
     $_POST['passwd'] = md5($_POST['passwd']);
 
-
+	global $client;
     $insert = "INSERT INTO users (
             user, 
             pass, 
-            email) 
+            email,
+            client) 
             VALUES (
             '".$_POST['uname']."', 
             '".$_POST['passwd']."',
-            '".$_POST['email']."'
-            )";
+            '".$_POST['email']."',
+            '$client')";
 
     $add_member = mysql_query($insert) or die(mysql_error());
 ?>
@@ -87,7 +88,7 @@ if (isset($_POST['submit'])) { // if form has been submitted
 
 ?>
 <h1>Registar nova conta:</h1>
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>?q=signup&submit" method="post">
+<form action="<? l("newaccount&submit");?>" method="post">
 <table align="center" border="0" cellspacing="0" cellpadding="3">
 <tr><td>Nome de Utilizador:</td><td>
 <input type="text" name="uname" maxlength="40">
@@ -101,11 +102,11 @@ if (isset($_POST['submit'])) { // if form has been submitted
 <tr><td>E-Mail:</td><td>
 <input type="text" name="email" maxlength="100">
 </td></tr>
-<tr><td>Telefone:</td><td>
+<? /*<tr><td>Telefone:</td><td>
 <input type="text" name="website" maxlength="150">
-</td></tr>
+</td></tr>*/?>
 <tr><td colspan="2" align="right">
-<input type="submit" name="submit" value="Registar">
+<input type="submit" name="submit" class="botao" value="Registar">
 </td></tr>
 </table>
 </form>
