@@ -1,4 +1,7 @@
 <? 
+if (!hasPermission("gardens")) {
+	die('<meta http-equiv="refresh" content="0;'.url("status").'">');
+}
 $page = url("admin/editGPS");
 iLog($page);
 

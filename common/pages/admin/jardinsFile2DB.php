@@ -1,3 +1,8 @@
+<?
+if (!hasPermission("gardens")) {
+	die('<meta http-equiv="refresh" content="0;'.url("status").'">');
+}
+?>
 <div class="content" style="">
 <?
 $page = url("admin/jardinsFile2DB");
