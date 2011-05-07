@@ -47,7 +47,7 @@ function loadContent($file) {
 	}
 }
 
-iLog("\n".date("Y-m-d H:i:s").": REQ. ".($logged_in?$_SESSION['username'].(hasPermission("admin")?"(A)":""):"!LI")." PAGE:$file PARMS: '$params'");
+iLog("\n".date("Y-m-d H:i:s").": REQ. ".($logged_in?$_SESSION['username'].((hasPermission("users")||hasPermission("gps"))?"(A)":""):"!LI")." PAGE:$file PARMS: '$params'");
 
 if (isset($_GET['full'])):
 ?><!DOCTYPE html>
@@ -90,7 +90,7 @@ if (isset($_GET['full'])):
 		<div class="user">
 			<li class="first"><? echo $_SESSION['username'];?></li>
 			<li><a href="<? L("user");?>">Conta</a></li>
-<? if(hasPermission("admin")) { ?> <li><a href="<? L("admin");?>">Administração</a></li> <? } ?>
+<? if(hasPermission("users")||hasPermission("gps")) { ?> <li><a href="<? L("admin");?>">Administração</a></li> <? } ?>
 			<li><a href="<? L("logout");?>">Terminar sessão</a></li>
 		</div>
 		<? /* <div id="userperm"><? echo $_SESSION['permissions'];?></div> */ ?>

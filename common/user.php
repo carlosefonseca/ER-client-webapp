@@ -40,7 +40,10 @@ function confirmUser($username, $password){
 	
 	$q = "select users.user, email, gardens, permissions.permissions
 		  from users inner join permissions on (users.user=permissions.user)
-		  WHERE permissions.client = '$client' && users.user = '$username' && pass='$password';";
+		  WHERE (permissions.client = '$client' OR permissions.client = '*') && users.user = '$username' && pass='$password';";
+
+//	iLog($q);
+
 
 	$result = mysql_query($q);
 	if(!$result || (mysql_numrows($result) != 1)){
@@ -80,6 +83,7 @@ function checkLogin(){
 
 	/* Username and password have been set */
 	if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+//		iLog("User&Pass are set... confirming...");
 		/* Confirm that username and password are valid */
 		if(confirmUser($_SESSION['username'], $_SESSION['password'])){
 			return true;
@@ -150,6 +154,7 @@ if(isset($_POST['sublogin'])){
 
 	/* Checks that username is in database and password is correct */
 	$md5pass = md5($_POST['pass']);
+//	iLog("2-User&Pass are set... confirming...");
 	$result = confirmUser($_POST['user'], $md5pass);
 	/* Check error codes */
 	if($result == 0){

@@ -27,6 +27,11 @@ body.full {
 	padding: 0;
 }
 
+.nobullets {
+	list-style-type: none;
+	padding: inherit;
+}
+
 a, a:link {
 	color: green;
 	text-decoration: none;
@@ -544,4 +549,8 @@ table.autogen, table.autogen td, table.autogen th {
 	border-bottom-right-radius: 10px;
 	border: 1px solid #c7c233;
 	display: none;
+}
+
+#popup td {
+	vertical-align: top;
 }

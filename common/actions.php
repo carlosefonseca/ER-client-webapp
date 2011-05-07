@@ -174,21 +174,56 @@ function actDeactJardins($pID, $accao) {
 }
 
 
+function updateUser($username, $gardens, $permissions) {
+	if (!hasPermission("users")) {
+		die("PERMISSION DENIED");
+	}
+	global $client;
+
+	$username	= mysql_real_escape_string($username);
+	$gardens 	= mysql_real_escape_string($gardens);
+	$permissions= mysql_real_escape_string($permissions);
+
+	$q = "select users.user, email, gardens, permissions.permissions
+		  from users left join permissions on (users.user=permissions.user)
+		  WHERE (permissions.client = '$client' OR permissions.client = '*') && users.user = '$username'";
+	$res = mysql_query($q) or die("FAIL\n\n".mysql_error());
+	if (mysql_num_rows($res) != 1) {
+		iLog($q);
+		die("ERROR: Wrong username");
+	}
+	$user = mysql_fetch_assoc($res);
+	if (strpos($user["permissions"], "admin") !== false && !hasPermission("admin")) {
+		die("ERROR: You don't have permission to alter an administrator.");
+	}
+	$q = "REPLACE INTO `permissions` (`user`,`client`,`gardens`,`permissions`) VALUES ".
+		 "('$username', '$client', '$gardens', '$permissions')";
+	iLog("Prestes a alterar o user '$username'\n$q");
+	$res = mysql_query($q);
+	if ($res) {
+		die("OK");
+	} else {
+		die("mysql_affected_rows != 1");
+	}
+}
+
+
 if( isset( $_POST['action'])) {
 	switch($_POST['action']) {
-		case "apagarPrograma":		apagarPrograma($_POST["id"]);		break;
-		case "desactivarPrograma":	desactivarPrograma($_POST["id"]); 	break;
-		case "activarPrograma":		activarPrograma($_POST["id"]); 		break;
-		case "getPrograma":			getPrograma($_POST["id"]); 	break;
-//		case "getProgramaJSON":		getProgramaJSON(); 		break;
-		case "getEditPrograma":		getEditPrograma(); 		break;
-		case "setPrograma":			savePrograma($_POST["id"],$_POST["data"]); 		break;
-		case "getListaProgramas":	getListaProgramas(); 	break;
-		case "updateMarker":		setGardenPlaces($_POST["id"],$_POST["lat"],$_POST["lng"]);		break;
-		case "actJardins":			actDeactJardins("*","act");	break;
-		case "desactJardins":		actDeactJardins("*","deact");	break;		
-		case "actJardim":			actDeactJardins($_POST["id"],"act");	break;
-		case "desactJardim":		actDeactJardins($_POST["id"],"deact");break;		
+		case "apagarPrograma":		apagarPrograma($_POST["id"]);								break;
+		case "desactivarPrograma":	desactivarPrograma($_POST["id"]); 							break;
+		case "activarPrograma":		activarPrograma($_POST["id"]); 								break;
+		case "getPrograma":			getPrograma($_POST["id"]); 									break;
+//		case "getProgramaJSON":		getProgramaJSON(); 											break;
+		case "getEditPrograma":		getEditPrograma(); 											break;
+		case "setPrograma":			savePrograma($_POST["id"],$_POST["data"]); 					break;
+		case "getListaProgramas":	getListaProgramas(); 										break;
+		case "updateMarker":		setGardenPlaces($_POST["id"],$_POST["lat"],$_POST["lng"]);	break;
+		case "actJardins":			actDeactJardins("*","act");									break;
+		case "desactJardins":		actDeactJardins("*","deact");								break;
+		case "actJardim":			actDeactJardins($_POST["id"],"act");						break;
+		case "desactJardim":		actDeactJardins($_POST["id"],"deact");						break;
+		case "updateUser":			updateUser($_POST["user"],$_POST["g"],$_POST["p"]);			break;		
 		default:					die("UNKNOWN COMMAND\n\n".print_r($_POST,true));
 	}
 } else {

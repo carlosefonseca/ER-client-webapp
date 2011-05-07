@@ -5,7 +5,7 @@
 global $client;
 global $params;
 
-if(!hasPermission("admin")) {
+if(!hasPermission("users") && !hasPermission("gardens")) {
 	die('<meta http-equiv="refresh" content="0;'.url("status").'">');
 }
 
@@ -23,8 +23,12 @@ if(isset($params) && $params != "") {
 ?>
 <div class="content" style="">
 	<h2>Opções</h2>
-	<ul><li><a href="<? L("admin/jardinsFile2DB");?>">Jardins</a></li>
-		<li><a href="<? L("admin/users");?>">Utilizadores</a></li>
+	<ul>
+<? if (hasPermission("gardens")): ?>
+	<li><a href="<? L("admin/jardinsFile2DB");?>">Jardins</a></li>
+<? endif; if (hasPermission("users")): ?>
+	<li><a href="<? L("admin/users");?>">Utilizadores</a></li>
+<? endif; ?>
 	</ul>
 </div>
 <?

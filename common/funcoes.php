@@ -68,12 +68,13 @@ function getUserGardens($asSql = false) {
 		};
 	} else {
 		$n = 0;
+		$q = "";
 		foreach($perms as $p) {	//CC
 			$n++;
 			if ($asSql) {
-				$q .= " id like '".substr($p,1)."' OR";
+				$q .= " id like '".$p."' OR";
 			} else {
-				$jardins[] = substr($p,1);
+				$jardins[] = $p;
 			}
 		}
 		if ($n==0 && $asSql) {
