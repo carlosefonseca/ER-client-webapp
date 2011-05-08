@@ -110,7 +110,7 @@ if (isset($_GET['full'])):		################################# content only
 
 	<div id="message"></div>
 
-	<div class="footer">&copy; EngiRega 2011 <small>| <a href="<? l("changelog");?>">v0.9b</a></small></div>
+	<div class="footer">&copy; EngiRega 2011 <small>| <a href="<? l("changelog");?>">v0.9 RC1</a></small></div>
 	<div id="alert"></div>
 	</div>
 </body>
