@@ -113,13 +113,13 @@ $canEditMarkers = true;
 	function addGPS(id, nome) {
 		$("#editGPS").dialog("option","buttons",{"Fechar":objs['Fechar']});
 		$("#editGPS").dialog("option", "title",nome).dialog("open");
-		$("#editGPS").html("<iframe style='width:100%;height:100%' src='http://localhost/~carlos/engirega/teste/index.php?q=admin/editGPS&full&id="+id+"'></iframe>");
+		$("#editGPS").html("<iframe style='width:100%;height:100%' src='<? l('admin/editGPS');?>&full&id="+id+"'></iframe>");
 	}
 	
 	function editGPS(id, nome) {
 		$("#editGPS").dialog("option","buttons",{"Fechar":function(){$(this).dialog("close");}});
 		$("#editGPS").dialog("option","title",nome).dialog("open");
-		$("#editGPS").html("<iframe style='width:100%;height:100%' src='http://localhost/~carlos/engirega/teste/index.php?q=admin/editGPS&full&id="+id+"'></iframe>");
+		$("#editGPS").html("<iframe style='width:100%;height:100%' src='<? l('admin/editGPS');?>&full&id="+id+"'></iframe>");
 	}
 	$("table.autogen").tablesorter({
 		widgets: ['zebra']
