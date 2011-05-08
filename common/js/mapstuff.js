@@ -39,7 +39,7 @@ function createMarkersFromJardins(map, jardins, info) {
 	}
 
 	for (j in jardins) {
-		jardins[j].name = Utf8.decode(jardins[j].name);
+//		jardins[j].name = Utf8.decode(jardins[j].name);
 		var slaves = "";
 		for (s in jardins[j].slaves) {
 			slaves += "<span class='s"+jardins[j].slaves[s]+"'>"+s+"</span> ";
@@ -161,6 +161,10 @@ function loadJardim(id, info, callback) {
 //			txtutf8 = Utf8.decode(txt);
 //			jardins = JSON.parse(txtutf8)
 			jardins = JSON.parse(txt);
+			for (i in jardins) {
+				jardins[i].name = Utf8.decode(jardins[i].name);
+			}
+
 			createMarkersFromJardins(map, jardins, info);
 			if (callback != undefined) { callback(); }
 		}
