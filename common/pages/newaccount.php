@@ -1,5 +1,6 @@
 <div class="content">
 <?php
+global $client;
 
 function err($msg) {
 	die('<p>'.$msg.'</p><p><a href="javascript:history.go(-1);">Voltar</a></p>');
@@ -67,20 +68,18 @@ if (isset($_POST['submit'])) { // if form has been submitted
     $insert = "INSERT INTO users (
             user, 
             pass, 
-            email,
-            client) 
+            email) 
             VALUES (
             '".$_POST['uname']."', 
             '".$_POST['passwd']."',
-            '".$_POST['email']."',
-            '$client')";
+            '".$_POST['email']."')";
 
     $add_member = mysql_query($insert) or die(mysql_error());
 ?>
 
 <h1>Registo efectuado!</h1>
 
-<p>Obrigado. Pode efectuar o login em <a href="?q=login" title="Login">log in</a>.</p>
+<p>Terá que aguardar até que um administrador lhe dê permissões de acesso.<br />Depois poderá efectuar o <a href="?q=login" title="Login">log in</a>.</p>
 
 <?php
 

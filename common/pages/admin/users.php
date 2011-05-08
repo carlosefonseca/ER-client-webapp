@@ -6,10 +6,11 @@ if (!hasPermission("users")) {
 $page = url("admin/editGPS");
 iLog($page);
 
-$q="select users.`user`, email, gardens, permissions.permissions from users left join permissions on (users.`user`=permissions.`user`) where client='$client' ";
-//$q="Select user, email, permissions from users";
+$q="select users.`user`, email, gardens, permissions.permissions from users left join permissions on (users.`user`=permissions.`user`) where client='$client' and (gardens not like '' and permissions  not like '')";
+
 $res=mysql_query($q);
 $table = array();
+$table[] = array('user'=>"Utilizador", 'email'=>'Email', 'gardens'=>'Jardins', 'permissions'=>'Permissões', 'alterar'=>'Alterar');
 while($r = mysql_fetch_assoc($res)) {
 	if ((strpos($r['permissions'], "admin") !== false) && !hasPermission("admin")) {
 		$r["alterar"]="Não pode alterar administradores";
@@ -19,9 +20,11 @@ while($r = mysql_fetch_assoc($res)) {
 	$table[] = $r;
 }
 
-?><div class="content"><h2><?= $client ?></h2><p>Utilizadores com acesso a este site.</p>
+?><div class="content"><h2>Utilizadores com acesso a este site</h2>
 
-<?= array2table($table);?>
+<p>Para um utilizador registado ter acesso ao site, é necessário que lhe seja dada permissão para tal.</p>
+
+<?= array2table($table, true);?>
 
 <p>&nbsp;</p>
 <p><a href="javascript:openAddUser();">Dar permissão a outros utilizadores para aceder a este site</a></p>
@@ -73,10 +76,17 @@ while($r = mysql_fetch_assoc($res)) {
 
 <!-- ADD USER POPUP ############################################################################# -->
 <div id="addUser" class="popup">
-<?	$q="select atable.user, clients, email
-		from	(select user, group_concat(client SEPARATOR ', ') as clients from permissions Group by user) as atable 
-				inner join users on (users.user=atable.user)
-		where clients not like '%oeiras%' and clients not like '%*%';";
+<p>Contas de utilizadores que não têm permissões para aceder a este site</p>
+<?	$q="
+select * from
+(	select u.user, group_concat(p.client SEPARATOR ', ') as clients
+	from users as u
+		left join
+			(select * from permissions where (gardens <> '' or permissions <> '')) as p
+			on (u.user = p.user)
+	group by u.user
+) as t
+where clients not like '%$client%' and clients not like '%*%' or clients is null;";
 	$res = mysql_query($q);
 	
 	$users = array();
@@ -189,6 +199,7 @@ function openAddUser() {
 }
 
 function addUser(user) {
+	$("#addUser").dialog("close");
 	openChangePermissions(user, "", "");
 }
 	
@@ -212,7 +223,8 @@ $(".popup").dialog({
 	}
 });
 
-$("#addUser").dialog("option", "buttons", {	'Cancelar': function() { $(this).dialog('close'); } } );
+$("#addUser").dialog("option", "buttons", {	'Cancelar': function() { $(this).dialog('close'); } } )
+			 .dialog("option", "title", "Adicionar Utilizador" );
 
 </script>
 

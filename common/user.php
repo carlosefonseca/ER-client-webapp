@@ -2,7 +2,6 @@
 global $permissions;
 global $logged_in;
 
-
 function hasPermission($permission) {
 	if ($permission[0] == 'j') {
 		return hasGardenPermission($permission);
@@ -39,22 +38,27 @@ function confirmUser($username, $password){
 	/* Verify that user is in database */
 	
 	$q = "select users.user, email, gardens, permissions.permissions
-		  from users inner join permissions on (users.user=permissions.user)
-		  WHERE (permissions.client = '$client' OR permissions.client = '*') && users.user = '$username' && pass='$password';";
+		  from users left join permissions on (users.user=permissions.user)
+		  WHERE (permissions.client = '$client' OR permissions.client = '*')
+		  	and (users.user = '$username' OR users.email = '$username')
+		  	and pass='$password';";
 
 //	iLog($q);
 
 
 	$result = mysql_query($q);
-	if(!$result || (mysql_numrows($result) != 1)){
-		return 0; //Indicates username failure
+	if(!$result || (mysql_num_rows($result) != 1)){
+		return false; //Indicates failure
 	}
 
-	/* Retrieve password from result, strip slashes */
 	$dbarray = mysql_fetch_array($result);
+	if ($dbarray['gardens']=="" && $dbarray['permissions'] == "") {
+		return "NO_PERMISSION";
+	}
+	
 	$_SESSION["permissions"] = explode(",", $dbarray['permissions']);
 	$_SESSION["permGardens"] = explode(",", $dbarray['gardens']);
-	return 1;
+	return $dbarray['user'];
 /*	$dbarray['password']  = stripslashes($dbarray['password']);
 	$password = stripslashes($password);
 
@@ -121,11 +125,17 @@ function displayLogin(){
 
 <form action="<? L("login"); ?>" method="post">
 <h3>Login :: Área de Cliente</h3>
-<div id="username"><span>Utilizador: </span><input type="text" name="user" maxlength="30" size="15"></div>
+<div id="username"><span>Utilizador ou email: </span><input type="text" name="user" maxlength="30" size="15"></div>
 <div id="password"><span>Password: </span><input type="password" name="pass" maxlength="30" size="15"></div>
 <? /*<tr><td colspan="2" align="left"><input type="checkbox" name="remember">
 <font size="2">Remember me next time</td></tr>*/?>
-<?	if (isset($_GET['e'])) {echo "<p class='login error'>O nome de utilizador e password que introduziu não existem.</p>";} ?>
+
+<? if (isset($_GET['e'])): ?>
+	<p class="login error">O nome de utilizador e password que introduziu não existem.</p>
+<? elseif (isset($_GET['np']) && isset($_GET['u'])): ?>
+	<p class="login error">O utilizador '<?= $_GET['u'];?>' não tem permissões de acesso a este site. Contacte o seu responsável.</p>
+<? endif; ?>
+
 <div id="submit"><input type="submit" name="sublogin" class="botao" value="Login"></div>
 <p><a href="<? l("newaccount"); ?>">Criar uma conta</a></p>
 </form>
@@ -157,18 +167,19 @@ if(isset($_POST['sublogin'])){
 //	iLog("2-User&Pass are set... confirming...");
 	$result = confirmUser($_POST['user'], $md5pass);
 	/* Check error codes */
-	if($result == 0){
+	if($result === false){
 		header("Location: ".url("login&e"));	
 //		echo 'That username/password doesn\'t exist in our database.';
 		return ;
 	}
-	else if($result == 2){
-		die('Incorrect password, please try again.');
+	if ($result == "NO_PERMISSION") {
+		header("Location: ".url("login&np&u=".$_POST['user']));
+		return ;
 	}
 
 	/* Username and password correct, register session variables */
-	$_POST['user'] = stripslashes($_POST['user']);
-	$_SESSION['username'] = $_POST['user'];
+	$_POST['user'] = $result;//stripslashes($_POST['user']);
+	$_SESSION['username'] = $result;//$_POST['user'];
 	$_SESSION['password'] = $md5pass;
 	$_SESSION['permissions'] = $permissions;
 
