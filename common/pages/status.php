@@ -45,6 +45,13 @@
 				infobubbles[$(this).attr("gid")].close();
 			});
 		
+		for (i in markers) {
+			google.maps.event.addDomListener(markers[i], 'click', function() {
+				openOptions(this['id']);
+			})
+		}
+
+		
 		function openOptions(id) {
 			selectedMarker = id;
 			$("span.ui-dialog-title").html(markers[id].title);
