@@ -24,9 +24,12 @@ function jsonGardens2Map(txt) {
 		alert("Erro: Não foram carregados dados para o mapa! Pode ter ocorrido um erro ou pode não ter permissões para ver os dados.")
 	} else {
 		//All markers
-		info = JSON.parse(Utf8.decode(txt));
+		info = JSON.parse(txt);
 		jardins = info['jardins'];
 		mapInfo = info['map'];
+		for (i in jardins) {
+			jardins[i].name = Utf8.decode(jardins[i].name);
+		}
 		createMarkersFromJardins(map, jardins);
 		
 		// Lista lateral
