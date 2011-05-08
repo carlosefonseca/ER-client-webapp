@@ -16,6 +16,13 @@ global $logged_in;
 global $page;
 global $params;
 
+$page = "";
+$file = "";
+
+if(preg_match('/MSIE [0-7]/i',$_SERVER['HTTP_USER_AGENT'])) { 
+	$file = u("pages/oldie.php");
+} else
+
 if(isset($_GET["q"])) {
 	$p = $_GET["q"];
 	if ($p == "newaccount" || $logged_in) {
@@ -38,6 +45,8 @@ if(isset($_GET["q"])) {
 		$file = u("pages/login.php");
 	}
 }
+
+
 
 $title = "";
 //Guarda todo o output do conteúdo da pagina para inserir no HTML em baixo
@@ -64,7 +73,8 @@ iLog("\n".date("Y-m-d H:i:s").": REQ. ".($logged_in?$_SESSION['username'].((hasP
 ?><!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+	<meta charset="utf-8"/> 
 	<title><?= $title ?></title>
 	<link rel="stylesheet" type="text/css" href="../common/css/style.css" />
 	<link rel="stylesheet" type="text/css" href="../common/css/jquery-ui.css" />

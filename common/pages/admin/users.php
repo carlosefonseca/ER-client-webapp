@@ -40,9 +40,9 @@ while($r = mysql_fetch_assoc($res)) {
 		<p style="font-weight:bold">Acesso a Jardins</p>
 		
 		<p>Acesso:
-			<input type="radio" name="gardenAcessType" id="gatall" value="*" onchange="accessTypeX('*')"/>
+			<input type="radio" name="gardenAcessType" id="gatall" value="*" onclick="accessTypeX('*')" onchange="accessTypeX('*')"/>
 			<label for="gatall">Global</label>&nbsp;&nbsp;&nbsp;
-			<input type="radio" name="gardenAcessType" id="gatlim" value="l" onchange="accessTypeX('l')"/>
+			<input type="radio" name="gardenAcessType" id="gatlim" value="l" onclick="accessTypeX('l')" onchange="accessTypeX('l')"/>
 			<label for="gatlim">Limitado</label>
 		</p>
 		
@@ -57,8 +57,8 @@ while($r = mysql_fetch_assoc($res)) {
 <? } ?>
 
 			<p>Seleccionar: 
-			<a href="javascript:$('#gardenAccessList input[type=checkbox]').attr('checked',true)">Todos</a> | 
-			<a href="javascript:$('#gardenAccessList input[type=checkbox]').attr('checked',false)">Nenhum</a></p>
+			<a href="#" onclick="$('#gardenAccessList input[type=checkbox]').attr('checked',true)">Todos</a> | 
+			<a href="#" onclick="$('#gardenAccessList input[type=checkbox]').attr('checked',false)">Nenhum</a></p>
 		</ul>
 	</td>
 	<td width="50%">
@@ -68,7 +68,7 @@ while($r = mysql_fetch_assoc($res)) {
 			<li><input type="checkbox" id="permGards" value="gardens"/> <label for="permGards">Editar Jardins</label></li>
 &nbsp;		<li><input type="checkbox" id="permUsers" value="users"/> <label for="permUsers">Alterar Permissões de Utilizadores</label></li>
 <? if (hasPermission("admin")): ?>
-&nbsp;		<li><input type="checkbox" id="permAdmin" value="admin" onchange="adminX(this.checked)" /> <label for="permAdmin">Administrar</label></li>
+&nbsp;		<li><input type="checkbox" id="permAdmin" value="admin" onchange="adminX(this.checked)" onclick="adminX(this.checked)" /> <label for="permAdmin">Administrar</label></li>
 <? endif; ?>
 		</ul>
 	</td>
@@ -139,13 +139,13 @@ function openChangePermissions(user, gardens, permissions) {
 	}
 	
 // Permissoes
-	permArr = permissions.split(",");
 	$("#userPerms input").attr("checked",0);
-	if (permArr.indexOf("admin") > -1) {
+	if (permissions.indexOf("admin") > -1) {
 		$("#permAdmin").attr("checked",1);
 		adminX(true);
 	} else {
 		adminX(false);
+		permArr = permissions.split(",");
 		for (i in permArr) {
 			switch(permArr[i]) {
 				case "programs": $("#permProgs").attr("checked",1); break;
