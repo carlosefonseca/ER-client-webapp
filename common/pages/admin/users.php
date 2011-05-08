@@ -8,7 +8,7 @@ iLog($page);
 
 $q="select users.`user`, email, gardens, permissions.permissions from users left join permissions on (users.`user`=permissions.`user`) where client='$client' and (gardens not like '' and permissions  not like '')";
 
-$res=mysql_query($q);
+$res=mysql_query($q) or die("getting users<br>".mysql_error());
 $table = array();
 $table[] = array('user'=>"Utilizador", 'email'=>'Email', 'gardens'=>'Jardins', 'permissions'=>'Permissões', 'alterar'=>'Alterar');
 while($r = mysql_fetch_assoc($res)) {
