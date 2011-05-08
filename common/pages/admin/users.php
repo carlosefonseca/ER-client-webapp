@@ -24,11 +24,13 @@ while($r = mysql_fetch_assoc($res)) {
 <?= array2table($table);?>
 
 <p>&nbsp;</p>
-<p><a href="javascript:adicionarUsers();">Dar permissão a outros users para aceder a este site</a></p>
+<p><a href="javascript:adicionarUsers();">Dar permissão a outros utilizadores para aceder a este site</a></p>
 
-</div>
+</div> <!-- /body -->
 
-<div id="popup">
+
+<!-- EDIT PERMISSIONS POPUP #############################################################################-->
+<div id="editperms" class="popup">
 <table width="100%"><tr>
 	<td width="50%">
 		<p style="font-weight:bold">Acesso a Jardins</p>
@@ -67,6 +69,23 @@ while($r = mysql_fetch_assoc($res)) {
 		</ul>
 	</td>
 </tr></table>
+</div> <!-- popup edit permissions -->
+
+<!-- ADD USER POPUP ############################################################################# -->
+<div id="addUser" class="popup">
+<?	$q="select atable.user, clients, email
+		from	(select user, group_concat(client SEPARATOR ', ') as clients from permissions Group by user) as atable 
+				inner join users on (users.user=atable.user)
+		where clients not like '%oeiras%' and clients not like '%*%';";
+	$res = mysql_query($q);
+	
+	$users = array();
+	while($u = mysql_fetch_assoc($res)) {
+		$u["adicionar"] = "<a href='javascript:adicionarUser(\"".$u['user']."\");'>Adicionar utilizador</a>";
+		$users[] = $u;
+	}
+	echo array2table($users);
+?>
 </div>
 
 <script type="text/javascript">
@@ -123,10 +142,10 @@ function openChangePermissions(user, gardens, permissions) {
 		}
 	}
 
-	$("#popup").dialog("option", "title", "Utilizador: "+user).dialog('open');
+	$("#editperms").dialog("option", "title", "Utilizador: "+user).dialog('open');
 }
 
-$("#popup").dialog({
+$(".popup").dialog({
 	width: 650,
 	position: ["center",40],
 	bgiframe: true,
@@ -137,14 +156,14 @@ $("#popup").dialog({
 			$(this).dialog('close');
 		},
 		'Guardar': function() {
-			save();
+			save(this);
 		}
 	},
 	close: function() {
 	}
 });		
 
-function save() {
+function save(element) {
 	gardens = "";
 	permissions = "";
 	if ($('#gatall').attr("checked")) {
@@ -179,6 +198,9 @@ function save() {
 	})
 }
 
+
+function adicionarUsers() {
+}
 	
 </script>
 
