@@ -39,6 +39,18 @@ if(isset($_GET["q"])) {
 	}
 }
 
+$title = "";
+//Guarda todo o output do conteúdo da pagina para inserir no HTML em baixo
+ob_start();
+loadContent($file);
+$body = ob_get_contents();
+ob_end_clean();
+
+if ($title != '') {
+	$title .= " &ndash; ";
+}
+$title .= "$name &ndash; EngiRega";
+
 function loadContent($file) {
 	if(file_exists($file)) {
 		include($file);
@@ -49,37 +61,21 @@ function loadContent($file) {
 
 iLog("\n".date("Y-m-d H:i:s").": REQ. ".($logged_in?$_SESSION['username'].((hasPermission("users")||hasPermission("gps"))?"(A)":""):"!LI")." PAGE:$file PARMS: '$params'");
 
-if (isset($_GET['full'])):		################################# content only
 ?><!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title></title>
+	<title><?= $title ?></title>
 	<link rel="stylesheet" type="text/css" href="../common/css/style.css" />
 	<link rel="stylesheet" type="text/css" href="../common/css/jquery-ui.css" />
 	<script src="../common/js/basicFunctions.js" type="text/javascript"></script>
 	<script src="../common/js/jquery.js" type="text/javascript"></script>
 	<script src="../common/js/jquery-ui.js" type="text/javascript"></script>
 </head>
+<? if (isset($_GET['full'])):		################################# content only ?>
 <body class="full">
-<? loadContent($file); ?>
-<div id="alert"></div>
-</div>
-</body>
-
-<? else:	################################# Full page
-
-?><!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title></title>
-	<link rel="stylesheet" type="text/css" href="../common/css/style.css" />
-	<link rel="stylesheet" type="text/css" href="../common/css/jquery-ui.css" />
-	<script src="../common/js/basicFunctions.js" type="text/javascript"></script>
-	<script src="../common/js/jquery.js" type="text/javascript"></script>
-	<script src="../common/js/jquery-ui.js" type="text/javascript"></script>
-</head>
+<?= $body; ?>
+<? else: 							######################### Full page ?>
 <body>
 	<div class="header">
 		<div class="logo">
@@ -105,14 +101,13 @@ if (isset($_GET['full'])):		################################# content only
 	
 	<div class="mainWrap <? echo $page;?>">
 		<a name="content"></a>
-		<? loadContent($file); ?>
+		<?= $body ?>
 	</div>
 
 	<div id="message"></div>
 
 	<div class="footer">&copy; EngiRega 2011 <small>| <a href="<? l("changelog");?>">v0.9 RC1</a></small></div>
-	<div id="alert"></div>
-	</div>
+<? endif; ?>
+<div id="alert"></div>
+</div>
 </body>
-</html>
-<? endif;
