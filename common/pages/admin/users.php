@@ -2,6 +2,7 @@
 if (!hasPermission("users")) {
 	die('<meta http-equiv="refresh" content="0;'.url("status").'">');
 }
+$title = "Alterar Utilizadores";
 
 $page = url("admin/editGPS");
 iLog($page);

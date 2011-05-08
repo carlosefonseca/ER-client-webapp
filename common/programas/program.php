@@ -29,6 +29,8 @@ $res = mysql_query($q) or die(mysql_error());
 $r = mysql_fetch_row($res);
 $nomeJardim = $r[0];
 
+global $title; $title = $nomeJardim;
+
 ?>
 	<link rel="stylesheet" type="text/css" href="../common/css/programas.css" />
 	<script src="../common/js/JSON.js" type="text/javascript"></script>

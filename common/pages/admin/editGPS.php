@@ -2,6 +2,7 @@
 if (!hasPermission("gardens")) {
 	die('<meta http-equiv="refresh" content="0;'.url("status").'">');
 }
+$title = "Alterar localização do Jardim";
 $page = url("admin/editGPS");
 iLog($page);
 

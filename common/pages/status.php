@@ -1,3 +1,4 @@
+<? global $title; $title = "Mapa de Estado"; ?>
 <? iLog("<status>"); ?>
 <div class="sidebar-left">
 	<ul id="gardenList">

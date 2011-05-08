@@ -4,6 +4,8 @@
 <?
 global $client;
 global $params;
+global $title;
+$title = "Administração";
 
 if(!hasPermission("users") && !hasPermission("gardens")) {
 	die('<meta http-equiv="refresh" content="0;'.url("status").'">');

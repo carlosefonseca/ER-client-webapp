@@ -2,6 +2,8 @@
 if (!hasPermission("gardens")) {
 	die('<meta http-equiv="refresh" content="0;'.url("status").'">');
 }
+global $title;
+$title = "Alterar Jardins";
 ?>
 <div class="content" style="">
 <?

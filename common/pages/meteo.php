@@ -1,3 +1,7 @@
+<?
+global $title;
+$title = "Meteorologia";
+?>
 <link rel="stylesheet" type="text/css" href="../css/meteo.css" />
 <link rel="stylesheet" type="text/css" href="../common/css/meteo.css" />
 

@@ -1,3 +1,4 @@
+<? global $title; $title = "Nova conta"; ?>
 <div class="content">
 <?php
 global $client;

@@ -1,4 +1,4 @@
-<?
+<? global $title; $title = "Conta de Utilizador"; 
 //global $D;
 $D = false;
 

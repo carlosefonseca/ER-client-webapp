@@ -1,3 +1,7 @@
+<?
+global $title;
+$title = "Histórico de Alterações";
+?>
 <div class="content">
 <h3>Histórico de Alterações</h3>
 <ul>

@@ -1,5 +1,7 @@
 <? 
 global $client;
+global $title;
+$title = "Dados Locais";
 
 $data = parseDataFiles("serverfiles");
 
