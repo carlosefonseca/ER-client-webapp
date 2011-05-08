@@ -20,10 +20,14 @@ function initialize() {
 }
 
 
-function createMarkersFromJardins(map, jardins, info) {
-//	console.log("A preparar markers");
-//	console.log(jardins);
 
+// Pega numa lista de jardins (fornecida pelo jardins.php) e controi os marcadores no mapa
+// e respectivos baloes de informação. Ajusta também o centro do mapa para o conjunto de marcadores.
+// parametro info:
+//		- bool true  > mostra o balão de informação
+//		- bool false > não mostra balão de informação
+//		- string	 > mostra balão com nome do jardim + string
+function createMarkersFromJardins(map, jardins, info) {
 	var min_lat =  9999;
 	var min_lng =  9999;
 	var max_lat = -9999;
@@ -35,7 +39,7 @@ function createMarkersFromJardins(map, jardins, info) {
 	}
 
 	for (j in jardins) {
-//		console.log(jardins[j]);
+		jardins[j].name = Utf8.decode(jardins[j].name);
 		var slaves = "";
 		for (s in jardins[j].slaves) {
 			slaves += "<span class='s"+jardins[j].slaves[s]+"'>"+s+"</span> ";
@@ -46,7 +50,8 @@ function createMarkersFromJardins(map, jardins, info) {
 			sectores += "<span class='s"+jardins[j].sectores[i]+"'>"+i+"</span> ";
 		}
 	
-		var more =  "<b>"+jardins[j].name+"</b>"+
+		if (info === true || info == undefined) {
+			var more =  "<b>"+jardins[j].name+"</b>"+
 				"<table class='mapbubble' border='0'>"+
 				"<tr><th>Estado:</th><td>"+jardins[j].estado+"</td></tr>"+
 				"<tr><th>Slaves:</th><td>"+slaves+"</td></tr>"+
@@ -56,6 +61,11 @@ function createMarkersFromJardins(map, jardins, info) {
 //				"<tr><th>Caudal 24h:</th><td>$c24h ($variacao)</td></tr>".
 //				"<tr><th>Caudal Total:</th><td>$cTotal</td></tr>".
 				"</table>";
+		} else if (info === false) {
+			more = false;
+		} else {
+			var more =  "<b>"+jardins[j].name+"</b>"+info
+		}
 
 		if (jardins[j].tmplat != undefined) {
 			if (size == 1) {
@@ -124,30 +134,21 @@ function createMarker(map, lat, lng, id, title, status, info) {
 } 
 
 
-function reloadJardins() {
-	$.ajax({
-		type: "GET",
-		url: "jardins.php",
-		success: function (txt) {
-			iLog("Ajaxing jardins");
-			clearOverlays();
-    		eval(txt);
-    		displayMarker(map, markers);
-		}
-	})
-}
-
 // Removes the overlays from the map, but keeps them in the array
 function clearOverlays() {
 	if (markers) {
 		for (i in markers) {
 			markers[i].setMap(null);
+			delete markers[i];
 		}
 	}
 }
 
 function loadJardim(id, info, callback) {
 	var url = "jardins.php?id="+id;
+	if (info == undefined) {
+		info = true;
+	}
 
 	$.ajax({
 		type: "GET",
@@ -157,9 +158,10 @@ function loadJardim(id, info, callback) {
 				alert("Erro: Não foram carregados dados para o mapa!")
 				return;
 			}
-			txtutf8 = Utf8.decode(txt);
-			jardins = JSON.parse(txtutf8)
-			createMarkersFromJardins(map, jardins, false);
+//			txtutf8 = Utf8.decode(txt);
+//			jardins = JSON.parse(txtutf8)
+			jardins = JSON.parse(txt);
+			createMarkersFromJardins(map, jardins, info);
 			if (callback != undefined) { callback(); }
 		}
 	})

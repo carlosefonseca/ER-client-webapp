@@ -1,13 +1,12 @@
 <? iLog("<status>"); ?>
 <div class="sidebar-left">
+	<ul id="gardenList">
+		<p>Lista de Jardins</p>
+	</ul>
 	<div id="act-desac-todos-jardins">
 		<a id="act-todos-jardins">Activar todos os jardins</a>
 		<a id="desact-todos-jardins">Desactivar todos os jardins</a>
 	</div>
-
-	<ul id="gardenList">
-	<p>Lista de Jardins</p>
-	</ul>
 </div>
 
 <div class="content with-left-sidebar" style="height:600px">
@@ -19,9 +18,7 @@
 
 </div>
 <script>
-	selectedMarker = 10;
-	initialize();
-	txt = '<? include("jardins.php"); ?>';
+function jsonGardens2Map(txt) {
 	if (txt == "" || txt == "[]") {
 		alert("Erro: Não foram carregados dados para o mapa! Pode ter ocorrido um erro ou pode não ter permissões para ver os dados.")
 	} else {
@@ -32,6 +29,7 @@
 		createMarkersFromJardins(map, jardins);
 		
 		// Lista lateral
+		$("#gardenList li").remove();
 		for (i in jardins) {
 			if ( unknownGPS[i] == undefined ) {
 				$("#gardenList").append($("<li><a class='s"+jardins[i].status+"' href='javascript:openOptions("+i+");' gid='"+i+"'>"+i+". "+jardins[i].name+"</a></li>"));
@@ -50,14 +48,26 @@
 				openOptions(this['id']);
 			})
 		}
-
-		
-		function openOptions(id) {
-			selectedMarker = id;
-			$("span.ui-dialog-title").html(markers[id].title);
-			$("#marker_dialg").dialog("open");
-		}
 	}
+}
+
+function openOptions(id) {
+	selectedMarker = id;
+	$("span.ui-dialog-title").html(markers[id].title);
+	$("#marker_dialg").dialog("open");
+}
+
+
+function reloadJardins() {
+	$.ajax({
+		type: "GET",
+		url: "jardins.php",
+		success: function (txt) {
+			clearOverlays();
+			jsonGardens2Map(txt);
+		}
+	})
+}
 
 $("#marker_dialg").dialog({
 	bgiframe: true,
@@ -155,6 +165,11 @@ $("#desact-todos-jardins").click(function () {
 		})
 	}
 })
+
+selectedMarker = 10;
+initialize();
+txt = '<? include("jardins.php"); ?>';
+jsonGardens2Map(txt);
 
 </script>
 <div>
