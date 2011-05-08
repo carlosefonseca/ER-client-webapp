@@ -31,7 +31,8 @@ if (isset($_GET["add"]) && !empty($_GET["add"])) {
 
 
 
-?>	<h2>Importação de Jardins do ficheiro "MastersList.txt" para a base de dados</h2> <?
+?>	<h2>Importação de Jardins do ficheiro "MastersList.txt" para a base de dados</h2>
+<p>Os dados na tabela abaixo foram obtidos do ficheiro MasterList.txt.<br>Se este ficheiro for alterado, a base de dados deve ser actualizada. <br />Ao actualizar, as posições de GPS não se perdem.</p> <?
 #conjugação entre o ficheiro Masters e a DB
 $q = "SELECT id, lat, acronym FROM jardins WHERE client LIKE '$client'".getUserGardens(true);
 $res = mysql_query($q) or die("$q => ".mysql_error());

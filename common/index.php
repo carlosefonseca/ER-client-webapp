@@ -49,7 +49,7 @@ function loadContent($file) {
 
 iLog("\n".date("Y-m-d H:i:s").": REQ. ".($logged_in?$_SESSION['username'].((hasPermission("users")||hasPermission("gps"))?"(A)":""):"!LI")." PAGE:$file PARMS: '$params'");
 
-if (isset($_GET['full'])):
+if (isset($_GET['full'])):		################################# content only
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +67,7 @@ if (isset($_GET['full'])):
 </div>
 </body>
 
-<? else:
+<? else:	################################# Full page
 
 ?><!DOCTYPE html>
 <html>

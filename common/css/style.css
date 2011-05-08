@@ -551,6 +551,14 @@ table.autogen, table.autogen td, table.autogen th {
 	display: none;
 }
 
+.popup {
+	display: none;
+}
+
+.popup .autogen {
+	margin: auto;
+}
+
 .popup td {
 	vertical-align: top;
 }

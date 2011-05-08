@@ -21,6 +21,7 @@ if(isset($_GET["id"])) {
 
 $q = "SELECT * FROM jardins WHERE client LIKE '$client'".getUserGardens(true);
 if ($id !== false) {$q.=" AND id = '$id'";}
+$q.=" order by id";
 $res = mysql_query($q) or die("$q => ".mysql_error());
 iLog("Select jardins: ".mysql_num_rows($res));
 

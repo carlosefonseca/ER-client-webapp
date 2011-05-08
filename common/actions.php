@@ -147,7 +147,7 @@ function setGardenPlaces($id, $lat, $lng) {
 	$q = "UPDATE  `jardins` SET  lat = '$lat', lng = '$lng' WHERE client LIKE '$client' AND CONVERT(`jardins`.`id` USING utf8 ) =  '$id' LIMIT 1 ;";
 	mysql_query($q) or die("SQL Error: ".mysql_error());
 
-	updateCenterCoords($client);
+	updateCenterCoords();
 
 	die("OK");
 }

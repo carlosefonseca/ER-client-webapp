@@ -18,7 +18,7 @@ if ($canEditMarkers = hasPermission("edit_markers")): ?>
 
 <? if (isset($_GET['id'])): ?>
 
-	loadJardim(<? echo $_GET['id']; ?>, false, function () {
+	loadJardim(<? echo $_GET['id']; ?>, "<p>Arraste o marcador para o local pretendido</p>", function () {
 		for (i in markers) {
 			markers[i].setDraggable(true);
 			google.maps.event.addDomListener(markers[i], "dragstart", function() {
