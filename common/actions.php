@@ -188,13 +188,14 @@ function updateUser($username, $gardens, $permissions) {
 		  from users left join permissions on (users.user=permissions.user)
 		  WHERE (permissions.client = '$client' OR permissions.client = '*') && users.user = '$username'";
 	$res = mysql_query($q) or die("FAIL\n\n".mysql_error());
-	if (mysql_num_rows($res) != 1) {
+/*	if (mysql_num_rows($res) != 1) {
 		iLog($q);
 		die("ERROR: Wrong username");
 	}
-	$user = mysql_fetch_assoc($res);
+*/	while($user = mysql_fetch_assoc($res)) {
 	if (strpos($user["permissions"], "admin") !== false && !hasPermission("admin")) {
 		die("ERROR: You don't have permission to alter an administrator.");
+	}
 	}
 	$q = "REPLACE INTO `permissions` (`user`,`client`,`gardens`,`permissions`) VALUES ".
 		 "('$username', '$client', '$gardens', '$permissions')";
