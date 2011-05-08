@@ -24,7 +24,7 @@ while($r = mysql_fetch_assoc($res)) {
 <?= array2table($table);?>
 
 <p>&nbsp;</p>
-<p><a href="javascript:adicionarUsers();">Dar permissão a outros utilizadores para aceder a este site</a></p>
+<p><a href="javascript:openAddUser();">Dar permissão a outros utilizadores para aceder a este site</a></p>
 
 </div> <!-- /body -->
 
@@ -81,7 +81,7 @@ while($r = mysql_fetch_assoc($res)) {
 	
 	$users = array();
 	while($u = mysql_fetch_assoc($res)) {
-		$u["adicionar"] = "<a href='javascript:adicionarUser(\"".$u['user']."\");'>Adicionar utilizador</a>";
+		$u["adicionar"] = "<a href='javascript:addUser(\"".$u['user']."\");'>Adicionar utilizador</a>";
 		$users[] = $u;
 	}
 	echo array2table($users);
@@ -117,9 +117,11 @@ function openChangePermissions(user, gardens, permissions) {
 	} else {
 		$('#gardenAccessList').show();
 		$('#gardenAccessList input[type=checkbox]').attr('checked',false);
-		var gardenArr = gardens.split(",");
-		for (i in gardenArr) {
-			$('#gardenAccessList input[type=checkbox]#'+gardenArr[i]).attr('checked',true);
+		if (gardens != "") {
+			var gardenArr = gardens.split(",");
+			for (i in gardenArr) {
+				$('#gardenAccessList input[type=checkbox]#'+gardenArr[i]).attr('checked',true);
+			}
 		}
 		$('#gatlim').attr("checked",1);
 		$('#gatlim').focus();
@@ -143,25 +145,8 @@ function openChangePermissions(user, gardens, permissions) {
 	}
 
 	$("#editperms").dialog("option", "title", "Utilizador: "+user).dialog('open');
-}
+} //openChangePermissions
 
-$(".popup").dialog({
-	width: 650,
-	position: ["center",40],
-	bgiframe: true,
-	autoOpen: false,
-	modal: true,
-	buttons: {
-		'Cancelar': function() {
-			$(this).dialog('close');
-		},
-		'Guardar': function() {
-			save(this);
-		}
-	},
-	close: function() {
-	}
-});		
 
 function save(element) {
 	gardens = "";
@@ -199,8 +184,35 @@ function save(element) {
 }
 
 
-function adicionarUsers() {
+function openAddUser() {
+	$("#addUser").dialog("open");
+}
+
+function addUser(user) {
+	openChangePermissions(user, "", "");
 }
 	
+
+// init
+$(".popup").dialog({
+	width: 650,
+	position: ["center",40],
+	bgiframe: true,
+	autoOpen: false,
+	modal: true,
+	buttons: {
+		'Cancelar': function() {
+			$(this).dialog('close');
+		},
+		'Guardar': function() {
+			save(this);
+		}
+	},
+	close: function() {
+	}
+});
+
+$("#addUser").dialog("option", "buttons", {	'Cancelar': function() { $(this).dialog('close'); } } );
+
 </script>
 
