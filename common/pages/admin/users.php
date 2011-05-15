@@ -178,7 +178,7 @@ function save(element) {
 	
 	
 	var postData = "action=updateUser&user="+editUser+"&g="+gardens+"&p="+permissions;
-	console.log(postData);
+//	console.log(postData);
 
 	$.ajax({
 		type: "POST",
