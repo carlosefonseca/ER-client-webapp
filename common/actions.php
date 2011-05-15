@@ -208,7 +208,10 @@ function updateUser($username, $gardens, $permissions) {
 	}
 }
 
-
+/* Apenas para teste *
+if (!isset( $_POST['action'])) {
+	$_POST = $_GET;
+}*/
 if( isset( $_POST['action'])) {
 	switch($_POST['action']) {
 		case "apagarPrograma":		apagarPrograma($_POST["id"]);								break;
@@ -228,8 +231,7 @@ if( isset( $_POST['action'])) {
 		default:					die("UNKNOWN COMMAND\n\n".print_r($_POST,true));
 	}
 } else {
-	actDeactJardins("act");
-	//die("ACTION COMMAND NEED");
+	die("ACTION COMMAND NEED");
 }
 
 

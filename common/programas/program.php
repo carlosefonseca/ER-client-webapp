@@ -17,17 +17,28 @@ if(!isset($params) || !is_numeric($params)) { ?>
 $j = $params*1; //$j é o jardim.
 
 //temos o numero do jardim, precisamos de verificar se o user pode aceder-lhe
-if (!hasPermission("j".$params) && !hasPermission("j*")) { ?>
+if (!hasGardenPermission($params)) { ?>
 	<div class="content"><strong>Jardim Inválido. Volte ao mapa e seleccione um jardim.</strong></div>
 <? 	return;
 }
 
 //Apartir deste ponto podemos carregar a informação do jardim especifico.
 require_once("../common/DBconnect.php");
-$q = "SELECT name FROM jardins WHERE client like '%$client%' AND id = '$j'";
+$q = "SELECT name, acronym FROM jardins WHERE client like '%$client%' AND id = '$j'";
 $res = mysql_query($q) or die(mysql_error());
 $r = mysql_fetch_row($res);
 $nomeJardim = $r[0];
+$acronym = $r[1];
+
+$nomeJardim = $r[0];
+
+$image = glob("maps/$acronym.*");
+if (sizeof($image) > 0) {
+	$image = $image[0];
+} else {
+	$image = false;
+}
+
 
 global $title; $title = $nomeJardim;
 
@@ -120,9 +131,13 @@ global $title; $title = $nomeJardim;
 		</div>
 		
 		
-		<div id="mapa" class="mapa" style="display:none">
+		<div id="mapa" class="mapa <?= $image!==false?"comMapa":"" ?>" style="display:none">
+<? if ($image === false): ?>
 			<p style="margin-top:100px;text-align:center">Mapa dos sectores deste Jardim</p>
-	    </div>
+<? else: ?>
+			<img src="<?= $image ?>" />
+<? endif; ?>
+		</div>
 		
 		
 		<!-- EDIÇÃO #################################################################-->

@@ -5,6 +5,7 @@
 	http://engirega.eu-r.com/common/css/programas.css
 	http://engirega.eu-r.com/dev/common/css/programas.css
 	http://localhost/~carlos/engirega/common/css/programas.css
+	http://localhost/~carlos/Engirega/common/css/programas.css
 */
 
 /* Reset some stuff */
@@ -31,6 +32,10 @@ a:hover {
 
 /* @group Lista de Programas */
 
+body {
+	min-width: 800px;
+}
+
 #listaProgramas {
 	background-color: white;
 }
@@ -50,7 +55,7 @@ a:hover {
 
 #listaProgramas li,
 #listaProgramas #novoPrograma {
-	padding: 10px 10px 10px 20px;
+	padding: 10px;
 	border-bottom: 1px solid #85be00;
 	font-size: 110%;
 	list-style-position: inside;
@@ -78,8 +83,23 @@ a:hover {
 }
 
 /* @end */
+
+#mapa.comMapa {
+	border: none;
+}
+
+#mapa img {
+	width: 100%;
+	max-width: 650px;
+	max-height: 420px;
+	margin: auto;
+	position: absolute;
+}
+
 .content.programs {
 	min-height: 600px;
+	margin-left: 196px;
+	padding: 10px;
 }
 
 .programa.show .recorrencia div {
@@ -134,7 +154,7 @@ a:hover {
 	position: absolute;
 	top: 45px;
 	width: 28%;
-	left: 15px;
+	left: 3px;
 }
 
 /* @group Header */
@@ -172,6 +192,8 @@ a:hover {
 
 .programa.show #activo {
 	text-align: center;
+	margin-left: -31px;
+	width: inherit;
 }
 
 .programa.show #activo span.activo {
@@ -257,7 +279,6 @@ a:hover {
 
 .programa.edit .activo{
 	width: 130px;
-	margin-left: 59px;
 	text-align: center;
 }
 
@@ -265,6 +286,7 @@ a:hover {
 	position: absolute;
 	right: 0px;
 	top: 0px;
+	width: 226px;
 }
 
 /* @end */
@@ -284,10 +306,9 @@ a:hover {
 }
 
 .programa.edit .otherSettings {
-	clear: both;
 	display: inline-block;
 	#display: block;
-	margin-top: 370px;
+	margin-top: 420px;
 }
 
 .programa.edit .otherSettings .header {
@@ -502,7 +523,7 @@ div.recorrencia div.recOcasional {
 
 .mapa {
 	width: 69%;
-	right: 15px;
+	right: 10px;
 	height: 360px;
 	position: absolute;
 	z-index: 3;
