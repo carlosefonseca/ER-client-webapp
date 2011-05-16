@@ -40,7 +40,7 @@
 * jQuery UI CSS Framework
 * Copyright (c) 2009 AUTHORS.txt (http://jqueryui.com/about)
 * Dual licensed under the MIT (MIT-LICENSE.txt) and GPL (GPL-LICENSE.txt) licenses.
-* To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Lucida%20Grande,%20Lucida%20Sans,%20Arial,%20sans-serif&fwDefault=normal&fsDefault=1.1em&cornerRadius=4px&bgColorHeader=d5e3eb&bgTextureHeader=03_highlight_soft.png&bgImgOpacityHeader=100&borderColorHeader=b2c7d7&fcHeader=222222&iconColorHeader=72a7cf&bgColorContent=f9f9f9&bgTextureContent=04_highlight_hard.png&bgImgOpacityContent=100&borderColorContent=dddddd&fcContent=362b36&iconColorContent=222222&bgColorDefault=e6e6e6&bgTextureDefault=02_glass.png&bgImgOpacityDefault=80&borderColorDefault=cccccc&fcDefault=444444&iconColorDefault=888888&bgColorHover=f0f0f0&bgTextureHover=02_glass.png&bgImgOpacityHover=100&borderColorHover=b2c7d7&fcHover=0b5b98&iconColorHover=2694e8&bgColorActive=99c2ff&bgTextureActive=02_glass.png&bgImgOpacityActive=50&borderColorActive=2694e8&fcActive=000000&iconColorActive=ffffff&bgColorHighlight=fdf1aa&bgTextureHighlight=02_glass.png&bgImgOpacityHighlight=55&borderColorHighlight=f9dd34&fcHighlight=363636&iconColorHighlight=2e83ff&bgColorError=fef1ec&bgTextureError=02_glass.png&bgImgOpacityError=95&borderColorError=cd0a0a&fcError=cd0a0a&iconColorError=cd0a0a&bgColorOverlay=444444&bgTextureOverlay=01_flat.png&bgImgOpacityOverlay=15&opacityOverlay=50&bgColorShadow=000000&bgTextureShadow=01_flat.png&bgImgOpacityShadow=30&opacityShadow=30&thicknessShadow=5px&offsetTopShadow=-5px&offsetLeftShadow=-5px&cornerRadiusShadow=4px
+* To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Lucida%20Grande,%20Lucida%20Sans,%20Arial,%20sans-serif&fwDefault=normal&fsDefault=1.1em&cornerRadius=4px&bgColorHeader=d5e3eb&bgTextureHeader=03_highlight_soft.png&bgImgOpacityHeader=100&borderColorHeader=b2c7d7&fcHeader=222222&iconColorHeader=72a7cf&bgColorContent=f9f9f9&bgTextureContent=04_highlight_hard.png&bgImgOpacityContent=100&borderColorContent=dddddd&fcContent=362b36&iconColorContent=222222&bgColorDefault=e6e6e6&bgTextureDefault=02_glass.png&bgImgOpacityDefault=80&borderColorDefault=cccccc&fcDefault=444444&iconColorDefault=888888&bgColorHover=f0f0f0&bgTextureHover=02_glass.png&bgImgOpacityHover=100&borderColorHover=b2c7d7&fcHover=0b5b98&iconColorHover=c2dd83&bgColorActive=E1EDC5&bgTextureActive=02_glass.png&bgImgOpacityActive=50&borderColorActive=c2dd83&fcActive=000000&iconColorActive=ffffff&bgColorHighlight=fdf1aa&bgTextureHighlight=02_glass.png&bgImgOpacityHighlight=55&borderColorHighlight=f9dd34&fcHighlight=363636&iconColorHighlight=2e83ff&bgColorError=fef1ec&bgTextureError=02_glass.png&bgImgOpacityError=95&borderColorError=cd0a0a&fcError=cd0a0a&iconColorError=cd0a0a&bgColorOverlay=444444&bgTextureOverlay=01_flat.png&bgImgOpacityOverlay=15&opacityOverlay=50&bgColorShadow=000000&bgTextureShadow=01_flat.png&bgImgOpacityShadow=30&opacityShadow=30&thicknessShadow=5px&offsetTopShadow=-5px&offsetLeftShadow=-5px&cornerRadiusShadow=4px
 */
 
 
@@ -59,7 +59,7 @@
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #444444; text-decoration: none; outline: none; }
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus { border: 1px solid #b2c7d7; background: #f0f0f0 url(images/ui-bg_glass_100_f0f0f0_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #0b5b98; outline: none; }
 .ui-state-hover a, .ui-state-hover a:hover { color: #0b5b98; text-decoration: none; outline: none; }
-.ui-state-active, .ui-widget-content .ui-state-active { border: 1px solid #2694e8; background: #99c2ff url(images/ui-bg_glass_50_99c2ff_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #000000; outline: none; }
+.ui-state-active, .ui-widget-content .ui-state-active { border: 1px solid #c2dd83; background: #E1EDC5 url(images/ui-bg_highlight-hard_100_e1edc5_1x100.png) 50% 50% repeat-x; font-weight: normal; color: #000000; outline: none; }
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #000000; outline: none; text-decoration: none; }
 
 /* Interaction Cues
@@ -81,7 +81,7 @@
 .ui-widget-content .ui-icon {background-image: url(images/ui-icons_222222_256x240.png); }
 .ui-widget-header .ui-icon {background-image: url(images/ui-icons_72a7cf_256x240.png); }
 .ui-state-default .ui-icon { background-image: url(images/ui-icons_888888_256x240.png); }
-.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(images/ui-icons_2694e8_256x240.png); }
+.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(images/ui-icons_c2dd83_256x240.png); }
 .ui-state-active .ui-icon {background-image: url(images/ui-icons_ffffff_256x240.png); }
 .ui-state-highlight .ui-icon {background-image: url(images/ui-icons_2e83ff_256x240.png); }
 .ui-state-error .ui-icon, .ui-state-error-text .ui-icon {background-image: url(images/ui-icons_cd0a0a_256x240.png); }
@@ -392,13 +392,15 @@
 .ui-slider-vertical .ui-slider-range { left: 0; width: 100%; }
 .ui-slider-vertical .ui-slider-range-min { bottom: 0; }
 .ui-slider-vertical .ui-slider-range-max { top: 0; }/* Tabs
-----------------------------------*/
+----------------------------------* /
 .ui-tabs { padding: .2em; zoom: 1; }
 .ui-tabs .ui-tabs-nav { list-style: none; position: relative; padding: .2em .2em 0; }
 .ui-tabs .ui-tabs-nav li { position: relative; float: left; border-bottom-width: 0 !important; margin: 0 .2em -1px 0; padding: 0; }
 .ui-tabs .ui-tabs-nav li a { float: left; text-decoration: none; padding: .5em 1em; }
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 1px; border-bottom-width: 0; }
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; }
-.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
-.ui-tabs .ui-tabs-panel { padding: 1em 1.4em; display: block; border-width: 0; background: none; }
+.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... 
+.ui-tabs .ui-tabs-panel { padding: 1em 1.4em; display: block; border-width: 0; background: none; }*/
 .ui-tabs .ui-tabs-hide { display: none !important; }
+
+/* To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Lucida%20Grande,%20Lucida%20Sans,%20Arial,%20sans-serif&fwDefault=normal&fsDefault=1.1em&cornerRadius=4px&bgColorHeader=e1edc5&bgTextureHeader=04_highlight_hard.png&bgImgOpacityHeader=100&borderColorHeader=e1edc5&fcHeader=222222&iconColorHeader=a9ce55&bgColorContent=f9f9f9&bgTextureContent=04_highlight_hard.png&bgImgOpacityContent=100&borderColorContent=dddddd&fcContent=362b36&iconColorContent=222222&bgColorDefault=e6e6e6&bgTextureDefault=02_glass.png&bgImgOpacityDefault=80&borderColorDefault=cccccc&fcDefault=444444&iconColorDefault=888888&bgColorHover=f0f0f0&bgTextureHover=02_glass.png&bgImgOpacityHover=100&borderColorHover=b2c7d7&fcHover=0b5b98&iconColorHover=c2dd83&bgColorActive=f1f7e4&bgTextureActive=02_glass.png&bgImgOpacityActive=50&borderColorActive=c2dd83&fcActive=000000&iconColorActive=ffffff&bgColorHighlight=fdf1aa&bgTextureHighlight=02_glass.png&bgImgOpacityHighlight=55&borderColorHighlight=f9dd34&fcHighlight=363636&iconColorHighlight=2e83ff&bgColorError=fef1ec&bgTextureError=02_glass.png&bgImgOpacityError=95&borderColorError=cd0a0a&fcError=cd0a0a&iconColorError=cd0a0a&bgColorOverlay=444444&bgTextureOverlay=01_flat.png&bgImgOpacityOverlay=15&opacityOverlay=50&bgColorShadow=000000&bgTextureShadow=01_flat.png&bgImgOpacityShadow=30&opacityShadow=30&thicknessShadow=5px&offsetTopShadow=-5px&offsetLeftShadow=-5px&cornerRadiusShadow=4px */

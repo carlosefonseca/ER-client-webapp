@@ -28,10 +28,9 @@ echo $meteo;
 	text-align: center;
 }
 
-.jwts_tabbernav {
-	width: 320px;
-	margin: auto;
+ul.jwts_tabbernav {
+	text-align: center;
 }
 </style>
-<div style="position: absolute; left: 240px; padding: 5px 10px; background: #EEE; top: 18px;">Dados de <a href="http://www.meteooeiras.com">MeteoOeiras.com</a>
+<div style="position: absolute; right: 0px; padding: 5px 10px; background: #EEE; top: 19px;">Dados de <a href="http://www.meteooeiras.com">MeteoOeiras.com</a>
 </div>

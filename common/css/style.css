@@ -4,6 +4,7 @@
 	http://engirega.eu-r.com/common/css/style.css
 	http://engirega.eu-r.com/dev/common/css/style.css
 	http://localhost/~carlos/engirega/common/css/style.css
+	http://localhost/~carlos/Engirega/common/css/style.css
 */
 
 /* Reset some stuff */
@@ -219,7 +220,7 @@ div#edit_markers {
 	background-color: white;
 	border: 2px solid #85be00;
 	padding: 15px;
-	overflow: hidden;
+	overflow: auto;
 	position: relative;
 	list-style-type: none;
 	display: inline-block;
@@ -399,29 +400,28 @@ input.botao {
 	font-size: 70%;
 }
 
-#gardenList {
+.sidebar-left ul {
 	background: white;
 	list-style-position: inside;
-	width: 162px;
+	width: 165px;
 	padding: 8px 14px;
 	border-radius: 12px;
-	margin-left: -4px;
+	margin-left: -10px;
 }
 
-#gardenList p {
+.sidebar-left ul p {
 	font-weight: bold;
 }
 
-#gardenList li {
+.sidebar-left ul li {
 	text-align: left;
 	list-style: none;
 }
 
-#gardenList li a {
+.sidebar-left ul a {
 	padding: 4px 0;
 	display: inline-block;
 	vertical-align: middle;
-	width: 100%;
 }
 
 #gardenList li a.s0 {
@@ -561,4 +561,63 @@ table.autogen, table.autogen td, table.autogen th {
 
 .popup td {
 	vertical-align: top;
+}
+
+#meteo-menu {
+	margin-top: -8px;
+}
+
+#meteo-menu li {
+	margin: 10px 0px 10px 12px;
+	font-size: 110%;
+}
+
+li.ui-state-default.ui-corner-top.ui-tabs-selected.ui-state-active {
+	
+}
+
+.meteo-previsao .ui-widget-header {
+	background: none;
+	text-align: center;
+	border: none;
+}
+
+.meteo-previsao .ui-widget-header li {
+	display: inline-block;
+	padding: 2px 10px;
+}
+
+.meteo-previsao .ui-widget-header li.ui-state-default {
+	font-size: 90%;
+}
+
+iframe {
+	background-color: none;
+}
+
+.meteo-previsao #tabs {
+	background: none;
+	border: none;
+}
+
+#meteo-menu li.active {
+	list-style-type: disc;
+	font-weight: bold;	
+}
+
+.meteo-previsao .ui-tabs-panel.ui-widget-content.ui-corner-bottom {
+	background: inherit;
+	text-align: center;
+	border: none;	
+}
+
+.meteo-previsao .ui-tabs-panel.ui-widget-content.ui-corner-bottom > * {
+	border-top: 1px solid silver;
+	padding-top: 5px;
+}
+
+.meteo-previsao .ui-corner-all {
+	border-radius: 0;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
 }

@@ -76,8 +76,8 @@ iLog("\n".date("Y-m-d H:i:s").": REQ. ".($logged_in?$_SESSION['username'].((hasP
 	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
 	<meta charset="utf-8"/> 
 	<title><?= $title ?></title>
-	<link rel="stylesheet" type="text/css" href="../common/css/style.css" />
 	<link rel="stylesheet" type="text/css" href="../common/css/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="../common/css/style.css" />
 	<script src="../common/js/basicFunctions.js" type="text/javascript"></script>
 	<script src="../common/js/jquery.js" type="text/javascript"></script>
 	<script src="../common/js/jquery-ui.js" type="text/javascript"></script>
@@ -103,13 +103,13 @@ iLog("\n".date("Y-m-d H:i:s").": REQ. ".($logged_in?$_SESSION['username'].((hasP
 		<div class="primary-menu">
 			<li class="first"><a href="<? L("status#content"); ?>">Mapa de Estado</a></li>
 			<li><a href="<? L("data");?>">Dados Locais</a></li>
-			<li><a href="<? L("meteo");?>">Meteorologia</a></li>
+			<li><a href="<? L("meteo");?>">Informação Meteorológica</a></li>
 			<!--<li><a href="">Advertising</a></li>-->
 		</div>
 <? endif; ?>
 	</div><!-- //header -->
 	
-	<div class="mainWrap <? echo $page;?>">
+	<div class="mainWrap <? echo strtr($page, "/", "-");?>">
 		<a name="content"></a>
 		<?= $body ?>
 	</div>
